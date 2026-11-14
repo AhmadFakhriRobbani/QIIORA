@@ -1,0 +1,96 @@
+/* QIIORA — K4: skema siklus air 2D (beranda). Prefiks kelas: sk- */
+.skema{display:block}
+.sk-adegan{border-radius:14px;overflow:hidden;background:#8CCBF3;line-height:0}
+.sk-svg{display:block;width:100%;height:auto;aspect-ratio:1000/640;touch-action:manipulation}
+
+/* panah proses (kuning, mengalir) */
+.sk-pj-luar{fill:none;stroke:#B8780A;stroke-width:13;stroke-linecap:round}
+.sk-pj{fill:none;stroke:#FFC21A;stroke-width:9;stroke-linecap:round;animation:sk-denyut 2.4s ease-in-out infinite}
+.sk-pj-alir{fill:none;stroke:#FFFFFF;stroke-width:3;stroke-linecap:round;stroke-dasharray:2 15;opacity:.85;animation:sk-alir 1.1s linear infinite}
+.sk-hit{fill:none;stroke:transparent;stroke-width:36;stroke-linecap:round;pointer-events:stroke}
+.sk-p{cursor:pointer;outline:none}
+.sk-p:focus-visible .sk-pj-luar{stroke:#1F5FBF;stroke-width:16}
+.sk-p:hover .sk-pj{stroke:#FFD54D}
+
+/* label: lencana bernomor + nama */
+.sk-lab{cursor:pointer}
+.sk-no-c{fill:#FFC21A;stroke:#0C3B66;stroke-width:3}
+.sk-no-t{fill:#0C3B66;font:800 18px var(--font-judul,"Baloo 2",sans-serif);pointer-events:none}
+.sk-nama{fill:#FFFFFF;stroke:#0C3B66;stroke-width:5.5px;paint-order:stroke;stroke-linejoin:round;font:800 25px var(--font-judul,"Baloo 2",sans-serif);pointer-events:auto;cursor:pointer}
+
+/* sorotan proses terpilih */
+.skema[data-aktif]:not([data-aktif=""]) .sk-p:not(.is-sorot){opacity:.38}
+.sk-p.is-sorot .sk-pj-luar{stroke:#FFFFFF;stroke-width:17}
+.sk-p.is-sorot .sk-pj{stroke-width:11;animation-duration:1.2s}
+.sk-p.is-sorot .sk-no-c{fill:#FFFFFF;stroke:#E8892B;stroke-width:4}
+
+/* gerak adegan */
+.sk-sinar{animation:sk-putar 40s linear infinite}
+.sk-cahaya{animation:sk-napas 5s ease-in-out infinite;transform-origin:0 0}
+.sk-hanyut{animation:sk-geser 16s ease-in-out infinite alternate}
+.sk-h2{animation-duration:20s}
+.sk-h3{animation-duration:24s}
+.sk-hujan path{stroke:#BFE6FF;stroke-width:2.8;stroke-linecap:round;stroke-dasharray:9 22;opacity:.85;animation:sk-turun .8s linear infinite}
+.sk-riak{fill:none;stroke:#E6FAFF;stroke-width:2;transform-box:fill-box;transform-origin:center;animation:sk-riak 1.4s ease-out infinite}
+.sk-bulir{fill:#FFFFFF;animation:sk-salju 3.6s linear infinite}
+.sk-uap{fill:#FFFFFF;opacity:0;animation:sk-naik 4.4s ease-in infinite}
+.sk-ombak{animation:sk-ombak 5s linear infinite}
+.sk-sungai{stroke-dasharray:10 8;animation:sk-mengalir 1.6s linear infinite}
+.sk-airtanah{stroke-dasharray:14 18;animation:sk-airtanah 3.2s linear infinite;opacity:.9}
+.sk-burung{animation:sk-terbang 22s linear infinite}
+
+@keyframes sk-putar{to{transform:rotate(360deg)}}
+@keyframes sk-napas{0%,100%{transform:scale(.92);opacity:.85}50%{transform:scale(1.06);opacity:1}}
+@keyframes sk-geser{from{transform:translateX(-16px)}to{transform:translateX(18px)}}
+@keyframes sk-turun{to{stroke-dashoffset:-31}}
+@keyframes sk-riak{0%{transform:scale(.3);opacity:.95}100%{transform:scale(1.5);opacity:0}}
+@keyframes sk-salju{0%{transform:translate(0,0);opacity:0}15%{opacity:1}100%{transform:translate(var(--dx,0),92px);opacity:0}}
+@keyframes sk-naik{0%{transform:translate(0,0) scale(.7);opacity:0}20%{opacity:.85}100%{transform:translate(var(--dx,0),-96px) scale(1.25);opacity:0}}
+@keyframes sk-ombak{from{transform:translateX(0)}to{transform:translateX(-60px)}}
+@keyframes sk-mengalir{to{stroke-dashoffset:-36}}
+@keyframes sk-airtanah{to{stroke-dashoffset:32}}
+@keyframes sk-alir{to{stroke-dashoffset:-17}}
+@keyframes sk-denyut{0%,100%{opacity:1}50%{opacity:.82}}
+@keyframes sk-terbang{from{transform:translate(0,0)}25%{transform:translate(300px,-18px)}50%{transform:translate(620px,8px)}75%{transform:translate(900px,-14px)}to{transform:translate(1140px,0)}}
+
+/* jeda / di luar layar / tab tersembunyi */
+.skema.is-jeda .sk-svg *{animation-play-state:paused !important}
+/* pengguna mengurangi gerak: statis */
+.skema.is-diam .sk-svg *{animation:none !important}
+.skema.is-diam .sk-uap{opacity:.45}
+
+/* kontrol */
+.sk-kontrol{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 8px}
+.sk-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:2px solid #B4CCE3;border-radius:999px;background:#fff;color:#1F2D3D;font:800 15px var(--font-isi,Nunito,sans-serif);cursor:pointer}
+.sk-btn:hover{border-color:#2F80ED}
+.sk-btn:focus-visible,.sk-chip:focus-visible{outline:3px solid #1F5FBF;outline-offset:2px}
+.sk-btn--utama{background:#2F80ED;border-color:#2F80ED;color:#fff}
+.sk-btn--utama:hover{background:#1F5FBF;border-color:#1F5FBF}
+.sk-btn--utama[aria-pressed="true"]{background:#E8892B;border-color:#E8892B;color:#1F2D3D}
+.sk-btn [aria-hidden]{font-size:13px}
+
+/* daftar proses (chip) */
+.sk-chips{display:flex;flex-wrap:wrap;gap:6px 6px;margin:0 0 10px}
+.sk-chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px 0 6px;border:2px solid #D6E4F2;border-radius:999px;background:#F3F8FD;color:#1F2D3D;font:700 14px var(--font-isi,Nunito,sans-serif);cursor:pointer}
+.sk-chip b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#FFC21A;border:2px solid #0C3B66;color:#0C3B66;font-size:12px}
+.sk-chip:hover{border-color:#2F80ED}
+.sk-chip[aria-pressed="true"]{background:#E6F0FD;border-color:#2F80ED}
+
+/* panel penjelasan (menyatu, bukan pop-up) */
+.sk-panel{background:#F3F8FD;border:2px solid #D6E4F2;border-radius:14px;padding:12px 14px;color:#1F2D3D;min-height:96px}
+.sk-panel p{margin:0;font-size:16px;line-height:1.55}
+.sk-panel .sk-panel-awal{color:#43566A}
+.sk-panel-kepala{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px}
+.sk-panel-kepala h3{margin:0;font-size:20px;color:#1F2D3D}
+.sk-panel-no{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#FFC21A;border:3px solid #0C3B66;color:#0C3B66;font:800 15px var(--font-judul,sans-serif)}
+.sk-wujud,.sk-langkah{font-size:13px;font-weight:800;padding:2px 10px;border-radius:999px}
+.sk-wujud{background:#E4F5EC;color:#1E6B45}
+.sk-langkah{background:#FFF4D6;color:#7A4B0A;margin-left:auto}
+
+/* HP: sembunyikan nama di gambar, nomor diperbesar (nama ada di daftar & panel) */
+@media(max-width:520px){
+  .sk-nama{display:none}
+  .sk-no-c{r:21px}
+  .sk-no-t{font-size:25px}
+  .sk-chip{font-size:13px}
+}

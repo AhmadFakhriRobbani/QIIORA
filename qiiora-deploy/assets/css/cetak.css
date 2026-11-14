@@ -1,0 +1,18 @@
+/* Cetak rapi untuk Lembar Pengumpulan, LKPD, dan Jurnal */
+@media print{
+  body{background:#fff;font-size:12pt;color:#000}
+  .site-head,.nav,.nav-toggle,.breadcrumb,.act-row,.no-print,.toast,.btn{display:none!important}
+  .page{padding:0}
+  .wrap-narrow,.wrap{max-width:none;padding:0}
+  .card{box-shadow:none;border:1px solid #999;background:#fff;padding:14px 16px;margin-top:10px;break-inside:avoid;border-radius:6px}
+  .card h2,.mono{color:#000}
+  .id-grid{border:1px solid #999}
+  .id-grid dt{background:#eee;color:#000}
+  table.rekap th,table.rekap td{border:1px solid #999;color:#000}
+  table.rekap th{background:#eee}
+  table.rekap a{color:#000;text-decoration:none}
+  .panduan{background:#fff;border:1px solid #999}
+  .field-hint{color:#000}
+  a{color:#000;text-decoration:none}
+  @page{margin:14mm}
+}

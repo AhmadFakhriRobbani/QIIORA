@@ -1,0 +1,216 @@
+/* Simulasi 3D — komponen bersama semua halaman sim */
+.canvas-wrap{position:relative;touch-action:none}
+.sim-badge{position:absolute;top:12px;left:12px;z-index:4;font-size:14px;font-weight:800;background:var(--primary);color:#fff;padding:5px 12px;border-radius:999px}
+.sim-tools{position:absolute;top:10px;right:10px;z-index:4;display:flex;gap:8px}
+.icon-btn{width:48px;height:48px;display:grid;place-items:center;background:var(--card);border:0;border-radius:14px;box-shadow:var(--shadow);cursor:pointer;padding:0;color:var(--primary-dark)}
+.icon-btn:hover{background:var(--primary-soft)}
+.icon-btn svg{width:22px;height:22px}
+.sim-hint{position:absolute;bottom:10px;left:12px;right:12px;z-index:4;font-size:14px;color:var(--text);background:rgba(255,255,255,.92);padding:6px 12px;border-radius:10px;width:fit-content;max-width:calc(100% - 24px)}
+.hotspot{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:6px;min-height:36px;background:var(--card);border:2px solid var(--primary);border-radius:999px;padding:3px 12px 3px 4px;font-size:14px;font-weight:800;color:var(--text);cursor:pointer;white-space:nowrap;z-index:3;box-shadow:var(--shadow);transition:background .2s,color .2s}
+.hotspot .hs-num{display:grid;place-items:center;min-width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;font-size:14px}
+.hotspot:hover{background:var(--primary-soft)}
+.hotspot.is-active{background:var(--sun);border-color:var(--sun)}
+.hotspot.is-active .hs-num{background:var(--text)}
+.hotspot[hidden]{display:none}
+.hotspot span:last-child{display:none}
+.hotspot{padding:3px;min-height:36px}
+.hotspot.is-active,.hotspot:hover,.hotspot:focus-visible{padding:3px 12px 3px 4px;z-index:5}
+.hotspot.is-active span:last-child,.hotspot:hover span:last-child,.hotspot:focus-visible span:last-child{display:inline}
+.canvas-fallback{position:absolute;inset:0;display:grid;place-items:center;padding:22px;background:var(--primary-soft);z-index:2}
+.canvas-fallback[hidden]{display:none}
+.stage-select{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:var(--card)}
+.stage-btn{flex:1 1 140px;display:flex;align-items:center;gap:8px;min-height:48px;padding:8px 14px;background:var(--primary-soft);border:0;border-radius:12px;cursor:pointer;font-size:16px;font-weight:700;text-align:left;color:var(--text)}
+.stage-btn b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--card);font-size:14px;color:var(--primary-dark);flex:none}
+.stage-btn:hover{background:#D4E5FB}
+.stage-btn[aria-pressed="true"]{background:var(--primary);color:#fff}
+.stage-btn[aria-pressed="true"] b{background:#fff;color:var(--primary-dark)}
+
+/* ============================================================
+   FASE 4 — Panel kendali simulasi (matahari, potongan, air)
+   ============================================================ */
+.sim-kendali{border-top:1px solid var(--line);padding-top:16px;margin-top:14px}
+.sk-baris{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.sk-label{font-size:15px;font-weight:800;color:var(--primary-dark)}
+.sk-nilai{font:800 15px/1 var(--font-isi);color:var(--green);min-width:44px;text-align:right}
+
+.sk-slider{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;cursor:pointer;margin:0}
+.sk-slider::-webkit-slider-runnable-track{height:10px;border-radius:999px;background:linear-gradient(90deg,var(--sun) 0%,var(--sun) var(--isi,55%),var(--primary-soft) var(--isi,55%),var(--primary-soft) 100%)}
+.sk-slider::-moz-range-track{height:10px;border-radius:999px;background:var(--primary-soft)}
+.sk-slider::-moz-range-progress{height:10px;border-radius:999px;background:var(--sun)}
+.sk-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;margin-top:-7px;border-radius:50%;background:var(--card);border:3px solid var(--primary);box-shadow:0 2px 6px rgba(31,45,61,.25)}
+.sk-slider::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--card);border:3px solid var(--primary);box-shadow:0 2px 6px rgba(31,45,61,.25)}
+.sk-slider:focus-visible{outline:3px solid var(--primary);outline-offset:2px;border-radius:12px}
+
+.sk-tombol{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:8px}
+.sk-toggle{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border:2px solid var(--line-strong);border-radius:12px;background:var(--card);color:var(--text);font:700 15px/1 var(--font-isi);cursor:pointer}
+.sk-toggle:hover{border-color:var(--primary);color:var(--primary-dark)}
+.sk-toggle svg{width:19px;height:19px}
+.sk-toggle[aria-pressed="true"]{background:var(--primary);border-color:var(--primary);color:#fff}
+.sk-air{font-size:14px;font-weight:700;color:var(--muted)}
+.sk-air b{font-family:var(--font-judul);font-size:19px;color:var(--primary);font-weight:800}
+
+/* ============================================================
+   FASE 5 — Model Tanah 3D "kue lapis"
+   Layout dua kolom: kanvas + panel keterangan yang SELALU terlihat.
+   Tidak memakai pop-up / modal / dialog.
+   ============================================================ */
+.tanah-shell{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(320px,1fr);gap:clamp(16px,2.4vw,28px);align-items:start;margin-top:22px}
+
+.tanah-panggung{min-width:0}
+.tanah-canvas{min-height:clamp(420px,64vh,640px);border-radius:var(--radius);box-shadow:var(--shadow);background:linear-gradient(180deg,#E8F3FB 0%,#F1F8FC 55%,#E7EFE4 100%);overflow:hidden}
+html[data-tema="gelap"] .tanah-canvas{background:linear-gradient(180deg,#122232 0%,#16293A 55%,#1A2A24 100%)}
+.tanah-canvas canvas{display:block}
+
+.tanah-kendali{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.tanah-kendali .btn{flex:0 1 auto}
+.tanah-toggle{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:8px 18px;border:2px solid var(--line-strong);border-radius:14px;background:var(--card);color:var(--text);font:700 16px/1 var(--font-isi);cursor:pointer}
+.tanah-toggle svg{width:19px;height:19px}
+.tanah-toggle:hover{border-color:var(--primary);color:var(--primary-dark)}
+.tanah-toggle[aria-pressed="true"]{background:var(--primary);border-color:var(--primary);color:#fff}
+.tanah-toggle[aria-pressed="false"]{opacity:.72}
+
+/* ---------- Panel samping ---------- */
+.tanah-panel{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 22px;position:sticky;top:calc(var(--header-h) + 14px);max-height:calc(100vh - var(--header-h) - 28px);overflow-y:auto}
+.tp-head .mono{margin:0;color:var(--primary-dark);font-size:13px}
+.tp-sub{margin:2px 0 12px;font-size:14px;color:var(--muted)}
+
+.tp-daftar{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:6px}
+.tp-item{display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;width:100%;min-height:52px;padding:8px 10px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--text);cursor:pointer;text-align:left;transition:border-color .15s,background .15s}
+.tp-item:hover{border-color:var(--primary);background:var(--primary-soft)}
+.tp-item.is-aktif{border-color:var(--primary);background:var(--primary-soft)}
+.tp-kode{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--text);color:#fff;font:800 16px/1 var(--font-judul);flex:none}
+.tp-kode[data-warna="O"]{background:#3E2E1E}
+.tp-kode[data-warna="A"]{background:#4A3520}
+.tp-kode[data-warna="B"]{background:#6B4A2A}
+.tp-kode[data-warna="C"]{background:#7C766B}
+.tp-kode[data-warna="R"]{background:#5A6570}
+.tp-kode--besar{width:46px;height:46px;border-radius:12px;font-size:21px}
+.tp-nama{display:flex;flex-direction:column;gap:1px;font-weight:800;font-size:15.5px;line-height:1.25;min-width:0}
+.tp-ist{font-size:12.5px;font-weight:700;color:var(--muted);letter-spacing:.01em}
+.tp-poros{font:800 13px/1 var(--font-isi);color:var(--muted);background:var(--primary-soft);border-radius:999px;padding:4px 8px}
+
+.tp-detail{border-top:1px solid var(--line);padding-top:14px}
+.tp-kosong{margin:0;color:var(--muted);font-size:14.5px}
+.tp-judul{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.tp-judul h2{font-size:20px;margin:0;line-height:1.2}
+.tp-judul p{margin:1px 0 0;font-size:13.5px;color:var(--muted);font-weight:700}
+.tp-meta{margin:0 0 14px;display:grid;gap:6px}
+.tp-meta div{display:grid;grid-template-columns:118px 1fr;gap:8px;padding:6px 0;border-bottom:1px solid var(--line)}
+.tp-meta dt{font-size:13.5px;font-weight:800;color:var(--primary-dark)}
+.tp-meta dd{margin:0;font-size:14px}
+.tp-detail h3{font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--primary-dark);margin:14px 0 4px}
+.tp-detail p{font-size:14.5px;line-height:1.6;margin:0 0 6px}
+.tp-sumber{font-size:12.5px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+
+@media(max-width:1000px){
+  .tanah-shell{grid-template-columns:1fr}
+  .tanah-panel{position:static;max-height:none}
+}
+
+/* ============================================================
+   K5 — pil persentase pada hotspot + preset kamera sinematik
+   ============================================================ */
+.hotspot .hs-pct{
+  font-style:normal;
+  font-variant-numeric:tabular-nums;
+  font-size:12px;
+  font-weight:800;
+  color:var(--primary);
+  background:var(--primary-soft);
+  border-radius:999px;
+  padding:1px 7px;
+  line-height:1.6;
+  letter-spacing:.01em;
+}
+.hotspot.is-active .hs-pct{
+  color:var(--text);
+  background:rgba(255,255,255,.55);
+}
+/* di layar sempit persen disembunyikan agar pil tidak melebar */
+@media(max-width:560px){
+  .hotspot .hs-pct{display:none}
+}
+
+/* ---------- keterangan persen + garis penunjuk ----------
+   Label melayang tanpa penjelas membingungkan ("17% itu apa?").
+   Kini: (a) ada bar tipis yang menunjukkan besaran relatif,
+   (b) legenda kecil di bawah kanvas menerangkan arti persen,
+   (c) penanda tahap aktif memakai warna yang SAMA dengan panel. */
+.hotspot .hs-pct{
+  position:relative;
+  overflow:hidden;
+  min-width:42px;
+  text-align:center;
+}
+.hotspot .hs-pct::before{
+  content:"";
+  position:absolute;left:0;bottom:0;height:2px;
+  width:var(--pct,0%);
+  background:currentColor;
+  opacity:.6;
+  transition:width .5s var(--ease);
+}
+.hotspot.is-active{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:#fff;
+}
+.hotspot.is-active .hs-num{background:#fff;color:var(--primary)}
+.hotspot.is-active .hs-pct{color:#fff;background:rgba(255,255,255,.22)}
+.hotspot.is-active .hs-pct::before{background:#fff;opacity:.9}
+.hotspot.is-active:hover{background:var(--primary-dark);border-color:var(--primary-dark)}
+
+/* garis penunjuk dari label ke titik 3D */
+.hotspot::after{
+  content:"";
+  position:absolute;left:50%;bottom:-7px;
+  width:2px;height:7px;border-radius:2px;
+  background:currentColor;opacity:.45;
+  transform:translateX(-50%);
+}
+
+.sim-legenda{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  margin-top:10px;
+  font-size:12.5px;font-weight:700;color:var(--muted);
+  line-height:1.4;
+}
+.sim-legenda b{color:var(--text);font-weight:800}
+.sim-legenda .sl-ikon{
+  width:16px;height:16px;flex:none;border-radius:5px;
+  background:var(--primary-soft);border:1.5px solid var(--primary);
+}
+
+.sim-preset{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+}
+.preset-btn{
+  min-height:44px;
+  padding:0 16px;
+  border-radius:999px;
+  border:1.5px solid var(--line);
+  background:var(--card);
+  color:var(--text);
+  font:inherit;
+  font-size:13.5px;
+  font-weight:800;
+  cursor:pointer;
+  transition:background .18s,border-color .18s,color .18s,transform .12s;
+}
+.preset-btn:hover{border-color:var(--primary);background:var(--primary-soft)}
+.preset-btn:active{transform:translateY(1px)}
+.preset-btn.is-aktif{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:#fff;
+}
+.preset-btn:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+@media(max-width:560px){
+  .sim-preset{gap:6px}
+  .preset-btn{flex:1 1 auto;min-width:0;padding:0 10px;font-size:12.5px}
+}

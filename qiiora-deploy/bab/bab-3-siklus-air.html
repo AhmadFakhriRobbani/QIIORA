@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QIIORA — Bab 3 · Siklus Air</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/komponen.css">
+<link rel="stylesheet" href="../assets/css/halaman.css">
+<link rel="stylesheet" href="../assets/css/cangkang.css">
+<link rel="stylesheet" href="../assets/css/ui.css">
+<script src="../assets/js/tema.js"></script>
+<link rel="stylesheet" href="../assets/css/simulasi.css">
+<link rel="stylesheet" href="../assets/css/bab.css">
+</head>
+<body>
+<a class="skip" href="#main">Lewati ke konten utama</a>
+
+<header class="site-head">
+  <div class="head-in">
+    <a class="brand" href="../index.html#/beranda" aria-label="Beranda QIIORA">
+      <span class="brand-mark" aria-hidden="true">H₂O</span>
+      <span style="min-width:0;overflow:hidden">
+        <span class="brand-name">QIIORA</span>
+        <span class="brand-sub">IPAS · Fase C · Kelas V</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="navUtama" aria-label="Navigasi utama">
+      <span class="nav-ind" data-nav-ind aria-hidden="true"></span>
+      <a href="../index.html#/beranda">Beranda</a>
+      <a href="../index.html#/modul">Modul</a>
+      <a href="../index.html#/simulasi">Simulasi 3D</a>
+      <a href="../index.html#/kuis">Kuis</a>
+      <a href="../index.html#/lkpd">LKPD</a>
+      <a href="../index.html#/sumber">Sumber</a>
+      <a href="../tugas.html">Tugas</a>
+      <a href="../pengajar.html">Pengajar</a>
+    </nav>
+
+    <div class="head-actions">
+      <button class="cari-btn" type="button" data-cari aria-label="Cari (Ctrl+K)" title="Cari — Ctrl+K">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+        <span>Cari</span><kbd>Ctrl K</kbd>
+      </button>
+      <button class="icon-btn" type="button" data-tema-toggle aria-pressed="false" aria-label="Ganti mode terang atau gelap" title="Mode terang / gelap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+      </button>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="drawer" aria-label="Buka menu">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer-scrim" data-drawer-scrim></div>
+<aside class="drawer" id="drawer" aria-label="Menu navigasi">
+  <div class="drawer-head">
+    <strong>Menu QIIORA</strong>
+    <button class="icon-btn" type="button" data-drawer-close aria-label="Tutup menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-body" aria-label="Navigasi lengkap">
+    <a href="../index.html#/beranda">Beranda</a>
+    <span class="np-label">Belajar</span>
+    <a href="../index.html#/modul">Modul</a>
+    <a href="../index.html#/tujuan">Tujuan Pembelajaran</a>
+    <a href="../index.html#/materi">Materi Pokok</a>
+    <a href="../index.html#/simulasi">Simulasi 3D</a>
+    <a href="../index.html#/model-tanah">Model Tanah 3D</a>
+    <a href="../index.html#/kesimpulan">Kesimpulan</a>
+    <span class="np-label">Latihan</span>
+    <a href="../index.html#/kuis">Kuis Pemahaman</a>
+    <a href="../index.html#/lkpd">LKPD</a>
+    <a href="../tugas.html">Tugas</a>
+    <span class="np-label">Lainnya</span>
+    <a href="../index.html#/sumber">Sumber &amp; Data</a>
+    <a href="../kumpul.html">Lembar Pengumpulan</a>
+    <a href="../pengajar.html">Mode Pengajar</a>
+    <a href="../index.html#/identitas">Identitas Penyusun</a>
+  </nav>
+</aside>
+
+
+<main class="page">
+  <div class="wrap-narrow">
+    <p class="breadcrumb"><a href="../index.html">QIIORA</a> / <a href="bab-3-siklus-air.html">Bab 3</a></p>
+    <h1>Siklus Air</h1>
+    <p class="lede">Satu sesi belajar lengkap: pemanasan, belajar, eksplorasi 3D, latihan, refleksi, lalu post-test.</p>
+
+    <nav class="stepper" data-stepper aria-label="Langkah sesi"></nav>
+
+    <!-- 1. PEMANASAN -->
+    <section class="langkah" id="pemanasan" data-langkah="pemanasan">
+      <p class="lb">Langkah 1 · Pemanasan</p>
+      <h2>Apa yang sudah kamu tahu?</h2>
+      <div class="card">
+        <p style="margin:0 0 10px">Sebelum belajar, jawab 3 pertanyaan pemantik singkat ini. Tidak apa-apa kalau salah — ini pemanasan.</p>
+        <div id="pretestBox"></div>
+      </div>
+      <div class="card">
+        <h2 style="margin-bottom:8px">Tujuan sesi ini</h2>
+        <ul style="margin:0;padding-left:20px;line-height:1.7">
+          <li>Menjelaskan pengertian siklus air dan lima tahapannya.</li>
+          <li>Mendeskripsikan evaporasi, transpirasi, kondensasi, presipitasi, infiltrasi &amp; limpasan.</li>
+          <li>Menganalisis pengaruh manusia dan mengusulkan tindakan menjaga air.</li>
+        </ul>
+      </div>
+      <div class="stepper-foot"><span></span><button class="btn" data-ke="belajar">Lanjut Belajar</button></div>
+    </section>
+
+    <!-- 2. BELAJAR -->
+    <section class="langkah" id="belajar" data-langkah="belajar">
+      <p class="lb">Langkah 2 · Belajar</p>
+      <h2>Lima tahap siklus air</h2>
+      <div class="card">
+        <div class="materi-bagian" id="mp1">
+          <span class="mono" style="color:var(--coral)">TAHAP 01</span>
+          <h3>Evaporasi: air berubah menjadi uap</h3>
+          <p >Evaporasi adalah perubahan air cair menjadi uap air karena panas Matahari. Laut, danau, dan sungai melepaskan uap ke atmosfer. Semakin panas dan luas permukaan air, semakin cepat penguapan.</p>
+          <div class="coba"><strong>Coba sendiri</strong><p style="margin:0">Taruh sedikit air di piring, letakkan di tempat terkena Matahari. Periksa setelah 2 jam — airnya berkurang ke mana?</p></div>
+        </div>
+        <div class="materi-bagian" id="mp2">
+          <span class="mono" style="color:var(--coral)">TAHAP 02</span>
+          <h3>Transpirasi: tumbuhan melepas uap</h3>
+          <p >Tumbuhan menyerap air dari tanah lewat akar, lalu melepaskan uap lewat stomata di daun. Proses ini disebut transpirasi. Bersama evaporasi, keduanya disebut evapotranspirasi.</p>
+        </div>
+        <div class="materi-bagian" id="mp3">
+          <span class="mono" style="color:var(--coral)">TAHAP 03</span>
+          <h3>Kondensasi: uap menjadi titik air</h3>
+          <p >Uap air naik ke udara yang lebih dingin, lalu berubah menjadi titik-titik air kecil yang berkumpul membentuk awan. Perubahan gas menjadi cair ini disebut kondensasi.</p>
+          <div class="awas"><strong>Koreksi salah kaprah</strong><p style="margin:0">Awan bukan uap air. Uap air tidak terlihat; awan yang kita lihat adalah titik-titik air atau kristal es.</p></div>
+        </div>
+        <div class="materi-bagian" id="mp4">
+          <span class="mono" style="color:var(--coral)">TAHAP 04</span>
+          <h3>Presipitasi: air jatuh ke Bumi</h3>
+          <p >Titik-titik air di awan bergabung membesar. Saat cukup berat, air jatuh ke Bumi sebagai hujan (atau salju/es di daerah dingin). Peristiwa ini disebut presipitasi.</p>
+        </div>
+        <div class="materi-bagian" id="mp5">
+          <span class="mono" style="color:var(--coral)">TAHAP 05</span>
+          <h3>Infiltrasi &amp; limpasan</h3>
+          <p >Air hujan yang sampai ke tanah meresap (infiltrasi) menjadi air tanah, atau mengalir di permukaan (limpasan) menuju sungai dan laut. Keduanya mengembalikan air ke laut dan mengulang siklus.</p>
+        </div>
+        <div class="materi-bagian">
+          <span class="mono" style="color:var(--coral)">TAHUKAH KAMU?</span>
+          <p style="margin-top:8px">Sekitar 70% permukaan Bumi tertutup air, tetapi hanya ±3% yang berupa air tawar. Dari air tawar itu, lebih dari 68% tersimpan sebagai es di gletser dan lapisan es. <em>(Sumber: NASA Science, 2025)</em></p>
+        </div>
+      </div>
+      <div class="stepper-foot">
+        <button class="btn btn--ghost" data-ke="pemanasan">Sebelumnya</button>
+        <button class="btn" data-ke="eksplorasi">Lanjut Eksplorasi</button>
+      </div>
+    </section>
+
+    <!-- 3. EKSPLORASI -->
+    <section class="langkah" id="eksplorasi" data-langkah="eksplorasi">
+      <p class="lb">Langkah 3 · Eksplorasi</p>
+      <h2>Simulasi 3D Diorama Siklus Air</h2>
+      <div class="sim-controls-panel">
+        <div><label for="sunSlider">Intensitas Matahari</label><br>
+          <input type="range" id="sunSlider" min="0" max="100" value="50">
+          <span class="val" data-sun-val>50%</span></div>
+        <button class="toggle" data-cutaway aria-pressed="false">Mode Potongan (Air Tanah)</button>
+        <span class="mono" style="margin-left:auto;color:var(--teal)">Air berpindah: <span data-transfer>0</span></span>
+      </div>
+      <div class="canvas-wrap" id="simWrap" style="position:relative;border:1px solid var(--ink);background:radial-gradient(circle at 28% 16%,#FBF4E4 0%,#E8F1F2 50%,#CCE0E4 100%);min-height:420px;overflow:hidden">
+        <span class="sim-badge">S1 · Model 3D</span>
+        <button class="hotspot" data-hotspot="1" style="left:30%;top:60%"><span class="hs-num">01</span><span>Evaporasi</span></button>
+        <button class="hotspot" data-hotspot="2" style="left:66%;top:46%"><span class="hs-num">02</span><span>Transpirasi</span></button>
+        <button class="hotspot" data-hotspot="3" style="left:51%;top:16%"><span class="hs-num">03</span><span>Kondensasi</span></button>
+        <button class="hotspot" data-hotspot="4" style="left:55%;top:44%"><span class="hs-num">04</span><span>Presipitasi</span></button>
+        <button class="hotspot" data-hotspot="5" style="left:58%;top:80%"><span class="hs-num">05</span><span>Infiltrasi</span></button>
+        <div class="canvas-fallback" id="simFallback" hidden style="position:absolute;inset:0;display:grid;place-items:center;background:#EDF4F4;z-index:2">
+          <div style="text-align:center;max-width:340px">
+            <p class="mono" style="color:var(--coral)">Mode diagram</p>
+            <p >Simulasi 3D memerlukan WebGL. Kamu tetap bisa mempelajari lima tahap dari materi di atas.</p>
+          </div>
+        </div>
+      </div>
+      <div class="stage-select" style="display:flex;flex-wrap:wrap;border:1px solid var(--ink);border-top:0;background:var(--white)">
+        <button class="stage-btn" data-stage-btn="0" aria-pressed="true"><b>00</b> Pengantar</button>
+        <button class="stage-btn" data-stage-btn="1" aria-pressed="false"><b>01</b> Evaporasi</button>
+        <button class="stage-btn" data-stage-btn="2" aria-pressed="false"><b>02</b> Transpirasi</button>
+        <button class="stage-btn" data-stage-btn="3" aria-pressed="false"><b>03</b> Kondensasi</button>
+        <button class="stage-btn" data-stage-btn="4" aria-pressed="false"><b>04</b> Presipitasi</button>
+        <button class="stage-btn" data-stage-btn="5" aria-pressed="false"><b>05</b> Infiltrasi</button>
+      </div>
+      <p class="source-line" style="margin-top:10px">Model disederhanakan: ukuran, jarak, dan waktu tidak berskala sebenarnya.</p>
+
+      <div class="card" style="margin-top:18px">
+        <h2 style="margin-bottom:10px">Lembar Pengamatan</h2>
+        <p >Setelah mencoba tiap tahap, catat hasil pengamatanmu. Catatan ini otomatis masuk ke jurnal.</p>
+        <div class="journal"><div class="j-field">
+          <label for="amati">Apa yang kamu amati saat menaikkan intensitas Matahari?</label>
+          <textarea id="amati" style="min-height:70px" placeholder="Misal: uap air semakin banyak..."></textarea>
+        </div></div>
+        <button class="btn btn--sm" data-simpan-amati>Simpan ke Jurnal</button>
+      </div>
+      <div class="stepper-foot">
+        <button class="btn btn--ghost" data-ke="belajar">Sebelumnya</button>
+        <button class="btn" data-ke="latihan">Lanjut Latihan</button>
+      </div>
+    </section>
+
+    <!-- 4. LATIHAN -->
+    <section class="langkah" id="latihan" data-langkah="latihan">
+      <p class="lb">Langkah 4 · Latihan</p>
+      <h2>Kuis Bab 3</h2>
+      <div class="card">
+        <div class="quiz-top" style="display:flex;justify-content:space-between;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:14px">
+          <span class="mono" data-q-counter>Soal 1</span>
+          <span class="mono">Benar: <span data-live-benar>0</span></span>
+        </div>
+        <p class="q-text" data-q-teks style="font-family:var(--display);font-size:21px;line-height:1.3;margin-bottom:16px"></p>
+        <div data-opts></div>
+        <div class="pembahasan" data-pembahasan></div>
+        <div style="display:flex;justify-content:flex-end;margin-top:16px">
+          <button class="btn" data-next disabled>Soal berikutnya</button>
+        </div>
+      </div>
+      <div class="card" data-hasil style="display:none">
+        <h2>Hasil Latihan</h2>
+        <p style="font-family:var(--display);font-size:44px;color:var(--teal);margin:8px 0"><span data-skor>0</span>%</p>
+        <p data-note ></p>
+        <button class="btn" data-ulang style="margin-top:10px">Ulangi Latihan</button>
+      </div>
+      <div class="stepper-foot">
+        <button class="btn btn--ghost" data-ke="eksplorasi">Sebelumnya</button>
+        <button class="btn" data-ke="refleksi">Lanjut Refleksi</button>
+      </div>
+    </section>
+
+    <!-- 5. REFLEKSI -->
+    <section class="langkah" id="refleksi" data-langkah="refleksi">
+      <p class="lb">Langkah 5 · Refleksi</p>
+      <h2>Jurnal Belajar</h2>
+      <div class="card journal">
+        <div class="j-field"><label>Sebelum belajar, aku tahu bahwa...</label><input type="text" data-j="tahuSebelum" placeholder="Tulis singkat..."></div>
+        <div class="j-field"><label>1. Tiga hal yang kupelajari hari ini</label><textarea data-j="tigaHal" style="min-height:70px"></textarea></div>
+        <div class="j-field"><label>2. Bagian yang masih membingungkan</label>
+          <div class="quick-chips" data-chips>
+            <button class="chip" data-chip="Perbedaan kondensasi dan presipitasi">Kondensasi vs presipitasi</button>
+            <button class="chip" data-chip="Peran transpirasi tumbuhan">Transpirasi</button>
+            <button class="chip" data-chip="Infiltrasi dan air tanah">Infiltrasi</button>
+            <button class="chip" data-chip="Sudah paham semuanya">Sudah paham</button>
+          </div>
+          <textarea data-j="bingungTeks" style="min-height:56px" placeholder="Kosongkan bila sudah paham"></textarea>
+        </div>
+        <div class="j-field"><label>3. Di mana aku melihat siklus air dalam kehidupan sehari-hari?</label><input type="text" data-j="kehidupan" placeholder="Contoh: jemuran, embun pagi..."></div>
+        <div class="j-field"><label>4. Satu tindakan nyata yang akan kulakukan</label><input type="text" data-j="aksi" placeholder="Contoh: menutup keran saat sikat gigi"></div>
+        <div class="j-field"><label>5. Seberapa yakin kamu? (1 = belum, 4 = sangat yakin)</label>
+          <div class="keyakinan">
+            <div class="ky"><div class="ky-label">I1 · Lima tahap</div><div class="ky-desc">Menyebut lima tahap siklus air</div><div class="lvl" data-ky="I1"><button aria-pressed="false">1</button><button aria-pressed="false">2</button><button aria-pressed="false">3</button><button aria-pressed="false">4</button></div></div>
+            <div class="ky"><div class="ky-label">I2 · Perubahan wujud</div><div class="ky-desc">Menjelaskan perubahan wujud tiap tahap</div><div class="lvl" data-ky="I2"><button aria-pressed="false">1</button><button aria-pressed="false">2</button><button aria-pressed="false">3</button><button aria-pressed="false">4</button></div></div>
+            <div class="ky"><div class="ky-label">I3 · Infiltrasi &amp; limpasan</div><div class="ky-desc">Membedakan dua jalur air di tanah</div><div class="lvl" data-ky="I3"><button aria-pressed="false">1</button><button aria-pressed="false">2</button><button aria-pressed="false">3</button><button aria-pressed="false">4</button></div></div>
+            <div class="ky"><div class="ky-label">I4 · Menjaga air</div><div class="ky-desc">Memberi contoh tindakan menjaga air</div><div class="lvl" data-ky="I4"><button aria-pressed="false">1</button><button aria-pressed="false">2</button><button aria-pressed="false">3</button><button aria-pressed="false">4</button></div></div>
+          </div>
+        </div>
+        <div class="j-field"><label>Exit ticket 3-2-1</label>
+          <input type="text" data-j="exit3" style="margin-bottom:6px" placeholder="3 hal yang kupelajari...">
+          <input type="text" data-j="exit2" style="margin-bottom:6px" placeholder="2 hal yang menarik...">
+          <input type="text" data-j="exit1" placeholder="1 pertanyaan yang masih ada...">
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn--sm" data-simpan-jurnal>Simpan Jurnal</button>
+          <button class="btn btn--ghost btn--sm" data-ekspor-jurnal>Ekspor Teks</button>
+        </div>
+        <p class="field-hint" data-jurnal-status>Jurnal tersimpan otomatis setiap kali kamu mengetik.</p>
+      </div>
+      <div class="stepper-foot">
+        <button class="btn btn--ghost" data-ke="latihan">Sebelumnya</button>
+        <button class="btn" data-ke="posttest">Lanjut Post-test</button>
+      </div>
+    </section>
+
+    <!-- 6. POST-TEST -->
+    <section class="langkah" id="posttest" data-langkah="posttest">
+      <p class="lb">Langkah 6 · Post-test</p>
+      <h2>Kumpulkan Tugasmu</h2>
+      <div class="card">
+        <p >Post-test Siklus Air dikerjakan di luar web, lalu diunggah ke Google Drive. Ada dua tugas yang cocok untuk bab ini:</p>
+        <ul style="margin:10px 0 0;padding-left:20px;line-height:1.8">
+          <li><strong>PT3</strong> — Laporan Percobaan "Hujan Mini"</li>
+          <li><strong>PT4</strong> — Diagram Siklus Air buatan sendiri</li>
+        </ul>
+        <div class="act-row">
+          <a class="btn" href="../tugas.html">Ke Halaman Tugas</a>
+          <a class="btn btn--ghost" href="../kumpul.html">Lihat Lembar Pengumpulan</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2 style="margin-bottom:8px">Selamat! 🎉</h2>
+        <p style="margin:0">Kamu sudah menuntaskan satu sesi penuh. Progres tersimpan otomatis. Kembali ke Beranda untuk melihat ringkasannya.</p>
+      </div>
+      <div class="stepper-foot">
+        <button class="btn btn--ghost" data-ke="refleksi">Sebelumnya</button>
+        <a class="btn" href="../index.html">Selesai</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="foot-brand">
+          <span class="brand-mark" aria-hidden="true">H₂O</span>
+          <strong>QIIORA</strong>
+        </div>
+        <p>Media pembelajaran interaktif Siklus Air untuk IPAS Fase C (Kelas V SD/MI). Berjalan tanpa build step dan tetap bekerja saat luring.</p>
+        <span class="foot-status" data-koneksi><i aria-hidden="true"></i>Tersambung</span>
+      </div>
+      <div class="foot-col">
+        <h3>Belajar</h3>
+        <ul>
+          <li><a href="../index.html#/modul">Modul</a></li>
+          <li><a href="../index.html#/tujuan">Tujuan Pembelajaran</a></li>
+          <li><a href="../index.html#/materi">Materi Pokok</a></li>
+          <li><a href="../index.html#/simulasi">Simulasi 3D</a></li>
+          <li><a href="../bab/bab-3-siklus-air.html">Bab 3 · Siklus Air</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Latihan &amp; data</h3>
+        <ul>
+          <li><a href="../index.html#/kuis">Kuis Pemahaman</a></li>
+          <li><a href="../index.html#/lkpd">LKPD</a></li>
+          <li><a href="../tugas.html">Tugas</a></li>
+          <li><a href="../index.html#/sumber">Sumber &amp; Data</a></li>
+          <li><a href="../pengajar.html">Mode Pengajar</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Pengaturan</h3>
+        <div class="foot-tools">
+          <button type="button" data-tema-toggle aria-pressed="false" aria-label="Ganti mode terang atau gelap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+            <span data-tema-label>Mode gelap</span>
+          </button>
+          <button type="button" data-ukuran-toggle aria-label="Ukuran teks">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 18l5-12 5 12M4.6 14h6.8M14 18l4-10 4 10M15.4 15h5.2"/></svg>
+            <span data-ukuran-label>Teks S</span>
+          </button>
+        </div>
+        <p style="margin-top:12px">Disusun oleh Fiqi Islam Mahfutdin<br>Pendidikan Informatika · STKIP PGRI Pacitan</p>
+        <ul>
+          <li><a href="../index.html#/identitas">Identitas Penyusun</a></li>
+          <li><a href="../kumpul.html">Lembar Pengumpulan</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 QIIORA · <span data-versi>v1.1.0</span> · HTML · CSS · JavaScript · Three.js r128 (offline)</span>
+      <button class="to-top" type="button" data-to-top>
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6"/></svg>
+        Ke atas
+      </button>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Navigasi cepat">
+  <ul>
+    <li><a href="../index.html#/beranda">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"/></svg>Beranda</a></li>
+    <li><a href="../index.html#/modul">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></svg>Modul</a></li>
+    <li><a href="../index.html#/simulasi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 3v18"/></svg>Simulasi</a></li>
+    <li><a href="../index.html#/kuis">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3V13"/><circle cx="12.8" cy="16.4" r=".9" fill="currentColor" stroke="none"/></svg>Kuis</a></li>
+    <li><button type="button" data-nav-toggle aria-expanded="false" aria-controls="drawer" aria-label="Menu lainnya">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button></li>
+  </ul>
+</nav>
+
+
+<script src="../data/konfigurasi.js"></script>
+<script src="../assets/js/inti.js"></script>
+<script src="../assets/js/simpan.js"></script>
+<script src="../assets/js/baca.js"></script>
+<script src="../assets/js/router.js"></script>
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/cari.js"></script>
+<script src="../assets/js/jurnal.js"></script>
+<script src="../assets/js/progres.js"></script>
+<script src="../assets/js/kuis.js"></script>
+<script src="../vendor/three.min.js"></script>
+<script src="../vendor/OrbitControls.js"></script>
+<script src="../assets/js/simkit.js"></script>
+<script src="../assets/js/sim-s1.js"></script>
+<script src="../data/soal.js"></script>
+<script>
+(function(){
+'use strict';
+var BAB = 3;
+window.__qiiora_bab = BAB;
+
+function pesan(t, jenis){
+  if(QIIORA.ui) QIIORA.ui.toast(t, { jenis: jenis || 'info' });
+}
+
+/* ============ Stepper + progres ============ */
+var langkahKeys = ['pemanasan','belajar','eksplorasi','latihan','refleksi','posttest'];
+var langkahLabel = { pemanasan:'Pemanasan', belajar:'Belajar', eksplorasi:'Eksplorasi', latihan:'Latihan', refleksi:'Refleksi', posttest:'Post-test' };
+var langkahNo = { pemanasan:'1', belajar:'2', eksplorasi:'3', latihan:'4', refleksi:'5', posttest:'6' };
+var progres = QIIORA.progres.ambil(BAB);
+var current = 'pemanasan';
+
+function renderStepper(){
+  var el = $('[data-stepper]');
+  el.innerHTML = '';
+  langkahKeys.forEach(function(k){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'step';
+    b.setAttribute('data-status', progres[k]);
+    b.innerHTML = '<span class="s-n">' + langkahNo[k] + '</span><span class="s-t">' + langkahLabel[k] + '</span>';
+    b.addEventListener('click', function(){ pindah(k); });
+    el.appendChild(b);
+  });
+}
+
+function pindah(k){
+  current = k;
+  // tandai 'sedang'
+  if(progres[k] === 'belum') QIIORA.progres.set(BAB, k, 'sedang');
+  progres = QIIORA.progres.ambil(BAB);
+  langkahKeys.forEach(function(x){
+    document.querySelector('[data-langkah="' + x + '"]').style.display = (x === k) ? 'block' : 'none';
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+  renderStepper();
+}
+
+$$('[data-ke]').forEach(function(b){
+  b.addEventListener('click', function(){ pindah(b.getAttribute('data-ke')); });
+});
+
+/* ============ Pre-test (pemanasan) ============ */
+var pretestSoal = (QIIORA.soal || []).filter(function(s){ return s.bab === BAB && s.tingkat <= 1; }).slice(0, 3);
+var pretestBox = document.getElementById('pretestBox');
+var pretestJawab = {};
+function renderPretest(){
+  pretestBox.innerHTML = '';
+  pretestSoal.forEach(function(soal, si){
+    var t = QIIORA.kuis.buatPg(soal);
+    var q = document.createElement('div');
+    q.className = 'pretest-q';
+    q.innerHTML = '<p class="q">' + (si+1) + '. ' + t.stem + '</p>';
+    var opts = document.createElement('div');
+    t.opsi.forEach(function(teks, oi){
+      var o = document.createElement('button');
+      o.type = 'button';
+      o.className = 'opt';
+      o.innerHTML = '<span class="letter">' + 'ABCD'[oi] + '</span><span>' + teks + '</span>';
+      o.addEventListener('click', function(){
+        if(pretestJawab[si] !== undefined) return; // terkunci
+        var benar = t.jawaban === oi;
+        pretestJawab[si] = { benar: benar, pembahasan: t.pembahasan };
+        // warnai
+        var semua = opts.querySelectorAll('.opt');
+        Array.prototype.forEach.call(semua, function(el, ei){
+          el.disabled = true;
+          if(ei === t.jawaban) el.classList.add('correct');
+          if(ei === oi && !benar) el.classList.add('wrong');
+        });
+        var pb = document.createElement('div');
+        pb.className = 'pembahasan show';
+        pb.innerHTML = '<strong style="color:var(--teal);font-family:var(--mono);">' + (benar?'TEPAT':'BELUM TEPAT') + '</strong> ' + t.pembahasan;
+        opts.appendChild ? opts.parentNode.insertBefore(pb, opts.nextSibling) : 0;
+        opts.parentNode.insertBefore(pb, opts.nextSibling);
+        if(Object.keys(pretestJawab).length === pretestSoal.length){
+          QIIORA.progres.lanjut(BAB, 'pemanasan');
+          progres = QIIORA.progres.ambil(BAB);
+          renderStepper();
+        }
+      });
+      opts.appendChild(o);
+    });
+    q.appendChild(opts);
+    pretestBox.appendChild(q);
+  });
+}
+renderPretest();
+
+/* ============ Kuis bab (latihan) ============ */
+var bankBab3 = (QIIORA.soal || []).filter(function(s){ return s.bab === BAB; });
+var latihanSoal = QIIORA.kuis.acak(bankBab3).slice(0, 8);
+var li = 0, benar = 0, terkunci = false;
+function renderLatihan(){
+  terkunci = false;
+  var s = latihanSoal[li];
+  if(s.tipe !== 'pg' && s.tipe !== 'bs'){
+    $('[data-q-counter]').textContent = 'Soal ' + (li+1) + ' / ' + latihanSoal.length;
+    $('[data-live-benar]').textContent = benar;
+    $('[data-q-teks]').textContent = s.stem;
+    $('[data-pembahasan]').className = 'pembahasan';
+    $('[data-next]').disabled = true;
+    QIIORA.kuis.renderKhusus(s, $('[data-opts]'), function(b, kunci){
+      terkunci = true;
+      if(b) benar++;
+      var pb = $('[data-pembahasan]');
+      pb.className = 'pembahasan show';
+      pb.innerHTML = '';
+      var st = document.createElement('strong'); st.textContent = (b ? 'TEPAT' : 'BELUM TEPAT') + (b ? '' : ' · Kunci: ' + kunci) + ' ';
+      pb.appendChild(st); pb.appendChild(document.createTextNode(s.pembahasan));
+      $('[data-live-benar]').textContent = benar;
+      $('[data-next]').disabled = false;
+      $('[data-next]').textContent = li === latihanSoal.length - 1 ? 'Lihat hasil' : 'Soal berikutnya';
+    });
+    return;
+  }
+  var t = (s.tipe === 'pg') ? QIIORA.kuis.buatPg(s) : QIIORA.kuis.buatBs(s);
+  t.tipe = s.tipe;
+  $('[data-q-counter]').textContent = 'Soal ' + (li+1) + ' / ' + latihanSoal.length;
+  $('[data-live-benar]').textContent = benar;
+  $('[data-q-teks]').textContent = t.stem;
+  var opts = $('[data-opts]');
+  opts.innerHTML = '';
+  var jawabanBenar = t.jawaban; // index opsi benar (pg: 0-3; bs: 0/1)
+  t.opsi.forEach(function(teks, oi){
+    var o = document.createElement('button');
+    o.type = 'button';
+    o.className = 'opt';
+    o.innerHTML = '<span class="letter">' + (t.tipe==='bs' ? (oi===0?'B':'S') : 'ABCD'[oi]) + '</span><span>' + teks + '</span>';
+    o.addEventListener('click', function(){
+      if(terkunci) return;
+      terkunci = true;
+      var b = oi === jawabanBenar;
+      if(b) benar++;
+      var semua = opts.querySelectorAll('.opt');
+      Array.prototype.forEach.call(semua, function(el, ei){
+        el.disabled = true;
+        if(ei === jawabanBenar) el.classList.add('correct');
+        if(ei === oi && !b) el.classList.add('wrong');
+      });
+      var pb = $('[data-pembahasan]');
+      pb.className = 'pembahasan show';
+      pb.innerHTML = '<strong style="color:var(--teal);font-family:var(--mono);">' + (b?'TEPAT':'BELUM TEPAT') + '</strong> ' + t.pembahasan;
+      $('[data-live-benar]').textContent = benar;
+      $('[data-next]').disabled = false;
+      $('[data-next]').textContent = li === latihanSoal.length - 1 ? 'Lihat hasil' : 'Soal berikutnya';
+    });
+    opts.appendChild(o);
+  });
+  $('[data-pembahasan]').className = 'pembahasan';
+  $('[data-next]').disabled = true;
+}
+$('[data-next]').addEventListener('click', function(){
+  if(li < latihanSoal.length - 1){ li++; renderLatihan(); }
+  else { li++; tampilHasil(); }
+});
+function tampilHasil(){
+  $('[data-hasil]').style.display = 'block';
+  var pct = Math.round(benar / latihanSoal.length * 100);
+  $('[data-skor]').textContent = pct;
+  $('[data-note]').textContent = benar + ' dari ' + latihanSoal.length + ' benar. ' + (pct >= 70 ? 'Bagus! Kamu lanjut refleksi.' : 'Coba ulangi atau tinjau materi dulu.');
+  QIIORA.kuis.catatHasil('latihan-bab3', BAB, benar, latihanSoal.length);
+  QIIORA.progres.lanjut(BAB, 'latihan');
+  progres = QIIORA.progres.ambil(BAB);
+  renderStepper();
+}
+$('[data-ulang]').addEventListener('click', function(){
+  li = 0; benar = 0;
+  latihanSoal = QIIORA.kuis.acak(bankBab3).slice(0, 8);
+  $('[data-hasil]').style.display = 'none';
+  renderLatihan();
+});
+renderLatihan();
+
+/* ============ Eksplorasi: sim S1 ============ */
+var appStage = 0;
+var stageBtns = $$('[data-stage-btn]');
+var hotspots = $$('[data-hotspot]');
+var sunSlider = $('[data-sun-val]');
+var transferEl = $('[data-transfer]');
+var slider = document.getElementById('sunSlider');
+var cutawayBtn = $('[data-cutaway]');
+var _s1State = null;
+var _s1Refs = null;
+
+function setStage(n){
+  appStage = n;
+  stageBtns.forEach(function(b){ b.setAttribute('aria-pressed', String(Number(b.getAttribute('data-stage-btn')) === n)); });
+  hotspots.forEach(function(h){ h.classList.toggle('is-active', Number(h.getAttribute('data-hotspot')) === n); });
+}
+stageBtns.forEach(function(b){
+  b.addEventListener('click', function(){ setStage(Number(b.getAttribute('data-stage-btn'))); });
+});
+hotspots.forEach(function(h){
+  h.addEventListener('click', function(){ setStage(Number(h.getAttribute('data-hotspot'))); });
+});
+
+function initS1Full(){
+  var wrap = document.getElementById('simWrap');
+  if(!wrap) return;
+  if(typeof THREE === 'undefined' || typeof QIIORA.sim === 'undefined') {
+    // fallback
+    var fb = document.getElementById('simFallback');
+    if(fb) fb.hidden = false;
+    return;
+  }
+  // Bangun manual untuk akses state (karena simkit tidak mengekspos state)
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(36, 1, .1, 100);
+  camera.position.set(10.5, 8.6, 13.5);
+  var renderer = new THREE.WebGLRenderer({antialias:true, alpha:true, powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  if('outputEncoding' in renderer) renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.domElement.style.display = 'block';
+  wrap.appendChild(renderer.domElement);
+
+  var controls = null;
+  if(THREE.OrbitControls){
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true; controls.dampingFactor = .06; controls.enablePan = false;
+    controls.minDistance = 9; controls.maxDistance = 24;
+    controls.minPolarAngle = .55; controls.maxPolarAngle = 1.42;
+    controls.target.set(0,.8,0); controls.update();
+  }
+
+  _s1State = QIIORA.simS1.bangun(scene, camera, renderer);
+  _s1Refs = _s1State.refs;
+  var running = true;
+
+  function resize(){
+    var w = wrap.clientWidth, h = wrap.clientHeight;
+    if(!w || !h || w < 2 || h < 2) return;   // langkah belum tampil -> jangan render 0px
+    renderer.setSize(w, h);
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Langkah "Eksplorasi" tersembunyi saat halaman dimuat -> ukur ulang sampai terlihat
+  var cobaUkur = 0;
+  var penundaUkur = setInterval(function(){
+    cobaUkur++;
+    if(wrap.clientWidth > 2 && wrap.clientHeight > 2){
+      resize(); running = true; clearInterval(penundaUkur);
+    } else if(cobaUkur > 60){ clearInterval(penundaUkur); }
+  }, 150);
+
+  if('ResizeObserver' in window){
+    new ResizeObserver(function(){ resize(); }).observe(wrap);
+  }
+
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ running = es[0].isIntersecting; }, {threshold:0}).observe(wrap);
+  }
+  document.addEventListener('visibilitychange', function(){ if(document.hidden) running = false; });
+
+  var clock = new THREE.Clock();
+  var elapsed = 0;
+
+  function loop(){
+    requestAnimationFrame(loop);
+    if(!running) return;
+    var dt = Math.min(clock.getDelta(), .05);
+    elapsed += dt;
+    if(controls) controls.update();
+    _s1State.stage = appStage;
+    QIIORA.simS1.perbarui(_s1State, dt, elapsed, camera, controls, wrap);
+    // proyeksi label dengan penghindar tumpang tindih (A2)
+    if(QIIORA.simS1.anchors){
+      var hasil = QIIORA.sim.proyeksikanLabel(camera, wrap, QIIORA.simS1.anchors, renderer);
+      $$('[data-hotspot]').forEach(function(el){
+        var id = el.getAttribute('data-hotspot');
+        var r = hasil[id];
+        if(r){
+          el.style.left = r.x + 'px';
+          el.style.top = r.y + 'px';
+          el.style.display = r.terlihat ? 'inline-flex' : 'none';
+        }
+      });
+    }
+    // transfer counter
+    if(transferEl) transferEl.textContent = Math.round(_s1State.transfer);
+    renderer.render(scene, camera);
+  }
+  loop();
+}
+
+if(slider){
+  slider.addEventListener('input', function(){
+    var v = Number(slider.value) / 100;
+    if(_s1State) _s1State.sunIntensity = v;
+    if(sunSlider) sunSlider.textContent = slider.value + '%';
+    if(_s1State && Math.abs(v - 0.5) > 0.35){
+      QIIORA.jurnal.tambahCatatanSim(BAB, 'Mencoba intensitas Matahari ' + slider.value + '%: laju penguapan berubah.');
+    }
+  });
+}
+if(cutawayBtn){
+  cutawayBtn.addEventListener('click', function(){
+    var on = cutawayBtn.getAttribute('aria-pressed') === 'true';
+    on = !on;
+    cutawayBtn.setAttribute('aria-pressed', String(on));
+    if(_s1State) _s1State.cutaway = on;
+    QIIORA.jurnal.tambahCatatanSim(BAB, 'Mengaktifkan mode potongan: mengamati air tanah.');
+  });
+}
+$('[data-simpan-amati]').addEventListener('click', function(){
+  var v = document.getElementById('amati').value.trim();
+  if(!v){ pesan('Tulis pengamatan dulu'); return; }
+  QIIORA.jurnal.tambahCatatanSim(BAB, 'Pengamatan: ' + v);
+  document.getElementById('amati').value = '';
+  QIIORA.progres.lanjut(BAB, 'eksplorasi');
+  progres = QIIORA.progres.ambil(BAB);
+  renderStepper();
+  pesan('Tersimpan ke jurnal');
+});
+
+/* ============ Refleksi (jurnal) ============ */
+var j = QIIORA.jurnal.ambil(BAB);
+function isiForm(){
+  $$('[data-j]').forEach(function(el){
+    var k = el.getAttribute('data-j');
+    var val = j[k] || '';
+    if(k === 'tahuSebelum' || k === 'kehidupan' || k === 'aksi'){ el.value = val; }
+    else if(k === 'bingungTeks' || k === 'tigaHal'){ el.value = val; }
+  });
+  ['exit3','exit2','exit1'].forEach(function(k, idx){
+    var keys = ['tiga','dua','satu'];
+    document.querySelector('[data-j="' + k + '"]').value = (j.exit && j.exit[keys[idx]]) || '';
+  });
+  // chips
+  var chips = $$('[data-chip]');
+  chips.forEach(function(c){
+    c.setAttribute('aria-pressed', String(c.getAttribute('data-chip') === j.bingungPilihan));
+  });
+  // keyakinan
+  ['I1','I2','I3','I4'].forEach(function(k){
+    var lvl = (j.keyakinan && j.keyakinan[k]) || 0;
+    var btns = $$('.lvl[data-ky="' + k + '"] button');
+    btns.forEach(function(b, bi){ b.setAttribute('aria-pressed', String(bi+1 === lvl)); });
+  });
+}
+function bacaForm(){
+  $$('[data-j]').forEach(function(el){
+    var k = el.getAttribute('data-j');
+    if(k === 'exit3'){ j.exit = j.exit || {}; j.exit.tiga = el.value; }
+    else if(k === 'exit2'){ j.exit = j.exit || {}; j.exit.dua = el.value; }
+    else if(k === 'exit1'){ j.exit = j.exit || {}; j.exit.satu = el.value; }
+    else { j[k] = el.value; }
+  });
+  return j;
+}
+$$('[data-chip]').forEach(function(c){
+  c.addEventListener('click', function(){
+    j.bingungPilihan = c.getAttribute('data-chip');
+    $$('[data-chip]').forEach(function(x){ x.setAttribute('aria-pressed', String(x === c)); });
+    simpanJurnal();
+  });
+});
+$$('.lvl button').forEach(function(b){
+  b.addEventListener('click', function(){
+    var ky = b.closest('.lvl').getAttribute('data-ky');
+    var val = Number(b.textContent);
+    j.keyakinan = j.keyakinan || { I1:0,I2:0,I3:0,I4:0 };
+    j.keyakinan[ky] = val;
+    var btns = $$('.lvl[data-ky="' + ky + '"] button');
+    btns.forEach(function(x, bi){ x.setAttribute('aria-pressed', String(bi+1 === val)); });
+    simpanJurnal();
+  });
+});
+function simpanJurnal(){
+  bacaForm();
+  QIIORA.jurnal.simpan(j);
+  $('[data-jurnal-status]').textContent = 'Tersimpan otomatis · ' + QIIORA.jurnal.hitungKata(j.tigaHal) + ' kata pada "tiga hal".';
+}
+function autoSave(){
+  var prev = JSON.stringify(j);
+  setInterval(function(){
+    var cur = JSON.stringify(bacaForm());
+    if(cur !== prev){ simpanJurnal(); prev = JSON.stringify(j); }
+  }, 2000);
+}
+$('[data-simpan-jurnal]').addEventListener('click', function(){
+  simpanJurnal();
+  QIIORA.progres.lanjut(BAB, 'refleksi');
+  progres = QIIORA.progres.ambil(BAB);
+  renderStepper();
+  pesan('Jurnal disimpan');
+});
+$('[data-ekspor-jurnal]').addEventListener('click', function(){
+  bacaForm();
+  var teks = QIIORA.jurnal.eksporTeks(j);
+  var blob = new Blob([teks], {type:'text/plain;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'qiira-jurnal-bab3.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+isiForm();
+autoSave();
+
+/* ============ Inisialisasi ============ */
+renderStepper();
+pindah('pemanasan');
+initS1Full();
+})();
+</script>
+</body>
+</html>

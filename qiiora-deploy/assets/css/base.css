@@ -1,0 +1,22 @@
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+body{margin:0;font-family:var(--font-isi);font-size:16px;line-height:1.65;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* ruang untuk bottom-nav di layar sempit (lihat cangkang.css) */
+@media(max-width:1080px){body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}}
+@media print{body{padding-bottom:0}}
+img,svg{display:block;max-width:100%}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:var(--primary-dark)}
+h1,h2,h3,h4{margin:0;font-family:var(--font-judul);font-weight:700;line-height:1.2;color:var(--text)}
+p{margin:0 0 1em}
+ul,ol{padding-left:1.3em}
+::selection{background:var(--sun);color:var(--text)}
+:focus-visible{outline:3px solid var(--primary);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;z-index:200;background:var(--primary-dark);color:#fff;padding:12px 18px;border-radius:12px}
+.skip:focus{left:16px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.mono{font-family:var(--font-isi);font-size:14px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}

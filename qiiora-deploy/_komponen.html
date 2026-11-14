@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QIIORA — Uji Komponen (tidak di-deploy)</title>
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/komponen.css">
+<style>
+body{padding:24px}
+.grid{display:grid;gap:24px;max-width:960px;margin:0 auto}
+.box{border:1px solid var(--line);background:var(--white);padding:18px}
+.box h2{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.swatch{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:9px;color:var(--ink-soft)}
+.swatch i{width:28px;height:28px;border:1px solid var(--ink);display:inline-block}
+/* progress ring */
+.ring{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:12px;background:conic-gradient(var(--teal) 0 68%, var(--line) 68% 100%);position:relative}
+.ring::before{content:"";position:absolute;inset:6px;border-radius:50%;background:var(--white)}
+.ring span{position:relative;z-index:1}
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="box">
+    <h2>Token Warna</h2>
+    <div class="row">
+      <span class="swatch"><i style="background:var(--ink)"></i>ink</span>
+      <span class="swatch"><i style="background:var(--teal)"></i>teal</span>
+      <span class="swatch"><i style="background:var(--aqua)"></i>aqua</span>
+      <span class="swatch"><i style="background:var(--coral)"></i>coral</span>
+      <span class="swatch"><i style="background:var(--sun)"></i>sun</span>
+      <span class="swatch"><i style="background:var(--paper)"></i>paper</span>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Tombol</h2>
+    <div class="row">
+      <button class="btn">Utama</button>
+      <button class="btn btn--ghost">Ghost</button>
+      <button class="btn btn--sm">Kecil</button>
+      <a class="btn" href="#">Tautan-btn</a>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Progress Ring</h2>
+    <div class="row">
+      <div class="ring"><span>68%</span></div>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Side Box</h2>
+    <div class="side-box">
+      <h3>Indikator</h3>
+      <ul>
+        <li>Satu item</li>
+        <li>Dua item</li>
+        <li>Tiga item</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Fact / Callout</h2>
+    <div class="fact"><span class="lab">Fakta</span><p>Contoh isi fakta pendek.</p></div>
+    <p class="source-line">Sumber: contoh (dummy).</p>
+  </div>
+</div>
+</body>
+</html>

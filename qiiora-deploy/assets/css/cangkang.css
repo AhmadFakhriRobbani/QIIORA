@@ -1,0 +1,129 @@
+/* ============================================================
+   CANGKANG SPA QIIORA — header, navigasi, bottom-nav, footer,
+   perpindahan view, panel "Lainnya", drawer HP.
+   Dimuat SETELAH halaman.css agar menimpa aturan lama.
+   ============================================================ */
+
+/* ---------- Header ---------- */
+.site-head{position:sticky;top:0;z-index:80;background:var(--card);border-bottom:1px solid var(--line);transition:box-shadow .22s var(--ease)}
+.site-head.is-scrolled{box-shadow:0 6px 18px rgba(31,45,61,.12)}
+.head-in{max-width:1240px;margin:0 auto;padding:0 20px;min-height:var(--header-h);display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text);min-width:0;flex:none;border-radius:12px}
+.brand-mark{width:42px;height:42px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font:800 19px/1 var(--font-judul);flex:none;letter-spacing:-.02em}
+.brand-name{display:block;font-family:var(--font-judul);font-weight:800;font-size:21px;line-height:1.1}
+.brand-sub{display:block;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- Navigasi utama (desktop) ---------- */
+.nav{position:relative;display:flex;align-items:center;gap:2px;margin-left:auto}
+.nav a,.nav-more-btn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 13px;border:0;border-radius:999px;background:transparent;font:700 15.5px/1.2 var(--font-isi);color:var(--muted);text-decoration:none;white-space:nowrap;cursor:pointer;transition:color .16s,background .16s}
+.nav a:hover,.nav-more-btn:hover{color:var(--primary-dark);background:var(--primary-soft)}
+.nav a[aria-current="page"],.nav-more-btn[aria-expanded="true"]{color:var(--primary-dark)}
+.nav-ind{position:absolute;left:0;top:50%;height:38px;width:0;transform:translateY(-50%);border-radius:999px;background:var(--primary);opacity:0;transition:transform .3s var(--ease),width .3s var(--ease),opacity .2s;pointer-events:none;z-index:0}
+.nav-ind.on{opacity:1}
+.nav a[aria-current="page"]{color:#fff;position:relative;z-index:1}
+.nav-more-btn.is-aktif{background:var(--primary-soft);color:var(--primary-dark)}
+.nav a[aria-current="page"]:hover{background:transparent;color:#fff}
+
+/* Panel "Lainnya" */
+.nav-more{position:relative}
+.nav-panel{position:absolute;right:0;top:calc(100% + 10px);width:250px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 14px 34px rgba(31,45,61,.18);padding:8px;z-index:90;display:grid;gap:2px}
+.nav-panel[hidden]{display:none}
+.nav-panel a{display:flex;align-items:center;gap:10px;min-height:46px;padding:8px 12px;border-radius:12px;color:var(--text);font-weight:700;font-size:15.5px;text-decoration:none}
+.nav-panel a:hover{background:var(--primary-soft);color:var(--primary-dark)}
+.nav-panel a[aria-current="page"]{background:var(--primary);color:#fff}
+.nav-panel .np-sep{height:1px;background:var(--line);margin:6px 4px}
+.nav-panel .np-label{font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 12px 4px}
+
+/* ---------- Aksi header ---------- */
+.head-actions{display:flex;align-items:center;gap:8px;flex:none}
+.icon-btn{width:46px;height:46px;display:grid;place-items:center;background:var(--primary-soft);border:0;border-radius:13px;cursor:pointer;padding:0;color:var(--primary-dark);transition:background .16s,color .16s}
+.icon-btn:hover{background:var(--primary);color:#fff}
+.icon-btn svg{width:21px;height:21px}
+.nav-toggle{display:none;width:46px;height:46px;border:0;border-radius:13px;background:var(--primary-soft);cursor:pointer;place-items:center;padding:0}
+.nav-toggle span{display:block;width:21px;height:2.5px;border-radius:2px;background:var(--primary-dark);position:relative}
+.nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:0;width:21px;height:2.5px;border-radius:2px;background:var(--primary-dark);transition:transform .2s}
+.nav-toggle span::before{top:-7px}.nav-toggle span::after{top:7px}
+body.nav-open .nav-toggle span{background:transparent}
+body.nav-open .nav-toggle span::before{transform:translateY(7px) rotate(45deg)}
+body.nav-open .nav-toggle span::after{transform:translateY(-7px) rotate(-45deg)}
+
+/* ---------- View (halaman SPA) ---------- */
+.view{display:none}
+.view.is-active{display:block;animation:viewIn .3s var(--ease)}
+@keyframes viewIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.view:focus{outline:none}
+/* Judul yang difokuskan router hanya untuk pembaca layar — jangan tampilkan cincin fokus */
+.view [tabindex="-1"]:focus,.view [tabindex="-1"]:focus-visible{outline:none}
+.view-head{padding:clamp(22px,3.4vw,38px) 0 0}
+.view-head .kicker{margin-bottom:12px}
+.view-head h1{font-size:clamp(30px,4.6vw,46px);margin-bottom:6px}
+.view-head .lede{font-size:17.5px;color:var(--muted);max-width:62ch;margin:0}
+
+/* ---------- Bottom-nav (HP) ---------- */
+.bottom-nav{display:none;position:fixed;left:0;right:0;bottom:0;z-index:85;background:var(--card);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(31,45,61,.10)}
+.bottom-nav ul{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin:0;padding:0;list-style:none}
+.bottom-nav a,.bottom-nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;width:100%;border:0;background:transparent;border-radius:12px;color:var(--muted);font:700 11.5px/1.1 var(--font-isi);text-decoration:none;cursor:pointer;padding:4px 2px}
+.bottom-nav svg{width:22px;height:22px}
+.bottom-nav a[aria-current="page"],.bottom-nav button[aria-expanded="true"]{color:var(--primary-dark);background:var(--primary-soft)}
+
+/* ---------- Drawer HP ---------- */
+.drawer-scrim{position:fixed;inset:0;background:rgba(15,26,36,.45);z-index:88;opacity:0;pointer-events:none;transition:opacity .22s}
+body.nav-open .drawer-scrim{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,84vw);background:var(--card);z-index:89;transform:translateX(102%);transition:transform .28s var(--ease);display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(31,45,61,.2)}
+body.nav-open .drawer{transform:none}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.drawer-head strong{font-family:var(--font-judul);font-size:19px}
+.drawer-body{overflow-y:auto;padding:10px 12px 24px;display:grid;gap:2px}
+.drawer-body a{display:flex;align-items:center;gap:10px;min-height:50px;padding:10px 12px;border-radius:12px;color:var(--text);font-weight:700;text-decoration:none}
+.drawer-body a:hover{background:var(--primary-soft)}
+.drawer-body a[aria-current="page"]{background:var(--primary);color:#fff}
+.drawer-body .np-label{font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:14px 12px 4px}
+.drawer-body a:focus-visible{outline-offset:-2px}
+
+/* ---------- Footer ---------- */
+.site-foot{background:var(--text);color:#DCE7F2;padding:clamp(28px,4vw,44px) 0 20px;margin-top:clamp(32px,5vw,56px)}
+html[data-tema="gelap"] .site-foot{background:#0A131B;border-top:1px solid var(--line)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.1fr;gap:clamp(20px,3vw,40px)}
+.foot-col h3{font-family:var(--font-judul);font-size:16px;color:#fff;margin:0 0 10px;letter-spacing:.02em}
+.foot-col p{margin:0 0 8px;font-size:14.5px;line-height:1.6;color:#B9CBDC}
+.foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.foot-col a{display:inline-flex;align-items:center;min-height:38px;color:#DCE7F2;text-decoration:none;font-size:14.5px;border-radius:8px}
+.foot-col a:hover{color:#fff;text-decoration:underline}
+.foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.foot-brand .brand-mark{background:var(--primary)}
+.foot-brand strong{font-family:var(--font-judul);font-size:20px;color:#fff}
+.foot-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.foot-tools button{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:8px 14px;border:1px solid rgba(255,255,255,.28);border-radius:12px;background:transparent;color:#E7EEF6;font:700 14px/1 var(--font-isi);cursor:pointer}
+.foot-tools button:hover{background:rgba(255,255,255,.12)}
+.foot-tools svg{width:17px;height:17px}
+.foot-status{display:inline-flex;align-items:center;gap:7px;font-size:14px;color:#B9CBDC;margin-top:10px}
+.foot-status i{width:9px;height:9px;border-radius:50%;background:var(--green);flex:none}
+.foot-status.offline i{background:var(--bad)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:26px;padding-top:16px;border-top:1px solid rgba(255,255,255,.16);font-size:13.5px;color:#9FB4C7}
+.foot-bottom a{color:#DCE7F2}
+.to-top{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:8px 14px;border:1px solid rgba(255,255,255,.28);border-radius:12px;background:transparent;color:#E7EEF6;font:700 14px/1 var(--font-isi);cursor:pointer}
+.to-top:hover{background:rgba(255,255,255,.12)}
+
+/* ---------- Responsif ---------- */
+@media(max-width:1080px){
+  .nav{display:none}
+  .nav-toggle{display:grid}
+  .bottom-nav{display:block}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+  .head-in{padding:0 14px;gap:8px}
+  .brand-sub{display:none}
+  .brand-name{font-size:19px}
+  .foot-grid{grid-template-columns:1fr}
+  .foot-bottom{flex-direction:column;align-items:flex-start}
+}
+@media(min-width:1081px){
+  .drawer,.drawer-scrim{display:none}
+}
+@media print{
+  .site-head,.bottom-nav,.drawer,.drawer-scrim,.site-foot,.to-top{display:none!important}
+  /* cetak: hanya LKPD yang dicetak, view lain disembunyikan */
+  .view{display:none!important}
+  #view-lkpd{display:block!important}
+}

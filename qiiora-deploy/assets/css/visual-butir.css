@@ -1,0 +1,79 @@
+/* ============================================================
+   QIIORA — Panel visual per butir (K3)
+   Kanvas di atas materi. Warnanya sengaja lebih lembut dari isi
+   halaman supaya tidak bersaing dengan teks bacaan.
+   ============================================================ */
+
+.visual-panel{
+  position:relative;
+  margin:0 0 clamp(16px,2.2vw,24px);
+  border-radius:18px;
+  overflow:hidden;
+  background:var(--card);
+  border:1px solid var(--line);
+  box-shadow:0 8px 24px rgba(31,45,61,.08);
+}
+
+.visual-kanvas{
+  display:block;
+  width:100%;
+  height:auto;
+  background:#EAF6FE;
+}
+
+.visual-ket{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 14px;
+  font-size:12.5px;font-weight:700;line-height:1.4;
+  color:var(--muted);
+  background:var(--card);
+  border-top:1px solid var(--line);
+}
+.visual-ket::before{
+  content:"";
+  width:7px;height:7px;flex:none;border-radius:50%;
+  background:var(--primary);
+  box-shadow:0 0 0 3px rgba(47,128,237,.18);
+  animation:visualTitik 2.2s ease-in-out infinite;
+}
+
+/* kalimat penghubung di bawah keterangan */
+.visual-pengantar{
+  margin:0;
+  padding:0 14px 11px;
+  font-size:12.5px;line-height:1.5;
+  color:var(--primary-dark);font-weight:600;
+  background:var(--card);
+}
+html[data-tema="gelap"] .visual-pengantar{color:#8FC8F5}
+
+@media print{.visual-pengantar{display:none}}
+@keyframes visualTitik{
+  0%,100%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.35);opacity:.6}
+}
+
+/* tanda jenis di pojok kanan atas */
+.visual-panel::after{
+  content:attr(data-visual);
+  position:absolute;right:10px;top:10px;
+  font:800 9.5px/1 var(--font-isi);
+  letter-spacing:.13em;text-transform:uppercase;
+  color:#14314A;
+  background:rgba(255,255,255,.82);
+  padding:4px 9px;border-radius:999px;
+  box-shadow:0 2px 8px rgba(20,49,74,.12);
+  pointer-events:none;
+}
+
+/* saat dicetak, kanvas tidak berguna: diganti keterangan saja */
+@media print{
+  .visual-panel{break-inside:avoid;box-shadow:none}
+  .visual-kanvas{display:none}
+  .visual-ket{border-top:0;padding:6px 0;font-size:11px}
+  .visual-panel::after{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .visual-ket::before{animation:none}
+}

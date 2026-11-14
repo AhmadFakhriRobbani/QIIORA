@@ -1,0 +1,160 @@
+/* ============================================================
+   QIIORA — Gerbang masuk (rombak total)
+   Gaya: Google login — kartu dua sisi, animasi kiri, form kanan.
+   ============================================================ */
+
+.gerbang{
+  position:fixed;inset:0;z-index:600;
+  display:grid;place-items:center;
+  background:rgba(15,26,36,.72);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  /* TIDAK ADA animasi opacity di sini. Bila tab di latar saat halaman
+     dimuat, animasi CSS berhenti di keadaan awal dan gerbang tertahan
+     setengah transparan (pernah terukur opacity 0 lalu 0,55) —
+     pengguna bisa melihat layar kosong. Gerbang harus SELALU tampil
+     penuh, animasi hanya boleh menyentuh transform kartu di dalamnya. */
+  opacity:1;
+}
+.gerbang.keluar{opacity:0;transition:opacity .35s;pointer-events:none}
+
+.gb-card{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  width:min(820px,calc(100vw - 20px));
+  /* tinggi mengikuti isi, tapi TIDAK boleh melebihi layar. Isi form
+     yang menggulir di dalam, bukan seluruh halaman. */
+  height:min(92vh,620px);
+  border-radius:24px;
+  background:var(--card);
+  box-shadow:0 40px 100px rgba(20,45,70,.35);
+  overflow:hidden;
+  animation:gbCard .35s var(--ease) both;
+}
+@keyframes gbCard{from{transform:scale(.96) translateY(12px)}to{transform:none}}
+
+/* ---------- sisi kiri: animasi ---------- */
+.gb-side{
+  position:relative;
+  background:linear-gradient(170deg,#4A8EC7,#25639E);
+  overflow:hidden;
+  min-height:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.gb-anim{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* ---------- sisi kanan: form ---------- */
+.gb-form{
+  padding:clamp(24px,3.4vw,38px) clamp(22px,3.2vw,36px);
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  gap:12px;
+  min-height:0;
+}
+.gb-logo-icon{margin-bottom:2px;color:var(--primary)}
+.gb-form h2{font-family:var(--font-judul);font-size:clamp(22px,2.4vw,28px);margin:0;line-height:1.2}
+.gb-sub{margin:0;font-size:14.5px;line-height:1.5;color:var(--muted)}
+
+.gb-akun-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 6px}
+.gb-akun-btn{
+  display:flex;align-items:center;gap:11px;
+  width:100%;text-align:left;padding:10px 12px;
+  border-radius:14px;border:1.5px solid var(--line);
+  background:var(--bg);color:var(--text);cursor:pointer;
+  font:inherit;transition:background .16s,border-color .16s;
+  margin-bottom:6px;
+}
+.gb-akun-btn:hover,.gb-akun-btn.is-pilihan{border-color:var(--primary);background:var(--primary-soft)}
+.gb-akun-ava{
+  width:38px;height:38px;flex:none;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#4FA3F5,#1E5AA8);
+  color:#fff;font:800 16px/1 var(--font-judul);
+}
+.gb-akun-txt{min-width:0;display:grid;line-height:1.25}
+.gb-akun-txt b{font-size:15px;font-weight:800}
+.gb-akun-txt i{font-style:normal;font-size:13px;color:var(--muted);font-weight:600}
+.gb-akun-lain{
+  display:block;width:100%;text-align:center;
+  padding:10px;border-radius:14px;
+  border:0;background:transparent;
+  color:var(--primary);font:800 14px var(--font-isi);
+  cursor:pointer;transition:background .16s;
+}
+.gb-akun-lain:hover{background:var(--primary-soft)}
+
+.gb-form-main{display:flex;flex-direction:column;gap:14px}
+.gb-field label{display:block;font-size:13.5px;font-weight:800;margin-bottom:5px;color:var(--text)}
+.gb-input-wrap{position:relative;display:flex;align-items:center}
+.gb-input-wrap input{
+  width:100%;min-height:48px;padding:8px 36px 8px 14px;
+  border:1.5px solid var(--line);border-radius:12px;
+  background:var(--bg);color:var(--text);
+  font:500 15px var(--font-isi);
+  transition:border-color .18s,box-shadow .18s;
+  outline:0;
+}
+.gb-input-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(47,128,237,.18)}
+.gb-input-iko{position:absolute;right:12px;color:var(--muted);pointer-events:none;display:grid;place-items:center}
+.gb-eye{
+  position:absolute;right:8px;
+  display:grid;place-items:center;
+  width:32px;height:32px;border-radius:8px;
+  border:0;background:transparent;
+  color:var(--muted);cursor:pointer;
+  transition:background .16s,color .16s;
+}
+.gb-eye:hover{background:var(--primary-soft);color:var(--primary-dark)}
+
+.gb-galat{
+  margin:0;padding:10px 14px;border-radius:10px;
+  font-size:13.5px;font-weight:700;line-height:1.4;
+  color:#C33D4E;background:rgba(224,92,110,.10);
+  border:1px solid rgba(224,92,110,.28);
+}
+
+.gb-masuk{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  min-height:48px;padding:0 24px;border:0;border-radius:12px;
+  background:linear-gradient(135deg,#4FA3F5,#1E5AA8);
+  color:#fff;font:800 15.5px var(--font-isi);cursor:pointer;
+  box-shadow:0 6px 18px rgba(47,128,237,.30);
+  transition:transform .16s var(--ease),box-shadow .18s;
+}
+.gb-masuk:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(47,128,237,.40)}
+.gb-masuk:active{transform:translateY(0)}
+
+.gb-sep{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px;font-weight:700}
+.gb-sep::before,.gb-sep::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.gb-google{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;min-height:48px;padding:0 20px;
+  border:1.5px solid var(--line);border-radius:12px;
+  background:var(--card);color:var(--text);
+  font:600 15px var(--font-isi);cursor:pointer;
+  transition:background .16s,border-color .16s;
+}
+.gb-google:hover{background:var(--bg);border-color:var(--primary)}
+
+.gb-guest{margin:4px 0 0;font-size:13px;text-align:center;color:var(--muted)}
+.gb-guest button{
+  border:0;background:transparent;color:var(--primary);
+  font:800 13px var(--font-isi);cursor:pointer;text-decoration:underline;
+}
+.gb-guest button:hover{color:var(--primary-dark)}
+
+@media(max-width:680px){
+  .gb-card{grid-template-columns:1fr;max-height:96vh;border-radius:18px}
+  .gb-side{display:none}
+  .gb-form{padding:24px 20px}
+}
+@media(max-height:620px){
+  .gb-card{max-height:96vh}
+  .gb-form{padding:18px 18px}
+  .gb-form h2{font-size:20px}
+  .gb-input-wrap input{min-height:42px;font-size:14px}
+  .gb-masuk{min-height:42px}
+}
+@media(prefers-reduced-motion:reduce){.gerbang,.gb-card{animation:none}}

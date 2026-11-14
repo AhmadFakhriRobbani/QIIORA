@@ -1,0 +1,54 @@
+/* QIIORA design system — ramah anak SD kelas V: cerah, tenang, tanpa neon/glow */
+:root{
+  --bg:#F4FAFF; --card:#FFFFFF; --primary:#2F80ED; --primary-dark:#1F5FBF;
+  --green:#3BB273; --sun:#FFC857; --text:#1F2D3D; --muted:#5B6B7D;
+  --ok:#3BB273; --bad:#E5534B; --radius:16px; --shadow:0 4px 14px rgba(31,45,61,.10);
+
+  /* turunan (versi lembut untuk latar) */
+  --primary-soft:#E6F0FD; --green-soft:#E4F5EC; --bad-soft:#FDECEA; --sun-soft:#FFF4D6;
+  --line:#D6E4F2; --accent:#E8892B;
+  --font-judul:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --font-isi:"Nunito","Segoe UI",system-ui,sans-serif;
+
+  /* alias nama lama agar CSS/atribut inline lama tetap valid */
+  --ink:var(--text); --ink-soft:var(--muted); --paper:var(--bg); --paper-2:#EAF3FB;
+  --white:var(--card); --teal:var(--primary); --aqua:#BBD8FA; --coral:var(--accent);
+  --line-strong:#B4CCE3;
+  --display:var(--font-judul); --sans:var(--font-isi); --mono:var(--font-isi);
+
+  /* turunan baru (cangkang SPA) */
+  --primary-deep:#1F5FBF;   /* latar hover tombol — bukan warna teks */
+  --surface-2:#EAF3FC;      /* lapisan kedua di atas --bg */
+  --header-h:68px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  color-scheme:light;
+}
+
+/* ===== Mode gelap =====
+   Atribut data-tema diisi assets/js/tema.js (auto/terang/gelap -> terang|gelap). */
+html[data-tema="gelap"]{
+  --bg:#0F1A24; --card:#16232F; --primary:#3D8BEF; --primary-dark:#9CCBFF;
+  --primary-deep:#2A6FCB; --surface-2:#132230;
+  --green:#4FC98A; --sun:#FFC857; --text:#E7EEF6; --muted:#9DB0BF;
+  --ok:#4FC98A; --bad:#F07A72;
+  --primary-soft:#1B2E3F; --green-soft:#16342A; --bad-soft:#3A1F1E; --sun-soft:#392E15;
+  --line:#26404F; --line-strong:#33566B; --paper-2:#132230; --aqua:#2A5A72;
+  --shadow:0 6px 18px rgba(0,0,0,.38);
+  color-scheme:dark;
+}
+html[data-tema="gelap"] .section--tint{background:#10202E}
+html[data-tema="gelap"] .hero{background:linear-gradient(180deg,#14314A 0%,var(--bg) 100%)}
+html[data-tema="gelap"] .canvas-wrap{background:linear-gradient(180deg,#122436 0%,#16293C 55%,#193027 100%)}
+html[data-tema="gelap"] .sheet td[contenteditable]{background:#16222E}
+html[data-tema="gelap"] .sim-hint{background:rgba(22,35,47,.92)}
+html[data-tema="gelap"] .data-warning strong,
+html[data-tema="gelap"] .panduan strong,
+html[data-tema="gelap"] .fact .lab{color:#FFD98A}
+html[data-tema="gelap"] .misconception strong{color:#FFB4AE}
+html[data-tema="gelap"] .badge--belum{background:#22313D;color:var(--muted)}
+html[data-tema="gelap"] .stage-btn:hover{background:#22405A}
+html[data-tema="gelap"] .opt:hover:not(:disabled){background:var(--primary-soft)}
+html[data-tema="gelap"] .quiz-progress{background:#22313D}
+/* Ilustrasi SVG memakai tinta gelap di atas kertas putih: kertasnya TIDAK ikut menggelap */
+html[data-tema="gelap"] .hero-figure{background:#F7FBFF}
+html[data-tema="gelap"] .hero-figure figcaption{color:#43566A;border-top-color:#CFDDEA}

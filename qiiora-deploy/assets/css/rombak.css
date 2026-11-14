@@ -1,0 +1,926 @@
+/* ============================================================
+   QIIORA — ROMBAK TAMPILAN (dimuat PALING AKHIR)
+   Berisi:
+   1. Latar hidup global (kanvas + selubung + sorot matahari)
+   2. Navbar baru: bilah mengapung, kaca, indikator geser, ikon,
+      chip profil
+   3. Footer danau: latar menyambung dengan halaman
+   ============================================================ */
+
+/* ============================================================
+   1. LATAR HIDUP GLOBAL
+   Kanvas fixed di belakang semua isi. Selubung membuat bagian
+   tengah nyaris pekat supaya teks selalu terbaca, sementara tepi
+   layar tetap menampilkan langit, awan, gerimis, dan burung.
+   ============================================================ */
+.latar-hidup{
+  position:fixed;inset:0;z-index:0;
+  pointer-events:none;overflow:hidden;
+  contain:strict;
+}
+.latar-hidup-kanvas{position:absolute;inset:0;display:block;width:100%;height:100%}
+
+/* sorot matahari menembus mendung — tidak dipakai lagi di latar
+   baru (pemandangan menggambar matahari sendiri di kanvas).
+   Pertahankan untuk kompatibilitas: tanpa elemen di DOM tidak apa. */
+
+/* selubung SUDAH DIHAPUS — versi lama memakai radial-gradient tebal
+   yang memudarkan latar sampai nyaris tidak terlihat, padahal user
+   ingin latar tampil UTUH di belakang konten. Kini tidak ada
+   selubung sama sekali; konten halaman berada di atas latar dengan
+   z-index sendiri. Beberapa bagian konten mungkin menutupi latar
+   (kartu, panel, tabel), itu wajar dan diminta user. */
+
+html[data-tema="gelap"] .latar-surya{
+  background:radial-gradient(circle,rgba(255,204,110,.2) 0%,rgba(255,204,110,.09) 42%,rgba(255,204,110,0) 70%);
+}
+html[data-tema="gelap"] .latar-sorot{
+  background:
+    linear-gradient(112deg,rgba(150,196,255,0) 26%,rgba(150,196,255,.09) 40%,rgba(150,196,255,0) 54%),
+    linear-gradient(112deg,rgba(150,196,255,0) 52%,rgba(150,196,255,.07) 62%,rgba(150,196,255,0) 72%);
+}
+html[data-tema="gelap"] .latar-hidup::after{
+  background:
+    radial-gradient(140% 78% at 50% 52%, rgba(15,26,36,.94) 0%, rgba(15,26,36,.9) 44%, rgba(15,26,36,.55) 80%, rgba(15,26,36,.3) 100%);
+}
+
+/* isi situs selalu DI ATAS latar */
+body.ada-latar .site-head,
+body.ada-latar main,
+body.ada-latar .site-foot,
+body.ada-latar .bottom-nav{position:relative;z-index:2}
+body.ada-latar .site-head{position:sticky}
+body.ada-latar .bottom-nav{position:fixed}
+/* PENTING: drawer & scrim TIDAK boleh ikut z-index:2. Dengan nilai
+   itu drawer berada di bawah konten halaman, sehingga tombol keluar
+   di dalamnya mustahil diklik (tertutup .sk-chips/.skema/hero).
+   Drawer harus di atas segalanya. */
+body.ada-latar .drawer{position:fixed;z-index:9200}
+body.ada-latar .drawer-scrim{position:fixed;z-index:9100}
+
+/* beranda sudah punya ornamen sendiri: latar global ditipiskan */
+body.ada-latar #view-beranda .hero{background:linear-gradient(180deg,rgba(227,240,253,.66) 0%,rgba(244,250,255,.9) 100%)}
+html[data-tema="gelap"] body.ada-latar #view-beranda .hero{background:linear-gradient(180deg,rgba(20,49,74,.72) 0%,var(--bg) 100%)}
+
+/* Bagian berwarna sengaja dibuat TEMBUS. User minta latar pemandangan
+   tetap terlihat di semua halaman — bukan diburamkan atau ditutup.
+   .72/.76 terlalu pekat (halaman Kuis hanya menyisakan 5% latar);
+   kini .46/.52: konten tetap terbaca karena teks punya warna pekat
+   dan kartu di dalamnya tetap solid. */
+body.ada-latar .section--tint{background:rgba(234,243,252,.46)}
+html[data-tema="gelap"] body.ada-latar .section--tint{background:rgba(16,32,46,.52)}
+
+/* kartu & panel tetap solid supaya tulisan tidak tenggelam ke latar */
+body.ada-latar .card,
+body.ada-latar .bab-card,
+body.ada-latar .sheet,
+body.ada-latar .kartu,
+body.ada-latar .lkpd-toolbar,
+body.ada-latar .id-kartu{
+  backdrop-filter:saturate(120%);
+}
+
+/* ============================================================
+   2. NAVBAR BARU
+   Bilah mengapung (bukan menempel tepi), kaca buram, garis gradasi
+   yang bergerak, indikator geser, ikon per menu, chip profil.
+   ============================================================ */
+.site-head{
+  position:sticky;top:0;z-index:80;
+  background:transparent;border-bottom:0;
+  padding:10px 0 0;
+  transition:padding .3s var(--ease),box-shadow .3s var(--ease);
+}
+.site-head.is-scrolled{padding-top:6px;box-shadow:none}
+
+.head-in{
+  position:relative;
+  max-width:1240px;margin:0 auto;
+  padding:8px 12px 8px 16px;
+  min-height:64px;
+  display:flex;align-items:center;gap:10px;
+  border-radius:20px;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(214,228,242,.9);
+  box-shadow:0 10px 30px rgba(31,45,61,.10), 0 1px 0 rgba(255,255,255,.9) inset;
+  backdrop-filter:blur(16px) saturate(140%);
+  -webkit-backdrop-filter:blur(16px) saturate(140%);
+  transition:background .28s,box-shadow .28s,border-color .28s,transform .28s var(--ease);
+  overflow:visible;
+}
+/* garis gradasi berjalan di tepi bilah */
+.head-in::before{
+  content:"";position:absolute;inset:-1px;border-radius:21px;padding:1px;
+  background:linear-gradient(110deg,rgba(47,128,237,.5),rgba(59,178,115,.4),rgba(255,200,87,.5),rgba(47,128,237,.5));
+  background-size:280% 100%;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:.55;pointer-events:none;
+  animation:navGaris 12s linear infinite;
+}
+@keyframes navGaris{to{background-position:280% 0}}
+.site-head.is-scrolled .head-in{
+  background:rgba(255,255,255,.94);
+  box-shadow:0 16px 42px rgba(31,45,61,.16), 0 1px 0 rgba(255,255,255,.9) inset;
+}
+html[data-tema="gelap"] .head-in{
+  background:rgba(22,35,47,.86);
+  border-color:rgba(38,64,79,.9);
+  box-shadow:0 12px 34px rgba(0,0,0,.4), 0 1px 0 rgba(255,255,255,.05) inset;
+}
+html[data-tema="gelap"] .site-head.is-scrolled .head-in{background:rgba(22,35,47,.96)}
+html[data-tema="gelap"] .head-in::before{opacity:.42}
+
+/* merek: tetes air beranimasi */
+.brand{gap:12px;border-radius:14px;padding:2px 6px 2px 0}
+.brand-mark{
+  width:44px;height:44px;border-radius:14px;
+  background:linear-gradient(160deg,#4FA3F5,#1E5AA8);
+  position:relative;overflow:hidden;
+  box-shadow:0 6px 16px rgba(47,128,237,.34);
+  transition:transform .3s var(--ease),box-shadow .3s;
+}
+.brand-mark::after{
+  content:"";position:absolute;left:-40%;right:-40%;bottom:-58%;height:76%;
+  background:radial-gradient(ellipse at 50% 0,rgba(127,216,240,.9),rgba(127,216,240,0) 70%);
+  animation:brandAir 6s ease-in-out infinite;
+}
+@keyframes brandAir{
+  0%,100%{transform:translateY(0) scaleY(1)}
+  50%{transform:translateY(-7px) scaleY(1.12)}
+}
+.brand:hover .brand-mark{transform:translateY(-1px) rotate(-3deg);box-shadow:0 10px 22px rgba(47,128,237,.46)}
+.brand-name{font-size:20px;letter-spacing:.01em}
+.brand-sub{font-size:12px;letter-spacing:.02em}
+
+/* navigasi: ikon + label, indikator geser */
+.nav{margin-left:auto;gap:3px}
+.nav > a{
+  position:relative;
+  gap:7px;min-height:42px;padding:7px 13px;
+  border-radius:13px;
+  color:var(--muted);
+  transition:color .18s,background .18s,transform .16s var(--ease);
+}
+.nav > a svg{width:17px;height:17px;flex:none;opacity:.85;transition:opacity .18s,transform .2s var(--ease)}
+.nav > a:hover{background:rgba(47,128,237,.08);color:var(--primary-dark);transform:translateY(-1px)}
+.nav > a:hover svg{opacity:1;transform:scale(1.08)}
+.nav > a[aria-current="page"]{color:var(--primary-dark);background:rgba(47,128,237,.11)}
+.nav > a[aria-current="page"] svg{opacity:1;color:var(--primary)}
+.nav > a[aria-current="page"]:hover{background:rgba(47,128,237,.15);color:var(--primary-dark)}
+
+/* indikator geser lama dimatikan; penggantinya garis bawah berdenyut */
+.nav-ind{display:none}
+.nav > a[aria-current="page"]::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:2px;height:3px;border-radius:3px;
+  background:linear-gradient(90deg,var(--primary),var(--green));
+  animation:navBawah .4s var(--ease) both;
+}
+@keyframes navBawah{from{transform:scaleX(.2);opacity:0}to{transform:scaleX(1);opacity:1}}
+
+.nav-more-btn{
+  gap:6px;min-height:42px;padding:7px 12px;border-radius:13px;
+  transition:color .18s,background .18s,transform .16s var(--ease);
+}
+.nav-more-btn:hover{background:rgba(47,128,237,.08);color:var(--primary-dark);transform:translateY(-1px)}
+.nav-more-btn svg{transition:transform .24s var(--ease)}
+.nav-more-btn[aria-expanded="true"]{background:rgba(47,128,237,.11);color:var(--primary-dark)}
+.nav-more-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+
+/* panel "Lainnya" jadi kartu mengapung berikon */
+.nav-panel{
+  top:calc(100% + 14px);right:0;left:auto;width:296px;padding:10px;
+  border-radius:20px;
+  background:rgba(255,255,255,.97);
+  border:1px solid rgba(214,228,242,.95);
+  box-shadow:0 24px 60px rgba(31,45,61,.22);
+  backdrop-filter:blur(14px);
+  animation:panelMasuk .22s var(--ease) both;
+}
+@keyframes panelMasuk{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}
+html[data-tema="gelap"] .nav-panel{background:rgba(22,35,47,.98);border-color:rgba(38,64,79,.95)}
+.nav-panel a{padding:9px 12px;border-radius:12px;gap:11px;font-size:15px;transition:background .16s,color .16s,transform .16s var(--ease)}
+.nav-panel a:hover{transform:translateX(3px)}
+.nav-panel .np-label{font-size:11.5px;letter-spacing:.1em;color:#8195A6}
+
+/* chip profil */
+.head-profil{
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:42px;padding:5px 6px 5px 5px;border-radius:14px;
+  border:1px solid rgba(214,228,242,.95);
+  background:rgba(255,255,255,.7);
+  cursor:pointer;text-decoration:none;color:var(--text);
+  transition:background .18s,border-color .18s,transform .16s var(--ease),box-shadow .2s;
+  max-width:190px;
+}
+.head-profil:hover{background:var(--primary-soft);border-color:rgba(47,128,237,.4);transform:translateY(-1px);box-shadow:0 8px 20px rgba(47,128,237,.18)}
+.head-profil-ava{
+  width:32px;height:32px;flex:none;border-radius:10px;
+  display:grid;place-items:center;
+  background:linear-gradient(150deg,#4FA3F5,#1E5AA8);
+  color:#fff;font:800 13.5px/1 var(--font-judul);letter-spacing:.02em;
+  box-shadow:0 4px 10px rgba(47,128,237,.3);
+}
+.head-profil-txt{min-width:0;display:grid;line-height:1.18}
+.head-profil-nama{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.head-profil-sub{font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+html[data-tema="gelap"] .head-profil{background:rgba(255,255,255,.05);border-color:rgba(38,64,79,.9)}
+html[data-tema="gelap"] .head-profil:hover{background:var(--primary-soft)}
+
+/* tombol aksi */
+.cari-btn{
+  border-radius:13px;background:rgba(47,128,237,.08);
+  transition:background .18s,color .18s,transform .16s var(--ease);
+}
+.cari-btn:hover{background:rgba(47,128,237,.16);transform:translateY(-1px)}
+.icon-btn{border-radius:13px;background:rgba(47,128,237,.08);transition:background .18s,color .18s,transform .16s var(--ease)}
+.icon-btn:hover{background:var(--primary);color:#fff;transform:translateY(-1px)}
+.nav-toggle{background:rgba(47,128,237,.08);border-radius:13px}
+
+/* HP: bilah tetap mengapung, tepi menempel */
+@media(max-width:1024px){
+  .head-profil{max-width:150px}
+  .head-profil-sub{display:none}
+}
+@media(max-width:860px){
+  .site-head{padding:8px 10px 0}
+  .head-in{border-radius:18px;padding:7px 8px 7px 12px;min-height:60px}
+  .head-in::before{border-radius:19px}
+  .head-profil{max-width:44px;padding:5px;gap:0}
+  .head-profil-txt{display:none}
+  .brand-sub{display:none}
+}
+
+/* bottom-nav HP: kaca + penanda aktif bercahaya */
+.bottom-nav{
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(16px);
+  border-top:1px solid rgba(214,228,242,.9);
+  left:10px;right:10px;bottom:10px;border-radius:20px;
+  padding:6px;
+  box-shadow:0 14px 34px rgba(31,45,61,.18);
+}
+html[data-tema="gelap"] .bottom-nav{background:rgba(22,35,47,.94);border-color:rgba(38,64,79,.9)}
+.bottom-nav a[aria-current="page"]{background:rgba(47,128,237,.13);color:var(--primary-dark)}
+.bottom-nav a[aria-current="page"] svg{animation:bnPulse 2.4s ease-in-out infinite}
+@keyframes bnPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+
+/* ============================================================
+   3. FOOTER DANAU
+   Latar footer menyambung: air, tanah, rumput, batu, ikan, kelinci.
+   ============================================================ */
+.site-foot{
+  position:relative;
+  margin-top:clamp(40px,7vw,90px);
+  padding:0 0 20px;
+  background:transparent;
+  color:#DCEAF5;
+  overflow:hidden;
+}
+html[data-tema="gelap"] .site-foot{
+  background:transparent;
+  border-top:0;
+}
+/* latar semi-transparan pada konten footer agar teks terbaca
+   sementara latar pemandangan (kanvas) tembus di belakangnya */
+.site-foot .foot-grid{
+  background:linear-gradient(180deg,rgba(10,42,60,.55) 0%,rgba(7,30,44,.85) 100%);
+  /* hanya sudut ATAS yang membulat: pangkalnya menyatu dengan
+     baris bawah, jadi tidak terlihat seperti kartu mengambang */
+  border-radius:18px 18px 0 0;
+  padding:28px 28px 14px;
+  margin-bottom:0;
+  backdrop-filter:blur(4px);
+}
+html[data-tema="gelap"] .site-foot .foot-grid{
+  background:linear-gradient(180deg,rgba(6,32,46,.65) 0%,rgba(4,23,34,.9) 100%);
+}
+.site-foot .foot-bottom{
+  /* .75 terlalu pekat: baris terakhir jadi kotak gelap rata dan air
+     danau di bawahnya hilang. .42 membuat air tetap tembus
+     sementara teks putih tetap terbaca di atasnya. */
+  background:linear-gradient(180deg,rgba(7,30,44,.62),rgba(7,30,44,.30));
+  border-radius:0 0 18px 18px;
+  padding:12px 18px 16px;
+  margin-bottom:0;
+  backdrop-filter:blur(2px);
+}
+html[data-tema="gelap"] .site-foot .foot-bottom{
+  background:linear-gradient(180deg,rgba(4,23,34,.66),rgba(4,23,34,.34));
+}
+.site-foot .wrap{position:relative;z-index:2}
+
+/* panggung danau di kepala footer */
+.foot-danau{
+  position:relative;z-index:1;
+  width:100%;height:clamp(110px,15vw,180px);
+  margin-bottom:-10px;
+  pointer-events:none;
+}
+.danau-svg{display:block;width:100%;height:100%}
+.dn-riak path{animation:dnRiak 6s ease-in-out infinite}
+.dn-riak path:nth-child(2){animation-delay:.6s}
+.dn-riak path:nth-child(3){animation-delay:1.2s}
+.dn-riak path:nth-child(4){animation-delay:1.8s}
+.dn-riak path:nth-child(5){animation-delay:2.4s}
+.dn-riak path:nth-child(6){animation-delay:3s}
+@keyframes dnRiak{0%,100%{transform:translateX(0);opacity:.35}50%{transform:translateX(9px);opacity:.7}}
+.dn-ikan{animation:dnIkan 13s ease-in-out infinite}
+@keyframes dnIkan{0%,100%{transform:translateX(0)}50%{transform:translateX(52px)}}
+.dn-kelinci{animation:dnKelinci 5s ease-in-out infinite}
+@keyframes dnKelinci{0%,100%{transform:translate(1024px,156px) scale(1)}50%{transform:translate(1024px,150px) scale(1.04)}}
+.dn-kelinci2{animation:dnKelinci2 6.4s ease-in-out infinite}
+@keyframes dnKelinci2{0%,100%{transform:translate(1180px,150px) scale(.8)}50%{transform:translate(1180px,145px) scale(.83)}}
+
+.foot-brand strong{font-family:var(--font-judul);font-size:22px}
+.foot-col h3{color:#8FD6EC}
+.foot-col a{transition:color .16s,transform .16s var(--ease)}
+.foot-col a:hover{color:#FFFFFF}
+.foot-status{background:rgba(255,255,255,.1)}
+.foot-tools button{background:rgba(255,255,255,.1);transition:background .18s,transform .16s var(--ease)}
+.foot-tools button:hover{background:rgba(143,214,236,.28);transform:translateY(-1px)}
+.to-top{background:rgba(255,255,255,.12);transition:background .18s,transform .16s var(--ease)}
+.to-top:hover{background:rgba(143,214,236,.3);transform:translateY(-2px)}
+
+@media(prefers-reduced-motion:reduce){
+  .latar-surya,.latar-sorot,.brand-mark::after,.head-in::before,
+  .dn-riak path,.dn-ikan,.dn-kelinci,.dn-kelinci2,
+  .bottom-nav a[aria-current="page"] svg,.nav > a[aria-current="page"]::after{
+    animation:none!important;
+  }
+  .head-in,.nav > a,.nav-more-btn,.head-profil,.icon-btn,.cari-btn{transition:none!important}
+}
+
+/* cetak: latar & hiasan tidak ikut */
+@media print{
+  .latar-hidup,.foot-danau{display:none!important}
+  .site-foot{background:none!important;color:#1F2D3D!important}
+}
+/* ---------- pesan status pemasangan aplikasi ---------- */
+.pasang-pesan{
+  margin:8px 0 0;
+  font-size:12px;line-height:1.45;font-weight:700;
+  color:#BFE6FA;
+  background:rgba(255,255,255,.1);
+  border-radius:9px;
+  padding:7px 10px;
+  opacity:0;
+  transition:opacity .25s;
+}
+.pasang-pesan.tampil{opacity:1}
+.site-foot [data-pasang-apk].sudah-pasang{opacity:.6;cursor:default}
+
+/* ============================================================
+   BODY HARUS TEMBUS
+   Inilah biang keladi utama: base.css memasang
+   `body{background:var(--bg)}` yang OPAK, sehingga kanvas latar
+   pemandangan (position:fixed, z-index:0) tertutup rapat dan
+   tidak pernah benar-benar terlihat. Diukur: hanya 0-5% latar
+   yang tampak di halaman Kuis sebelum perbaikan ini.
+   ============================================================ */
+body.ada-latar{background:transparent!important}
+html.ada-latar-latar, html{background:transparent}
+
+/* warna dasar tetap dipakai bila JS mati (latar tidak terpasang) */
+body:not(.ada-latar){background:var(--bg)}
+
+/* ============================================================
+   KETERBACAAN TEKS DI ATAS LATAR
+   Latar pemandangan sekarang benar-benar terlihat (body tembus).
+   Konsekuensinya: teks yang dulu duduk di atas warna rata kini
+   bisa jatuh di atas pohon/air yang ramai. Solusinya BUKAN
+   memudarkan latar, tapi memberi "kaca tipis" hanya di balik
+   blok teks — seperti stiker bening. Latar tetap terlihat penuh
+   di sekitarnya.
+   ============================================================ */
+body.ada-latar .view-head,
+body.ada-latar .sec-head,
+body.ada-latar .hero-copy,
+body.ada-latar .butir-atas,
+body.ada-latar .lede,
+body.ada-latar .kicker{
+  position:relative;
+  z-index:1;
+}
+
+/* blok judul halaman: kaca putih tipis dengan sudut membulat */
+body.ada-latar .view-head,
+body.ada-latar .sec-head{
+  padding:clamp(14px,2vw,22px) clamp(16px,2.2vw,26px);
+  border-radius:18px;
+  background:rgba(255,255,255,.62);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+  box-shadow:0 4px 18px rgba(31,45,61,.06);
+}
+html[data-tema="gelap"] body.ada-latar .view-head,
+html[data-tema="gelap"] body.ada-latar .sec-head{
+  background:rgba(16,32,46,.62);
+}
+
+/* paragraf pengantar di dalam blok itu jangan dobel kaca */
+body.ada-latar .view-head .lede,
+body.ada-latar .sec-head .sec-desc{
+  background:none;
+  padding:0;
+  backdrop-filter:none;
+  box-shadow:none;
+}
+
+/* teks butir modul (judul + meta) juga diberi kaca tipis */
+body.ada-latar .butir-posisi{
+  padding:12px 16px;
+  border-radius:16px;
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(3px);
+}
+html[data-tema="gelap"] body.ada-latar .butir-posisi{background:rgba(16,32,46,.6)}
+
+/* ============================================================
+   FOOTER MENYATU DENGAN DANAU
+   User minta air danau "tembus sampai bagian footer dan benar-
+   benar bagian footer sampai bawah sendiri". Karena kanvas latar
+   itu position:fixed, ia sudah menyentuh tepi bawah layar; yang
+   membuatnya terlihat "mengambang" adalah padding + gradasi gelap
+   di dasar footer. Keduanya dirapikan di sini.
+   ============================================================ */
+.site-foot{
+  padding-bottom:0;
+  margin-bottom:0;
+}
+.site-foot .foot-bottom{
+  padding-bottom:14px;
+  margin-bottom:0;
+  border-bottom-left-radius:18px;
+  border-bottom-right-radius:18px;
+}
+/* tepi bawah footer dibuat memudar, bukan bergaris tegas,
+   supaya air terlihat menyambung ke bawah halaman */
+/* dasar footer dibiarkan benar-benar tembus supaya air danau
+   menyentuh tepi bawah halaman (bukan lapisan gelap tambahan). */
+
+/* ============================================================
+   PERBAIKAN 14 Nov — revisi Fiqi
+   ============================================================ */
+
+/* ---------- 1. NAVBAR "Lainnya" KETIMBUN ----------
+   Penyebab: .site-head z-index:80, sementara main di z-index:2.
+   Panel anaknya tetap terpotong karena parent (.head-in) punya
+   overflow:visible tapi stacking context .nav lebih rendah dari
+   konten ber-z-index. Naikkan tumpukan seluruh header + panel. */
+.site-head{z-index:9000!important}
+.nav{position:relative;z-index:1}
+.nav-more{position:relative}
+.nav-panel{
+  z-index:9001!important;
+  position:absolute;
+}
+body.ada-latar .site-head{position:sticky;z-index:9000}
+
+/* ---------- 2. FOOTER FULL-WIDTH (mentok kiri-kanan) ----------
+   .wrap membatasi 1180px sehingga footer terlihat menyempit di
+   tengah. Footer dibuat selebar layar; isinya tetap rata dengan
+   konten lewat padding dalam. */
+.site-foot .wrap{
+  max-width:none;
+  width:100%;
+  padding-left:clamp(16px,3vw,40px);
+  padding-right:clamp(16px,3vw,40px);
+}
+.site-foot{
+  width:100%;
+  max-width:none;
+}
+
+/* ---------- 3. ANIMASI LATAR DI DALAM KOTAK FOOTER ----------
+   User minta animasi berjalan DI DALAM kotak footer, bukan
+   membelakangi. Jadi kanvas latar dipotong (clip) ke kotak
+   footer, dan latar belakang halaman di area footer disembunyikan. */
+.site-foot .foot-grid{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  min-height:260px;
+}
+/* kanvas mini animasi di dalam kotak footer */
+.foot-anim{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.5;
+  border-radius:18px 18px 0 0;
+}
+.foot-anim canvas{display:block;width:100%;height:100%}
+.site-foot .foot-grid > .foot-col{position:relative;z-index:2}
+/* di area footer, latar halaman tidak boleh ikut terlihat:
+   beri alas gelap pekat pada kotak bawah footer */
+.site-foot .foot-bottom{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  min-height:56px;
+}
+.site-foot .foot-bottom > *{position:relative;z-index:2}
+.foot-anim-bawah{
+  position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.45;
+}
+.foot-anim-bawah canvas{display:block;width:100%;height:100%}
+
+/* ---------- 4. TOMBOL LOGOUT ---------- */
+.head-logout{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:42px;width:42px;padding:0;
+  border-radius:13px;
+  border:1px solid rgba(214,228,242,.95);
+  background:rgba(255,255,255,.7);
+  color:#C33D4E;cursor:pointer;
+  transition:background .16s,border-color .16s,transform .16s;
+}
+.head-logout:hover{background:rgba(224,92,110,.14);border-color:rgba(224,92,110,.5);transform:translateY(-1px)}
+.head-logout svg{width:18px;height:18px}
+html[data-tema="gelap"] .head-logout{background:rgba(255,255,255,.05);border-color:rgba(38,64,79,.9)}
+@media(max-width:860px){.head-logout{display:none}}
+
+/* ---------- PANEL "Lainnya": opacity & tinggi ----------
+   Dua bug nyata yang dikeluhkan user:
+   (a) opacity tertahan 0 karena animasi @keyframes mulai dari 0
+       dan tidak berjalan saat tab di latar -> panel tak terlihat
+       walau sudah "terbuka".
+   (b) tinggi 1327px: panel tidak dibatasi, semua item meluber.
+   Perbaikan: tanpa animasi opacity, tinggi dibatasi + scroll. */
+.nav-panel{
+  opacity:1;
+  animation:none;
+  max-height:min(70vh, 520px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  left:auto;
+  right:0;
+  display:grid;
+  gap:2px;
+}
+.nav-panel[hidden]{display:none}
+/* tampilkan saat dibuka lewat atribut/kelas apapun */
+.nav-panel:not([hidden]){opacity:1}
+
+/* ============================================================
+   PERBAIKAN KETAT 14 Nov (revisi ke-3 Fiqi)
+   ============================================================ */
+
+/* ---------- A. NAVBAR "LAINNYA" MASIH KETIMBUN ----------
+   AKAR MASALAH SEBENARNYA: .head-in punya `backdrop-filter`, dan
+   backdrop-filter MEMBUAT STACKING CONTEXT BARU. Akibatnya
+   z-index .nav-panel (9001) hanya berlaku DI DALAM .head-in —
+   ia tidak bisa menembus elemen saudara header yang lebih tinggi.
+   Juga .head-in punya overflow:visible tapi turunannya .nav
+   membuat konteks sendiri.
+   Perbaikan: pakai :has() untuk mengangkat header saat panel
+   terbuka + hapus filter dari jalur tumpukan panel. */
+.site-head{ z-index:9000 !important; position:sticky; }
+.site-head .head-in{ overflow:visible; }
+.nav{ position:static; }
+
+/* panel dipindah ke koordinat tetap relatif .head-in, bukan .nav-more */
+.nav-more{ position:static; }
+.nav-panel{
+  position:absolute;
+  top:calc(100% + 12px);
+  right:12px;
+  left:auto;
+  width:min(300px, calc(100vw - 28px));
+  max-height:min(64vh, 460px);
+  overflow-y:auto;
+  z-index:9500;
+  opacity:1;
+  animation:none;
+  display:grid;
+  gap:3px;
+}
+.nav-panel[hidden]{ display:none; }
+
+/* saat panel terbuka, header naik di atas segalanya */
+body.nav-terbuka .site-head{ z-index:9600 !important; }
+body.nav-terbuka .nav-panel{ z-index:9601; }
+
+/* ---------- B. FOOTER: FULL WIDTH + TIDAK NGEBUG ----------
+   Versi sebelumnya memakai .wrap yang masih punya max-width dari
+   aturan lain dan padding dobel, sehingga kotak footer menjorok
+   38px dari kiri. Sekarang dipaksa rata tepi. */
+.site-foot{ width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw); }
+.site-foot > .wrap{
+  max-width:none !important;
+  width:100% !important;
+  margin:0 !important;
+  padding-left:clamp(18px,3vw,46px) !important;
+  padding-right:clamp(18px,3vw,46px) !important;
+  box-sizing:border-box;
+}
+/* kotak footer menempel tepi kiri-kanan layar */
+.site-foot .foot-grid{
+  border-radius:0;
+  margin:0 !important;
+  width:100%;
+}
+.site-foot .foot-bottom{
+  border-radius:0;
+  margin:0 !important;
+  width:100%;
+}
+
+/* ---------- C. MENU PROFIL (bukan link identitas) ----------
+   User: "profil siswa itu kok malah jadi profil siswa bukan
+   identitas penyusun" + "gak bisa logout".
+   Chip profil kini MEMBUKA MENU: Identitas Penyusun, Lembar
+   Pengumpulan, Keluar. */
+.head-profil{ position:relative; }
+.menu-profil{
+  position:absolute;
+  top:calc(100% + 10px);
+  right:0;
+  min-width:250px;
+  padding:8px;
+  border-radius:16px;
+  background:var(--card);
+  border:1px solid var(--line);
+  box-shadow:0 20px 50px rgba(20,45,70,.24);
+  z-index:9700;
+  display:grid;
+  gap:2px;
+  opacity:1;
+}
+.menu-profil[hidden]{display:none}
+.mp-head{
+  padding:10px 10px 12px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:6px;
+  display:grid;gap:2px;
+}
+.mp-head b{font-size:14px;font-weight:800;color:var(--text);word-break:break-all}
+.mp-head i{font-style:normal;font-size:12px;color:var(--muted);font-weight:600}
+.mp-item{
+  display:flex;align-items:center;gap:10px;
+  width:100%;padding:10px 11px;
+  border:0;border-radius:11px;
+  background:transparent;color:var(--text);
+  font:600 14px var(--font-isi);
+  text-align:left;text-decoration:none;cursor:pointer;
+  transition:background .15s,color .15s;
+}
+.mp-item:hover{background:var(--primary-soft);color:var(--primary-dark)}
+.mp-item svg{width:17px;height:17px;flex:none;opacity:.8}
+.mp-item--keluar{color:#C33D4E}
+.mp-item--keluar:hover{background:rgba(224,92,110,.12);color:#A32B24}
+.mp-note{
+  padding:6px 11px 4px;
+  font-size:11.5px;color:var(--muted);font-weight:600;
+  border-top:1px solid var(--line);margin-top:4px;
+}
+
+/* ---------- D. SVG PANEL NAVBAR MEMBENGKAK ----------
+   AKAR BUG "navbar lainya ketimbun": <svg> di dalam .nav-panel
+   tidak punya width/height, sehingga `width:auto` membuatnya
+   mengisi penuh lebar flex (114px per ikon!). Setiap baris jadi
+   ~100-200px, panel meluber 1274px padahal tingginya 360px,
+   dan tautan di bawahnya tertutup konten halaman.
+   Perbaikan: kunci ukuran ikon dan baris. */
+.nav-panel svg{
+  width:16px !important;
+  height:16px !important;
+  flex:0 0 16px !important;
+  max-width:16px;
+  max-height:16px;
+}
+.nav-panel img{
+  width:16px !important;
+  height:16px !important;
+  flex:0 0 16px !important;
+  object-fit:contain;
+}
+.nav-panel > a,
+.nav-panel > button,
+.nav-panel .np-item{
+  display:flex !important;
+  align-items:center;
+  gap:9px;
+  min-height:38px;
+  padding:8px 11px !important;
+  line-height:1.25;
+  text-align:left;
+  border-radius:10px;
+}
+.nav-panel .np-label{ flex:1 1 auto; min-width:0; }
+/* panel sendiri: daftar biasa, bukan grid berpaut tinggi */
+.nav-panel{
+  display:flex !important;
+  flex-direction:column;
+  gap:2px;
+  max-height:min(62vh, 430px);
+  overflow-y:auto;
+  grid-template-rows:none !important;
+}
+
+/* panel muat semua item tanpa scroll internal */
+.nav-panel{ max-height:min(82vh, 540px) !important; }
+
+/* ============================================================
+   E. FOOTER: KOTAK BERLATAR SENDIRI (bukan tembus)
+
+   KELUHAN: "animasi background di footer itu bukan di belakang
+   footer tapi jadi satu di footer". Penyebabnya kotak footer
+   memakai background rgba(...,.55) dan body transparan, jadi
+   latar halaman menembus dan animasi terlihat "di belakang".
+   Sekarang kotak footer punya latar PEKAT sendiri, dan kanvas
+   animasi ditaruh DI DALAMNYA sebagai latar kotak itu. */
+.site-foot{ background:#071E2C !important; }
+.site-foot .foot-grid{
+  background:#0A2A3C !important;      /* pekat, bukan tembus */
+  backdrop-filter:none !important;
+  border-radius:18px 18px 0 0 !important;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+html[data-tema="gelap"] .site-foot{ background:#050F18 !important; }
+html[data-tema="gelap"] .site-foot .foot-grid{ background:#071A28 !important; }
+
+/* kanvas animasi = latar DALAM kotak footer.
+   opacity dinaikkan supaya benar-benar terlihat sebagai latar
+   kotak, bukan bayangan samar. */
+.site-foot .foot-anim{
+  opacity:1 !important;
+  z-index:0;
+  inset:0;
+  border-radius:inherit;
+}
+/* lapisan gelap tipis agar teks tetap terbaca di atas animasi */
+.site-foot .foot-anim::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(6,26,38,.55) 0%, rgba(6,26,38,.82) 100%);
+  pointer-events:none;
+}
+.site-foot .foot-grid > .foot-col{ position:relative; z-index:2; }
+
+/* baris bawah footer juga pekat & punya animasi sendiri */
+.site-foot .foot-bottom{
+  background:#071E2C !important;
+  backdrop-filter:none !important;
+  border-radius:0 0 18px 18px !important;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+html[data-tema="gelap"] .site-foot .foot-bottom{ background:#050F18 !important; }
+.site-foot .foot-anim-bawah{ opacity:1 !important; z-index:0; border-radius:inherit; }
+.site-foot .foot-anim-bawah::after{
+  content:"";
+  position:absolute;inset:0;
+  background:rgba(6,26,38,.72);
+  pointer-events:none;
+}
+.site-foot .foot-bottom > *{ position:relative; z-index:2; }
+
+/* overlay terlalu pekat -> animasi tak terlihat. Longgarkan. */
+.site-foot .foot-anim::after{
+  background:linear-gradient(180deg, rgba(6,26,38,.28) 0%, rgba(6,26,38,.55) 100%) !important;
+}
+.site-foot .foot-bottom .foot-anim-bawah::after{
+  background:rgba(6,26,38,.45) !important;
+}
+
+/* overlay final: cukup untuk kontras teks, animasi tetap jelas */
+.site-foot .foot-anim::after{
+  background:linear-gradient(180deg, rgba(6,26,38,.18) 0%, rgba(6,26,38,.48) 100%) !important;
+}
+
+/* tombol keluar di drawer HP */
+.drawer-keluar{
+  display:flex;align-items:center;gap:9px;
+  width:100%;margin-top:14px;
+  padding:11px 12px;
+  border:1px solid rgba(224,92,110,.34);
+  border-radius:12px;
+  background:rgba(224,92,110,.1);
+  color:#E05C6E;
+  font:700 14.5px var(--font-isi);
+  cursor:pointer;text-align:left;
+}
+.drawer-keluar:hover{background:rgba(224,92,110,.18)}
+.drawer-keluar svg{flex:none}
+
+/* ---------- F. DRAWER HP: TOMBOL KELUAR DI LUAR LAYAR ----------
+   Drawer tinggi 844px tapi isi 949px; karena .drawer-body tidak
+   bisa digulir, tombol keluar di ujung tidak pernah terjangkau.
+   Perbaikan: badan drawer jadi fleksibel + bisa digulir. */
+.drawer{
+  display:flex !important;
+  flex-direction:column;
+  height:100vh;
+  height:100dvh;
+  max-height:100dvh;
+}
+.drawer-head{ flex:0 0 auto; }
+.drawer-body{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:26px;
+}
+.drawer-keluar{
+  position:sticky;
+  bottom:8px;
+  z-index:3;
+  backdrop-filter:blur(6px);
+}
+
+/* ---------- G. DRAWER TIDAK TERBUKA (transform tidak dilepas) ----------
+   body.nav-open .drawer{transform:none} ada di cangkang.css, tetapi
+   aturan .drawer yang lebih baru (display:flex!important + height)
+   ternyata tetap kalah pada beberapa keadaan. Dipaksa di sini. */
+body.nav-open .drawer,
+body.nav-open .drawer[aria-hidden="false"]{
+  transform:translateX(0) !important;
+  visibility:visible;
+}
+body:not(.nav-open) .drawer{ transform:translateX(102%); }
+
+/* ---------- H. TRANSLASI DRAWER MACET (transisi CSS) ----------
+   BUKTI dari browser: getAnimations() menunjukkan "CSSTransition
+   running" yang tidak pernah selesai saat tab di latar, sehingga
+   transform tetap translateX(326.4px) dan drawer TIDAK PERNAH
+   terbuka - tombol keluar di dalamnya mustahil diklik.
+   Sama keluarganya dengan bug opacity gerbang.
+   OBAT: jangan bergantung pada transisi untuk keadaan akhir.
+   Pakai display (diskret, tidak bisa macet). */
+.drawer{
+  display:none !important;
+  transform:none !important;
+  transition:none !important;
+  visibility:visible !important;
+}
+body.nav-open .drawer{
+  display:flex !important;
+  transform:none !important;
+}
+/* scrim juga diskret */
+.drawer-scrim{ transition:none !important; }
+
+/* ---------- I. PANEL KARTU: OBAT YANG SAMA ----------
+   .panel-kartu{opacity:0} + transisi = panel bisa tak terlihat
+   permanen bila transisi macet. opacity dipaksa 1, tampil/tidak
+   diatur display lewat kelas .on. */
+.panel-kartu{
+  opacity:1 !important;
+  transform:none !important;
+  display:none;
+}
+.panel-kartu.on{ display:flex !important; }
+.panel-kartu.pergi{ display:none !important; }
+
+/* ---------- J. KOTAK FOOTER BENAR-BENAR MENTOK TEPI ----------
+   Masih ada padding clamp(18px,3vw,46px) di .wrap sehingga kotak
+   footer menjorok 38px dari tepi. Padding dipindah KE DALAM kotak
+   supaya kotaknya sendiri menyentuh tepi layar. */
+.site-foot > .wrap{
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
+.site-foot .foot-grid{
+  padding-left:clamp(18px,3.4vw,46px) !important;
+  padding-right:clamp(18px,3.4vw,46px) !important;
+  border-radius:18px 18px 0 0 !important;
+}
+.site-foot .foot-bottom{
+  padding-left:clamp(18px,3.4vw,46px) !important;
+  padding-right:clamp(18px,3.4vw,46px) !important;
+  border-radius:0 0 18px 18px !important;
+}
+
+/* trík 100vw membuat footer bergeser -7px karena scrollbar.
+   Pakai 100% supaya tepat selebar area tampil. */
+.site-foot{
+  width:100% !important;
+  max-width:100% !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+}
+
+/* ---------- K. ANIMASI FOOTER TERLALU GELAP ----------
+   Hasil ukur: kanvas hanya menghasilkan warna (16,48,80) lalu
+   ditimpa overlay sehingga di layar nyaris tak terlihat.
+   Dua obat: cerahkan kanvas + kurangi overlay. */
+.site-foot .foot-anim canvas{
+  filter:brightness(1.55) saturate(1.25) contrast(1.06);
+}
+.site-foot .foot-anim::after{
+  background:linear-gradient(180deg, rgba(6,26,38,.06) 0%, rgba(6,26,38,.30) 100%) !important;
+}
+.site-foot .foot-anim-bawah canvas{
+  filter:brightness(1.4) saturate(1.2);
+}
+.site-foot .foot-bottom .foot-anim-bawah::after{
+  background:rgba(6,26,38,.34) !important;
+}

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QIIORA — Tugas &amp; Pengumpulan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/komponen.css">
+<link rel="stylesheet" href="assets/css/halaman.css">
+<link rel="stylesheet" href="assets/css/cangkang.css">
+<link rel="stylesheet" href="assets/css/ui.css">
+<script src="assets/js/tema.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Lewati ke konten utama</a>
+
+<header class="site-head">
+  <div class="head-in">
+    <a class="brand" href="index.html#/beranda" aria-label="Beranda QIIORA">
+      <span class="brand-mark" aria-hidden="true">H₂O</span>
+      <span style="min-width:0;overflow:hidden">
+        <span class="brand-name">QIIORA</span>
+        <span class="brand-sub">IPAS · Fase C · Kelas V</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="navUtama" aria-label="Navigasi utama">
+      <span class="nav-ind" data-nav-ind aria-hidden="true"></span>
+      <a href="index.html#/beranda">Beranda</a>
+      <a href="index.html#/modul">Modul</a>
+      <a href="index.html#/simulasi">Simulasi 3D</a>
+      <a href="index.html#/kuis">Kuis</a>
+      <a href="index.html#/lkpd">LKPD</a>
+      <a href="index.html#/sumber">Sumber</a>
+      <a href="tugas.html" aria-current="page">Tugas</a>
+      <a href="pengajar.html">Pengajar</a>
+    </nav>
+
+    <div class="head-actions">
+      <button class="cari-btn" type="button" data-cari aria-label="Cari (Ctrl+K)" title="Cari — Ctrl+K">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+        <span>Cari</span><kbd>Ctrl K</kbd>
+      </button>
+      <button class="icon-btn" type="button" data-tema-toggle aria-pressed="false" aria-label="Ganti mode terang atau gelap" title="Mode terang / gelap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+      </button>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="drawer" aria-label="Buka menu">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer-scrim" data-drawer-scrim></div>
+<aside class="drawer" id="drawer" aria-label="Menu navigasi">
+  <div class="drawer-head">
+    <strong>Menu QIIORA</strong>
+    <button class="icon-btn" type="button" data-drawer-close aria-label="Tutup menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-body" aria-label="Navigasi lengkap">
+    <a href="index.html#/beranda">Beranda</a>
+    <span class="np-label">Belajar</span>
+    <a href="index.html#/modul">Modul</a>
+    <a href="index.html#/tujuan">Tujuan Pembelajaran</a>
+    <a href="index.html#/materi">Materi Pokok</a>
+    <a href="index.html#/simulasi">Simulasi 3D</a>
+    <a href="index.html#/model-tanah">Model Tanah 3D</a>
+    <a href="index.html#/kesimpulan">Kesimpulan</a>
+    <span class="np-label">Latihan</span>
+    <a href="index.html#/kuis">Kuis Pemahaman</a>
+    <a href="index.html#/lkpd">LKPD</a>
+    <a href="tugas.html" aria-current="page">Tugas</a>
+    <span class="np-label">Lainnya</span>
+    <a href="index.html#/sumber">Sumber &amp; Data</a>
+    <a href="kumpul.html">Lembar Pengumpulan</a>
+    <a href="pengajar.html">Mode Pengajar</a>
+    <a href="index.html#/identitas">Identitas Penyusun</a>
+  </nav>
+</aside>
+
+
+<main class="page">
+  <div class="wrap-narrow">
+    <p class="breadcrumb"><a href="index.html">QIIORA</a> / Tugas</p>
+    <h1>Tugas Post-Test</h1>
+    <p class="lede">Setiap sesi punya satu tugas yang dikerjakan di luar web, diunggah ke Google Drive kamu, lalu tautannya ditempel di sini. Web tidak menyimpan berkasmu.</p>
+
+    <div class="panduan">
+      <strong>Panduan Berbagi Tautan Drive</strong>
+      <p>Buka Google Drive → pilih berkas → <em>Bagikan</em> → Akses umum: <strong>Siapa saja yang memiliki link</strong> → Peran: <strong>Pelihat</strong> → salin tautan. Uji di jendela penyamaran (incognito) sebelum menempel di sini.</p>
+    </div>
+
+    <div id="tugasDaftar"></div>
+
+    <div class="act-row no-print">
+      <a class="btn btn--ghost" href="kumpul.html">Lihat Lembar Pengumpulan</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="foot-brand">
+          <span class="brand-mark" aria-hidden="true">H₂O</span>
+          <strong>QIIORA</strong>
+        </div>
+        <p>Media pembelajaran interaktif Siklus Air untuk IPAS Fase C (Kelas V SD/MI). Berjalan tanpa build step dan tetap bekerja saat luring.</p>
+        <span class="foot-status" data-koneksi><i aria-hidden="true"></i>Tersambung</span>
+      </div>
+      <div class="foot-col">
+        <h3>Belajar</h3>
+        <ul>
+          <li><a href="index.html#/modul">Modul</a></li>
+          <li><a href="index.html#/tujuan">Tujuan Pembelajaran</a></li>
+          <li><a href="index.html#/materi">Materi Pokok</a></li>
+          <li><a href="index.html#/simulasi">Simulasi 3D</a></li>
+          <li><a href="bab/bab-3-siklus-air.html">Bab 3 · Siklus Air</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Latihan &amp; data</h3>
+        <ul>
+          <li><a href="index.html#/kuis">Kuis Pemahaman</a></li>
+          <li><a href="index.html#/lkpd">LKPD</a></li>
+          <li><a href="tugas.html">Tugas</a></li>
+          <li><a href="index.html#/sumber">Sumber &amp; Data</a></li>
+          <li><a href="pengajar.html">Mode Pengajar</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Pengaturan</h3>
+        <div class="foot-tools">
+          <button type="button" data-tema-toggle aria-pressed="false" aria-label="Ganti mode terang atau gelap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+            <span data-tema-label>Mode gelap</span>
+          </button>
+          <button type="button" data-ukuran-toggle aria-label="Ukuran teks">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 18l5-12 5 12M4.6 14h6.8M14 18l4-10 4 10M15.4 15h5.2"/></svg>
+            <span data-ukuran-label>Teks S</span>
+          </button>
+        </div>
+        <p style="margin-top:12px">Disusun oleh Fiqi Islam Mahfutdin<br>Pendidikan Informatika · STKIP PGRI Pacitan</p>
+        <ul>
+          <li><a href="index.html#/identitas">Identitas Penyusun</a></li>
+          <li><a href="kumpul.html">Lembar Pengumpulan</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 QIIORA · <span data-versi>v1.1.0</span> · HTML · CSS · JavaScript · Three.js r128 (offline)</span>
+      <button class="to-top" type="button" data-to-top>
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6"/></svg>
+        Ke atas
+      </button>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Navigasi cepat">
+  <ul>
+    <li><a href="index.html#/beranda">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"/></svg>Beranda</a></li>
+    <li><a href="index.html#/modul">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></svg>Modul</a></li>
+    <li><a href="index.html#/simulasi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 3v18"/></svg>Simulasi</a></li>
+    <li><a href="index.html#/kuis">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3V13"/><circle cx="12.8" cy="16.4" r=".9" fill="currentColor" stroke="none"/></svg>Kuis</a></li>
+    <li><button type="button" data-nav-toggle aria-expanded="false" aria-controls="drawer" aria-label="Menu lainnya">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button></li>
+  </ul>
+</nav>
+
+
+<script src="data/konfigurasi.js"></script>
+<script src="assets/js/inti.js"></script>
+<script src="assets/js/simpan.js"></script>
+<script src="assets/js/baca.js"></script>
+<script src="assets/js/router.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/cari.js"></script>
+<script src="assets/js/tugas.js"></script>
+<script src="data/tugas.js"></script>
+<script>
+(function(){
+'use strict';
+var daftar = $('[data-tugas-daftar]') || document.getElementById('tugasDaftar');
+function pesan(t, jenis){
+  if(QIIORA.ui) QIIORA.ui.toast(t, { jenis: jenis || 'info' });
+}
+
+var kumpul = QIIORA.tugas.ambilKumpul();
+
+function render(){
+  daftar.innerHTML = '';
+  (QIIORA.tugasList || []).forEach(function(t){
+    var st = kumpul[t.id] || { status:'belum', link:'', catatan:'', waktu:'' };
+    var card = document.createElement('div');
+    card.className = 'card';
+
+    var badge = st.status === 'terkirim' ? 'badge badge--terkirim'
+              : st.status === 'draf' ? 'badge badge--draf'
+              : 'badge badge--belum';
+    var badgeText = st.status === 'terkirim' ? 'Terkirim' : st.status === 'draf' ? 'Draf' : 'Belum';
+
+    var html = '<div class="card-head">'
+      + '<div style="min-width:0"><span class="mono" style="color:var(--coral)">' + t.id + ' · BAB ' + t.bab + '</span>'
+      + '<h2 class="card-title">' + t.judul + '</h2>'
+      + '<p style="color:var(--ink-soft);margin:6px 0 0">' + t.tujuan + '</p></div>'
+      + '<span class="' + badge + '">' + badgeText + '</span></div>'
+      // Instruksi singkat
+      + '<details style="margin-top:10px;"><summary style="cursor:pointer;color:var(--teal);font-weight:600">Lihat instruksi &amp; rubrik</summary>'
+      + '<ol style="margin:8px 0 0;padding-left:18px">' + (t.langkah || []).map(function(s){ return '<li>'+s+'</li>'; }).join('') + '</ol>'
+      + '<p class="mono" style="margin-top:8px;color:var(--ink-soft)">Penamaan berkas: ' + (t.penamaan||'') + '</p>'
+      + '</details>'
+      // kolom tautan
+      + '<div class="field"><label for="link-' + t.id + '">Tautan Google Drive</label>'
+      + '<input type="text" id="link-' + t.id + '" data-link="' + t.id + '" value="' + (st.link||'').replace(/"/g,'&quot;') + '" placeholder="https://drive.google.com/..." autocomplete="off">'
+      + '<div class="field-hint" data-hint="' + t.id + '"></div></div>';
+
+    card.innerHTML = html;
+    daftar.appendChild(card);
+
+    var linkInput = card.querySelector('input[data-link]');
+    var hint = card.querySelector('[data-hint]');
+    linkInput.addEventListener('input', function(){
+      var v = QIIORA.tugas.validasiTautan(linkInput.value);
+      if(!linkInput.value.trim()){
+        hint.textContent = '';
+        hint.className = 'field-hint';
+      } else if(v.valid){
+        hint.textContent = '✓ ' + v.alasan;
+        hint.className = 'field-hint ok';
+      } else {
+        hint.textContent = '✗ ' + v.alasan;
+        hint.className = 'field-hint err';
+      }
+    });
+
+    // status toggle
+    var statusRow = document.createElement('div');
+    statusRow.className = 'status-row';
+    ['belum','draf','terkirim'].forEach(function(s){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = s;
+      b.setAttribute('aria-pressed', String(st.status === s));
+      b.addEventListener('click', function(){
+        kumpul[t.id] = kumpul[t.id] || {};
+        kumpul[t.id].status = s;
+        QIIORA.tugas.simpanKumpul(kumpul);
+        pesan(t.id + ' → ' + s);
+        render();
+      });
+      statusRow.appendChild(b);
+    });
+
+    // catatan
+    var catField = document.createElement('div');
+    catField.className = 'field';
+    catField.innerHTML = '<label for="cat-' + t.id + '">Catatan untuk pengajar</label>'
+      + '<textarea id="cat-' + t.id + '" data-cat="' + t.id + '" placeholder="Opsional">' + (st.catatan||'').replace(/</g,'&lt;') + '</textarea>';
+    statusRow.appendChild(document.createElement('span')); // spacer kosong agar tombol tidak mepet
+
+    card.appendChild(statusRow);
+    card.appendChild(catField);
+
+    // buka & salin
+    var actions = document.createElement('div');
+    actions.className = 'field';
+    actions.style.display = 'flex';
+    actions.style.gap = '8px';
+    if(st.link){
+      var openBtn = document.createElement('a');
+      openBtn.className = 'btn btn--sm';
+      openBtn.href = st.link;
+      openBtn.target = '_blank';
+      openBtn.rel = 'noopener noreferrer';
+      openBtn.textContent = 'Buka tautan';
+      actions.appendChild(openBtn);
+    }
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'btn btn--ghost btn--sm';
+    copyBtn.type = 'button';
+    copyBtn.textContent = 'Salin';
+    copyBtn.addEventListener('click', function(){
+      var l = linkInput.value.trim();
+      if(!l){ pesan('Tautan masih kosong'); return; }
+      if(navigator.clipboard){ navigator.clipboard.writeText(l).then(function(){ pesan('Tautan disalin'); }); }
+      else { pesan('Salin manual: ' + l); }
+    });
+    actions.appendChild(copyBtn);
+    card.appendChild(actions);
+
+    linkInput.addEventListener('input', function(){
+      kumpul[t.id] = kumpul[t.id] || {};
+      kumpul[t.id].link = linkInput.value.trim();
+      kumpul[t.id].waktu = new Date().toISOString();
+      QIIORA.tugas.simpanKumpul(kumpul);
+    });
+    catField.querySelector('textarea').addEventListener('input', function(e){
+      kumpul[t.id] = kumpul[t.id] || {};
+      kumpul[t.id].catatan = e.target.value;
+      QIIORA.tugas.simpanKumpul(kumpul);
+    });
+  });
+}
+render();
+})();
+</script>
+</body>
+</html>

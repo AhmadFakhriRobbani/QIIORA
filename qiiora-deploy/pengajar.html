@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QIIORA — Mode Pengajar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/komponen.css">
+<link rel="stylesheet" href="assets/css/halaman.css">
+<link rel="stylesheet" href="assets/css/cangkang.css">
+<link rel="stylesheet" href="assets/css/ui.css">
+<script src="assets/js/tema.js"></script>
+<link rel="stylesheet" href="assets/css/cetak.css">
+</head>
+<body>
+<a class="skip" href="#main">Lewati ke konten utama</a>
+
+<header class="site-head">
+  <div class="head-in">
+    <a class="brand" href="index.html#/beranda" aria-label="Beranda QIIORA">
+      <span class="brand-mark" aria-hidden="true">H₂O</span>
+      <span style="min-width:0;overflow:hidden">
+        <span class="brand-name">QIIORA</span>
+        <span class="brand-sub">Mode Pengajar</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="navUtama" aria-label="Navigasi utama">
+      <span class="nav-ind" data-nav-ind aria-hidden="true"></span>
+      <a href="index.html#/beranda">Beranda</a>
+      <a href="index.html#/modul">Modul</a>
+      <a href="index.html#/simulasi">Simulasi 3D</a>
+      <a href="index.html#/kuis">Kuis</a>
+      <a href="index.html#/lkpd">LKPD</a>
+      <a href="index.html#/sumber">Sumber</a>
+      <a href="tugas.html">Tugas</a>
+      <a href="pengajar.html" aria-current="page">Pengajar</a>
+    </nav>
+
+    <div class="head-actions">
+      <button class="cari-btn" type="button" data-cari aria-label="Cari (Ctrl+K)" title="Cari — Ctrl+K">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+        <span>Cari</span><kbd>Ctrl K</kbd>
+      </button>
+      <button class="icon-btn" type="button" data-tema-toggle aria-pressed="false" aria-label="Ganti mode terang atau gelap" title="Mode terang / gelap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+      </button>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="drawer" aria-label="Buka menu">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer-scrim" data-drawer-scrim></div>
+<aside class="drawer" id="drawer" aria-label="Menu navigasi">
+  <div class="drawer-head">
+    <strong>Menu QIIORA</strong>
+    <button class="icon-btn" type="button" data-drawer-close aria-label="Tutup menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-body" aria-label="Navigasi lengkap">
+    <a href="index.html#/beranda">Beranda</a>
+    <span class="np-label">Belajar</span>
+    <a href="index.html#/modul">Modul</a>
+    <a href="index.html#/tujuan">Tujuan Pembelajaran</a>
+    <a href="index.html#/materi">Materi Pokok</a>
+    <a href="index.html#/simulasi">Simulasi 3D</a>
+    <a href="index.html#/model-tanah">Model Tanah 3D</a>
+    <a href="index.html#/kesimpulan">Kesimpulan</a>
+    <span class="np-label">Latihan</span>
+    <a href="index.html#/kuis">Kuis Pemahaman</a>
+    <a href="index.html#/lkpd">LKPD</a>
+    <a href="tugas.html">Tugas</a>
+    <span class="np-label">Lainnya</span>
+    <a href="index.html#/sumber">Sumber &amp; Data</a>
+    <a href="kumpul.html">Lembar Pengumpulan</a>
+    <a href="pengajar.html" aria-current="page">Mode Pengajar</a>
+    <a href="index.html#/identitas">Identitas Penyusun</a>
+  </nav>
+</aside>
+
+
+<main class="page">
+  <div class="wrap-narrow">
+    <p class="breadcrumb"><a href="index.html">QIIORA</a> / Mode Pengajar</p>
+    <h1>Mode Pengajar</h1>
+    <p class="lede">Buka Kode Kumpul dari siswa untuk melihat tugas, membuka tautan Drive, menilai rubrik, dan mengekspor nilai CSV. Penilaian tersimpan di peramban pengajar.</p>
+
+    <div class="card" id="cardImpor">
+      <h2>Muat Data</h2>
+      <p >Tempel Kode Kumpul (bagian setelah <code>#k=</code>) atau buka langsung tautan pengajar.</p>
+      <div class="field">
+        <label for="kodeInput">Kode Kumpul</label>
+        <textarea id="kodeInput" style="width:100%;min-height:88px;font-family:var(--mono)" placeholder="Tempel kode di sini..."></textarea>
+      </div>
+      <div class="act-row">
+        <button class="btn" type="button" data-muat-kode>Muat Kode</button>
+        <label class="btn btn--ghost" style="cursor:pointer">Impor Berkas JSON<input type="file" data-impor-json hidden accept="application/json,.json"></label>
+      </div>
+      <div class="field-hint err" id="imporErr" style="display:none"></div>
+    </div>
+
+    <div id="dataView" style="display:none">
+      <div class="card">
+        <h2>Identitas Siswa</h2>
+        <div class="id-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+          <div><dt>Nama</dt><dd data-p-nama>—</dd></div>
+          <div><dt>NIM</dt><dd data-p-nim>—</dd></div>
+          <div><dt>Kelas</dt><dd data-p-kelas>—</dd></div>
+          <div><dt>Prodi</dt><dd data-p-prodi>—</dd></div>
+        </div>
+        <p class="field-hint">Dikumpulkan: <span data-p-waktu>—</span></p>
+      </div>
+
+      <div class="card">
+        <h2>Skor</h2>
+        <table class="rekap">
+          <tbody>
+            <tr><th style="width:200px">Pre-test</th><td data-p-pretest>—</td></tr>
+            <tr><th>Post-test</th><td data-p-posttest>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="tugasView"></div>
+
+      <div class="card">
+        <h2>Ringkasan Jurnal</h2>
+        <ol id="pJurnal" style="margin:10px 0 0;padding-left:20px;"></ol>
+      </div>
+
+      <div class="act-row">
+        <button class="btn" type="button" data-ekspor-csv>Ekspor Nilai (CSV)</button>
+        <button class="btn btn--ghost" type="button" data-cetak>Cetak</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="foot-brand">
+          <span class="brand-mark" aria-hidden="true">H₂O</span>
+          <strong>QIIORA</strong>
+        </div>
+        <p>Media pembelajaran interaktif Siklus Air untuk IPAS Fase C (Kelas V SD/MI). Berjalan tanpa build step dan tetap bekerja saat luring.</p>
+        <span class="foot-status" data-koneksi><i aria-hidden="true"></i>Tersambung</span>
+      </div>
+      <div class="foot-col">
+        <h3>Belajar</h3>
+        <ul>
+          <li><a href="index.html#/modul">Modul</a></li>
+          <li><a href="index.html#/tujuan">Tujuan Pembelajaran</a></li>
+          <li><a href="index.html#/materi">Materi Pokok</a></li>
+          <li><a href="index.html#/simulasi">Simulasi 3D</a></li>
+          <li><a href="bab/bab-3-siklus-air.html">Bab 3 · Siklus Air</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Latihan &amp; data</h3>
+        <ul>
+          <li><a href="index.html#/kuis">Kuis Pemahaman</a></li>
+          <li><a href="index.html#/lkpd">LKPD</a></li>
+          <li><a href="tugas.html">Tugas</a></li>
+          <li><a href="index.html#/sumber">Sumber &amp; Data</a></li>
+          <li><a href="pengajar.html">Mode Pengajar</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Pengaturan</h3>
+        <div class="foot-tools">
+          <button type="button" data-tema-toggle aria-pressed="false" aria-label="Ganti mode terang atau gelap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+            <span data-tema-label>Mode gelap</span>
+          </button>
+          <button type="button" data-ukuran-toggle aria-label="Ukuran teks">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 18l5-12 5 12M4.6 14h6.8M14 18l4-10 4 10M15.4 15h5.2"/></svg>
+            <span data-ukuran-label>Teks S</span>
+          </button>
+        </div>
+        <p style="margin-top:12px">Disusun oleh Fiqi Islam Mahfutdin<br>Pendidikan Informatika · STKIP PGRI Pacitan</p>
+        <ul>
+          <li><a href="index.html#/identitas">Identitas Penyusun</a></li>
+          <li><a href="kumpul.html">Lembar Pengumpulan</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 QIIORA · <span data-versi>v1.1.0</span> · HTML · CSS · JavaScript · Three.js r128 (offline)</span>
+      <button class="to-top" type="button" data-to-top>
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6"/></svg>
+        Ke atas
+      </button>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Navigasi cepat">
+  <ul>
+    <li><a href="index.html#/beranda">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"/></svg>Beranda</a></li>
+    <li><a href="index.html#/modul">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></svg>Modul</a></li>
+    <li><a href="index.html#/simulasi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 3v18"/></svg>Simulasi</a></li>
+    <li><a href="index.html#/kuis">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3V13"/><circle cx="12.8" cy="16.4" r=".9" fill="currentColor" stroke="none"/></svg>Kuis</a></li>
+    <li><button type="button" data-nav-toggle aria-expanded="false" aria-controls="drawer" aria-label="Menu lainnya">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button></li>
+  </ul>
+</nav>
+
+
+<script src="data/konfigurasi.js"></script>
+<script src="assets/js/inti.js"></script>
+<script src="assets/js/simpan.js"></script>
+<script src="assets/js/baca.js"></script>
+<script src="assets/js/router.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/cari.js"></script>
+<script src="assets/js/kumpul.js"></script>
+<script src="assets/js/tugas.js"></script>
+<script src="data/tugas.js"></script>
+<script>
+(function(){
+'use strict';
+function pesan(t, jenis){
+  if(QIIORA.ui) QIIORA.ui.toast(t, { jenis: jenis || 'info' });
+}
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+var current = null;   // data tervalidasi
+var nilai = {};       // id → {level per kriteria, komentar}
+
+function lihat(data){
+  current = data;
+  // identitas
+  var id = data.identitas || {};
+  ['nama','nim','kelas','prodi'].forEach(function(k){
+    var el = document.querySelector('[data-p-' + k + ']');
+    if(el) el.textContent = id[k] || '—';
+  });
+  document.querySelector('[data-p-waktu]').textContent = data.waktu ? new Date(data.waktu).toLocaleString('id-ID', {dateStyle:'long', timeStyle:'short'}) : '—';
+
+  function skorTeks(s){
+    if(!s || !s.total) return '—';
+    return s.benar + ' / ' + s.total + ' (' + Math.round(s.benar/s.total*100) + '%)';
+  }
+  document.querySelector('[data-p-pretest]').textContent = skorTeks(data.skor && data.skor.pretest);
+  document.querySelector('[data-p-posttest]').textContent = skorTeks(data.skor && data.skor.posttest);
+
+  // jurnal
+  var jl = document.getElementById('pJurnal');
+  var jr = (data.jurnal && data.jurnal.ringkas) || [];
+  jl.innerHTML = jr.length ? jr.map(function(j){ return '<li>'+esc(j)+'</li>'; }).join('') : '<li style="color:var(--ink-soft)">Tidak ada.</li>';
+
+  // tugas
+  var wrap = document.getElementById('tugasView');
+  wrap.innerHTML = '';
+  (data.tugas || []).forEach(function(t){
+    var spec = (QIIORA.tugasList || []).filter(function(x){ return x.id === t.id; })[0];
+    var card = document.createElement('div');
+    card.className = 'card';
+    var stTxt = t.status === 'terkirim' ? 'Terkirim' : t.status === 'draf' ? 'Draf' : 'Belum';
+    var link = '';
+    if(t.link){
+      var v = QIIORA.tugas ? QIIORA.tugas.validasiTautan(t.link) : {valid:true};
+      if(v.valid){
+        link = '<a class="btn btn--sm" href="' + esc(t.link) + '" target="_blank" rel="noopener noreferrer">Buka di Drive</a>';
+      } else {
+        link = '<span class="badge badge--warn">Tautan tidak valid</span>';
+      }
+    } else {
+      link = '<span class="mono" style="color:var(--ink-soft)">Belum ada tautan</span>';
+    }
+    var head = '<div class="card-head"><div><span class="mono" style="color:var(--coral)">' + t.id + '</span>'
+      + '<h2 class="card-title" style="font-size:20px">' + esc(t.judul || t.id) + '</h2>'
+      + '<p style="margin:4px 0 0;color:var(--ink-soft)">Status: ' + stTxt + (t.catatan ? ' · Catatan: ' + esc(t.catatan) : '') + '</p></div>'
+      + '<div style="display:flex;gap:8px;align-items:center">' + link + '</div></div>';
+    card.innerHTML = head;
+    wrap.appendChild(card);
+
+    // rubrik penilaian jika ada
+    if(spec && spec.rubrik && spec.rubrik.length){
+      var rb = document.createElement('div');
+      rb.style.marginTop = '12px';
+      var n = nilai[t.id] || (nilai[t.id] = { level: {}, komentar: '' });
+      spec.rubrik.forEach(function(kr, ki){
+        var row = document.createElement('div');
+        row.style.marginBottom = '10px';
+        row.innerHTML = '<p style="font-weight:600;margin:0 0 4px">' + esc(kr.kriteria) + '</p>';
+        var sel = document.createElement('div');
+        sel.className = 'status-row';
+        kr.level.forEach(function(lv, li){
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = (li+1) + ': ' + lv;
+          b.setAttribute('aria-pressed', String((n.level[ki]||0) === li));
+          b.addEventListener('click', function(){
+            n.level[ki] = li;
+            QIIORA.simpan.simpan('nilai-pengajar', nilai);
+            renderNilai();
+          });
+          sel.appendChild(b);
+        });
+        row.appendChild(sel);
+        rb.appendChild(row);
+      });
+      var kom = document.createElement('div');
+      kom.className = 'field';
+      kom.innerHTML = '<label>Komentar</label><textarea data-komen="'+t.id+'" style="width:100%;min-height:56px;">' + esc(n.komentar) + '</textarea>';
+      kom.querySelector('textarea').addEventListener('input', function(e){
+        n.komentar = e.target.value;
+        QIIORA.simpan.simpan('nilai-pengajar', nilai);
+      });
+      rb.appendChild(kom);
+      card.appendChild(rb);
+    }
+  });
+
+  document.getElementById('dataView').style.display = 'block';
+  renderNilai();
+}
+
+function renderNilai(){
+  // perbarui skor total tampilan sederhana (dihitung saat ekspor)
+}
+
+function muatKode(raw){
+  var err = document.getElementById('imporErr');
+  err.style.display = 'none';
+  var code = String(raw || '').trim();
+  // Ambil bagian setelah #k= jika berupa URL
+  var m = code.match(/[#&]k=([A-Za-z0-9_-]+)/);
+  if(m){ code = m[1]; }
+
+  if(code.length > 6000){
+    err.textContent = 'Kode terlalu panjang. Minta siswa menggunakan Unduh JSON / impor berkas.';
+    err.style.display = 'block';
+    return;
+  }
+  try{
+    var data = QIIORA.kumpul.bacaKode(code);
+    if(!data || data.v !== 1 || data.proyek !== 'qiiora') throw new Error('skema');
+    lihat(data);
+    pesan('Data dimuat & tervalidasi');
+  }catch(e){
+    err.textContent = 'Kode tidak valid atau rusak (skema ditolak).';
+    err.style.display = 'block';
+  }
+}
+
+document.querySelector('[data-muat-kode]').addEventListener('click', function(){
+  muatKode(document.getElementById('kodeInput').value);
+});
+
+document.querySelector('[data-impor-json]').addEventListener('change', function(e){
+  var f = e.target.files[0];
+  if(!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try{
+      var data = JSON.parse(r.result);
+      if(!data || data.v !== 1 || data.proyek !== 'qiiora') throw new Error('skema');
+      lihat(data);
+      pesan('Berkas JSON dimuat');
+    }catch(err2){
+      var e2 = document.getElementById('imporErr');
+      e2.textContent = 'Berkas JSON tidak valid.';
+      e2.style.display = 'block';
+    }
+  };
+  r.readAsText(f);
+});
+
+// Buka otomatis dari hash
+(function(){
+  var m = location.hash.match(/#k=([A-Za-z0-9_-]+)/);
+  if(m){
+    document.getElementById('kodeInput').value = m[1];
+    muatKode(m[1]);
+  }
+})();
+
+// Ekspor CSV
+document.querySelector('[data-ekspor-csv]').addEventListener('click', function(){
+  if(!current) { pesan('Belum ada data'); return; }
+  var id = current.identitas || {};
+  var garis = ['id,nama,nim,kelas,status,skor_rubrik,komentar'];
+  (current.tugas || []).forEach(function(t){
+    var n = nilai[t.id] || {};
+    var spec = (QIIORA.tugasList || []).filter(function(x){ return x.id === t.id; })[0];
+    var skor = '', total = 0, cnt = 0;
+    if(spec && spec.rubrik){
+      spec.rubrik.forEach(function(kr, ki){
+        var l = n.level && n.level[ki] != null ? n.level[ki] : -1;
+        if(l >= 0){ total += (l + 1); cnt++; }
+      });
+      var maks = spec.rubrik.length * 4;
+      if(cnt) skor = total + '/' + maks;
+    }
+    garis.push([
+      t.id,
+      '"' + (id.nama||'').replace(/"/g,'""') + '"',
+      '"' + (id.nim||'').replace(/"/g,'""') + '"',
+      '"' + (id.kelas||'').replace(/"/g,'""') + '"',
+      t.status || 'belum',
+      skor,
+      '"' + (n.komentar||'').replace(/"/g,'""') + '"'
+    ].join(','));
+  });
+  var blob = new Blob(['\uFEFF' + garis.join('\n')], {type:'text/csv;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'nilai-' + (id.nim||'siswa') + '.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  pesan('CSV diunduh');
+});
+
+document.querySelector('[data-cetak]').addEventListener('click', function(){ window.print(); });
+})();
+</script>
+</body>
+</html>

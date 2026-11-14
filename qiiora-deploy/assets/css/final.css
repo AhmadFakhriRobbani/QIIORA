@@ -1,0 +1,830 @@
+/* ============================================================
+   QIIORA — FINAL.CSS
+   Satu file, dimuat TERAKHIR, berisi keputusan tegas untuk tiga
+   masalah yang berulang:
+     1. Panel navbar "Lainnya"  -> pekat, tidak tembus, tidak terpotong
+     2. Tombol KELUAR akun      -> selalu kelihatan di navbar
+     3. Footer                  -> selebar layar, animasi DI DALAM kotak
+
+   File ini sengaja TIDAK menumpuk aturan lama satu per satu.
+   Setiap aturan di bawah adalah keputusan akhir dengan !important
+   supaya tidak bisa kalah oleh aturan lama di file lain.
+   ============================================================ */
+
+/* ============================================================
+   1. PANEL NAVBAR "LAINNYA"
+   ------------------------------------------------------------
+   Keluhan: "menunya ketimbun di belakang", dan di video panelnya
+   tembus pandang sehingga isi halaman tercampur dengan menu.
+
+   Keputusan:
+   - latar PEKAT (tidak transparan sedikit pun)
+   - header dinaikkan di atas segalanya saat panel terbuka
+   - panel menempel di bawah navbar, tidak menutupi navbar
+   - ikon dikunci 16px supaya baris tidak membengkak
+   - tinggi dibatasi, isi bisa digulir
+   ============================================================ */
+
+/* header selalu jadi lapisan teratas */
+.site-head,
+body.ada-latar .site-head{
+  position:sticky !important;
+  top:0 !important;
+  z-index:9000 !important;
+  overflow:visible !important;
+}
+.site-head .head-in,
+.head-in{
+  overflow:visible !important;
+}
+body.nav-terbuka .site-head,
+body.ada-latar.nav-terbuka .site-head{
+  z-index:9700 !important;
+}
+
+/* wadah panel */
+.nav-more,
+.nav{ position:static !important; }
+
+.nav-panel{
+  position:fixed !important;
+  top:calc(var(--header-h, 72px) + 8px) !important;
+  right:14px !important;
+  left:auto !important;
+  width:min(320px, calc(100vw - 24px)) !important;
+  max-height:calc(100dvh - var(--header-h, 72px) - 40px) !important;
+  overflow-y:auto !important;
+  overscroll-behavior:contain;
+  z-index:9800 !important;
+
+  /* PEKAT: tidak ada satu pun rgba di sini */
+  background:#FFFFFF !important;
+  border:1px solid #D6E4F2 !important;
+  border-radius:16px !important;
+  box-shadow:0 24px 60px rgba(12,32,52,.34), 0 2px 8px rgba(12,32,52,.12) !important;
+  padding:8px !important;
+
+  display:flex !important;
+  flex-direction:column;
+  gap:2px;
+  opacity:1 !important;
+  visibility:visible !important;
+  transform:none !important;
+  animation:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+html[data-tema="gelap"] .nav-panel{
+  background:#12222F !important;
+  border-color:#26404F !important;
+  box-shadow:0 24px 60px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.4) !important;
+}
+.nav-panel[hidden]{ display:none !important; }
+
+/* baris panel: seragam, ikon tidak membengkak */
+.nav-panel > a,
+.nav-panel > button{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  width:100% !important;
+  min-height:40px !important;
+  height:auto !important;
+  padding:9px 12px !important;
+  margin:0 !important;
+  border:0 !important;
+  border-radius:10px !important;
+  background:transparent !important;
+  color:#1F2D3D !important;
+  font:700 14.5px/1.3 var(--font-isi, system-ui, sans-serif) !important;
+  text-align:left !important;
+  text-decoration:none !important;
+  cursor:pointer !important;
+  white-space:normal !important;
+}
+html[data-tema="gelap"] .nav-panel > a,
+html[data-tema="gelap"] .nav-panel > button{ color:#DCEAF5 !important; }
+.nav-panel > a:hover,
+.nav-panel > button:hover{ background:rgba(47,128,237,.12) !important; }
+
+/* ikon: ukuran mati, tidak boleh melebar */
+.nav-panel svg,
+.nav-panel img{
+  width:16px !important;
+  height:16px !important;
+  min-width:16px !important;
+  max-width:16px !important;
+  flex:0 0 16px !important;
+  object-fit:contain;
+}
+
+/* label pemisah */
+.nav-panel .np-label{
+  flex:1 1 auto !important;
+  min-width:0 !important;
+  padding:10px 12px 4px !important;
+  font:800 11.5px/1.2 var(--font-isi, system-ui, sans-serif) !important;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#7A93A8 !important;
+}
+
+/* ============================================================
+   2. TOMBOL KELUAR DI NAVBAR
+   ------------------------------------------------------------
+   Keluhan: "mana menu logout akunnya".
+   Tombol keluar dibuat SELALU terlihat di navbar (bukan hanya di
+   dalam menu), dengan teks "Keluar" supaya tidak tersembunyi.
+   ============================================================ */
+.head-logout{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:6px !important;
+  min-height:42px !important;
+  height:42px !important;
+  width:auto !important;
+  padding:0 13px !important;
+  border-radius:13px !important;
+  border:1px solid rgba(224,92,110,.45) !important;
+  background:rgba(224,92,110,.10) !important;
+  color:#C33D4E !important;
+  font:800 13.5px/1 var(--font-isi, system-ui, sans-serif) !important;
+  cursor:pointer !important;
+  flex:none !important;
+}
+.head-logout svg{
+  width:16px !important;height:16px !important;flex:0 0 16px !important;
+}
+.head-logout:hover{
+  background:rgba(224,92,110,.2) !important;
+  border-color:#E05C6E !important;
+}
+.head-logout[hidden]{ display:none !important; }
+
+/* di layar sempit: tombol keluar tetap tampil, hanya teksnya disembunyikan */
+@media (max-width:900px){
+  .head-logout{
+    display:inline-flex !important;
+    width:42px !important;
+    padding:0 !important;
+  }
+  .head-logout span{ display:none !important; }
+}
+
+/* tombol keluar di dalam menu profil & drawer */
+.mp-item--keluar,
+.drawer-keluar{
+  color:#C33D4E !important;
+  font-weight:800 !important;
+}
+.drawer-keluar{
+  display:flex !important;
+  align-items:center !important;
+  gap:9px !important;
+  width:100% !important;
+  margin:14px 0 0 !important;
+  padding:12px !important;
+  border:1px solid rgba(224,92,110,.4) !important;
+  border-radius:12px !important;
+  background:rgba(224,92,110,.12) !important;
+  font:800 15px/1 var(--font-isi, system-ui, sans-serif) !important;
+  cursor:pointer !important;
+  text-align:left !important;
+}
+.drawer-keluar svg{ width:17px !important;height:17px !important;flex:0 0 17px !important; }
+
+/* ============================================================
+   3. FOOTER
+   ------------------------------------------------------------
+   Keluhan berulang: kotak footer tidak mentok kiri-kanan, dan
+   animasi latar terlihat "di belakang" footer alih-alih menjadi
+   latar DI DALAM kotak footer.
+
+   Keputusan:
+   - footer selebar layar, tanpa padding luar yang menggeser kotak
+   - kotak footer berlatar PEKAT milik sendiri
+   - kanvas animasi diletakkan DI DALAM kotak, dipotong kotaknya
+   - teks diberi lapisan gelap tipis agar tetap terbaca
+   ============================================================ */
+
+.site-foot,
+body.ada-latar .site-foot{
+  width:100% !important;
+  max-width:100% !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+  padding:0 0 0 !important;
+  background:#071E2C !important;
+  position:relative !important;
+  overflow:hidden !important;
+  z-index:2 !important;
+}
+html[data-tema="gelap"] .site-foot{ background:#050F18 !important; }
+
+/* pembungkus: tanpa batas lebar, tanpa padding samping */
+.site-foot > .wrap{
+  width:100% !important;
+  max-width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  position:relative !important;
+  z-index:2 !important;
+}
+
+/* KOTAK ATAS footer: memuat animasi di dalamnya */
+.site-foot .foot-grid{
+  position:relative !important;
+  isolation:isolate !important;
+  overflow:hidden !important;
+  display:grid !important;
+  grid-template-columns:1.4fr 1fr 1fr 1.1fr;
+  gap:clamp(20px,3vw,40px) !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:clamp(30px,4vw,48px) clamp(18px,3.4vw,48px) !important;
+  background:#0A2A3C !important;
+  border-radius:0 !important;
+  backdrop-filter:none !important;
+}
+html[data-tema="gelap"] .site-foot .foot-grid{ background:#071A28 !important; }
+
+/* KOTAK BAWAH footer */
+.site-foot .foot-bottom{
+  position:relative !important;
+  isolation:isolate !important;
+  overflow:hidden !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:14px !important;
+  flex-wrap:wrap;
+  width:100% !important;
+  margin:0 !important;
+  padding:14px clamp(18px,3.4vw,48px) 18px !important;
+  background:#071E2C !important;
+  border-radius:0 !important;
+  border-top:1px solid rgba(255,255,255,.07) !important;
+  backdrop-filter:none !important;
+}
+html[data-tema="gelap"] .site-foot .foot-bottom{ background:#050F18 !important; }
+
+/* kanvas animasi: latar DI DALAM kotak footer */
+.site-foot .foot-anim,
+.site-foot .foot-anim-bawah{
+  position:absolute !important;
+  inset:0 !important;
+  z-index:0 !important;
+  pointer-events:none !important;
+  opacity:1 !important;
+  border-radius:0 !important;
+  overflow:hidden !important;
+  display:none !important;   /* diganti pemandangan CSS di bawah */
+}
+.site-foot .foot-anim canvas,
+.site-foot .foot-anim-bawah canvas{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+}
+
+/* ---- PEMANDANGAN CSS (pasti tampil, tanpa kanvas) ----
+   Langit bergradasi + awan bergerak + bukit + air beriak.
+   Digambar dengan gradient CSS supaya tidak bergantung pada
+   komposisi kanvas di browser. */
+.site-foot .foot-grid::before,
+.site-foot .foot-bottom::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:0 !important;
+  pointer-events:none !important;
+  background:
+    /* matahari */
+    radial-gradient(circle at 78% 22%, rgba(255,238,180,.55) 0%, rgba(255,238,180,0) 16%),
+    /* awan */
+    radial-gradient(ellipse 16% 9% at 22% 20%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 70%),
+    radial-gradient(ellipse 20% 11% at 62% 14%, rgba(255,255,255,.42) 0%, rgba(255,255,255,0) 72%),
+    /* bukit hijau */
+    radial-gradient(ellipse 52% 30% at 18% 100%, #1D6B4F 0%, #1D6B4F 58%, rgba(29,107,79,0) 60%),
+    radial-gradient(ellipse 58% 34% at 82% 100%, #175C43 0%, #175C43 58%, rgba(23,92,67,0) 60%),
+    /* air */
+    linear-gradient(180deg, rgba(46,126,166,.9) 0%, rgba(24,84,118,.95) 46%, rgba(10,44,64,1) 100%),
+    /* langit */
+    linear-gradient(180deg, #123C5C 0%, #2C6685 42%, #3E7F9B 100%) !important;
+  background-size:100% 100% !important;
+  opacity:.9;
+  animation:footAwan 26s ease-in-out infinite alternate;
+}
+@keyframes footAwan{
+  0%{ background-position:0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
+  100%{ background-position:0% 0%, 6% 0%, -5% 2%, 2% 0%, -2% 0%, 0% 0%, 0% 0%; }
+}
+
+/* riak air bergerak */
+.site-foot .foot-grid::after{
+  content:"" !important;
+  position:absolute !important;
+  left:0; right:0; bottom:0;
+  height:42% !important;
+  z-index:0 !important;
+  pointer-events:none !important;
+  background:
+    repeating-linear-gradient(180deg,
+      rgba(255,255,255,.16) 0px, rgba(255,255,255,.16) 1px,
+      rgba(255,255,255,0) 1px, rgba(255,255,255,0) 9px) !important;
+  opacity:.5;
+  animation:footRiak 7s linear infinite;
+  transform:translateY(0);
+}
+@keyframes footRiak{
+  0%{ transform:translateY(0) }
+  100%{ transform:translateY(9px) }
+}
+
+/* kotak BAWAH footer: hanya air, bukan pemandangan penuh (kotaknya pendek) */
+.site-foot .foot-bottom::before{
+  background:
+    linear-gradient(180deg, rgba(30,96,130,.96) 0%, rgba(12,50,72,1) 100%) !important;
+  background-size:100% 100% !important;
+  animation:none !important;
+  opacity:1 !important;
+}
+.site-foot .foot-bottom::after{
+  content:"" !important;
+  position:absolute !important;
+  left:0; right:0; bottom:0; top:0;
+  z-index:0 !important;
+  pointer-events:none !important;
+  background:
+    repeating-linear-gradient(180deg,
+      rgba(255,255,255,.14) 0px, rgba(255,255,255,.14) 1px,
+      rgba(255,255,255,0) 1px, rgba(255,255,255,0) 11px) !important;
+  opacity:.6;
+  animation:footRiak 7s linear infinite;
+}
+
+/* lapisan gelap tipis: teks terbaca, animasi tetap jelas */
+.site-foot .foot-anim::after,
+.site-foot .foot-anim-bawah::after{
+  content:none !important;
+}
+
+/* isi footer di atas animasi (kanvas DIKECUALIKAN — kalau tidak,
+   kanvas jadi position:relative dan malah masuk ke kolom grid) */
+.site-foot .foot-grid > *:not(.foot-anim),
+.site-foot .foot-bottom > *:not(.foot-anim-bawah){
+  position:relative !important;
+  z-index:2 !important;
+}
+.site-foot .foot-anim,
+.site-foot .foot-anim-bawah{
+  position:absolute !important;
+  inset:0 !important;
+  z-index:0 !important;
+}
+
+/* teks footer: kontras terjaga */
+.site-foot,
+.site-foot .foot-col p,
+.site-foot .foot-col a,
+.site-foot .foot-bottom span{ color:#C8DCEB !important; }
+.site-foot .foot-col h3,
+.site-foot .foot-brand strong,
+.site-foot .foot-bottom strong{ color:#FFFFFF !important; }
+.site-foot .foot-col a{
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  text-decoration:none;
+}
+.site-foot .foot-col a:hover{ color:#FFFFFF !important; text-decoration:underline; }
+
+/* ---- HP: satu kolom, tetap selebar layar ---- */
+@media (max-width:860px){
+  .site-foot .foot-grid{
+    grid-template-columns:1fr !important;
+    gap:20px !important;
+    padding:26px 20px !important;
+  }
+  .site-foot .foot-bottom{
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    padding:14px 20px 20px !important;
+  }
+}
+
+/* ---- cetak: hiasan tidak perlu ---- */
+@media print{
+  .site-foot .foot-anim,
+  .site-foot .foot-anim-bawah{ display:none !important; }
+  .site-foot,
+  .site-foot .foot-grid,
+  .site-foot .foot-bottom{ background:#fff !important; color:#1F2D3D !important; }
+}
+
+/* ============================================================
+   4. Jaring pengaman umum
+   ------------------------------------------------------------
+   Jangan biarkan transisi CSS mengunci keadaan akhir (bug yang
+   sudah dua kali terjadi: gerbang login transparan, drawer tidak
+   terbuka saat tab di latar belakang).
+   ============================================================ */
+.drawer{
+  display:none !important;
+  transform:none !important;
+  transition:none !important;
+}
+body.nav-open .drawer{
+  display:flex !important;
+  transform:none !important;
+}
+body.ada-latar .drawer,
+body.ada-latar .drawer[aria-hidden]{ z-index:9200 !important; }
+body.ada-latar .drawer-scrim{ z-index:9100 !important; }
+
+.panel-kartu{
+  opacity:1 !important;
+  transform:none !important;
+  display:none;
+}
+.panel-kartu.on{ display:flex !important; }
+/* ============================================================
+   5. GERBANG LOGIN: NAVBAR TIDAK BOLEH IKUT TAMPIL
+   ------------------------------------------------------------
+   Keluhan: "saat mau login kok bagian navbar nya ngikut".
+   Penyebab: .site-head z-index:9000 (dipaksa oleh perbaikan
+   navbar) lebih tinggi dari .gerbang z-index:600.
+   Navbar disembunyikan total selama gerbang terbuka, dan
+   z-index gerbang dinaikkan sebagai jaring pengaman.
+   ============================================================ */
+.gerbang{
+  z-index:9800 !important;
+}
+/* ATURAN: navbar hanya disembunyikan selama dialog BENAR-BENAR
+   terbuka. Selector `body:has(.gerbang)` tanpa :not([hidden]) akan
+   terus menyembunyikan navbar walau dialog sudah ditutup - itu bug.
+   Sekarang hanya `.gerbang:not([hidden])` yang dihitung. */
+body:has(.gerbang:not([hidden])) .site-head,
+body:has(.gerbang:not([hidden])) .bottom-nav,
+body:has(.gerbang:not([hidden])) .drawer{
+  display:none !important;
+}
+/* jaring pengaman untuk browser tanpa :has() */
+body.gerbang-aktif .site-head,
+body.gerbang-aktif .bottom-nav,
+body.gerbang-aktif .drawer{
+  display:none !important;
+}
+body.gerbang-ditutup .site-head{
+  display:block !important;
+  position:sticky !important;
+}
+body.gerbang-ditutup .bottom-nav{ display:flex !important; }
+
+/* tombol silang gerbang */
+.gb-tutup{
+  position:absolute !important;
+  top:14px !important;
+  right:14px !important;
+  z-index:20 !important;
+  width:38px !important;
+  height:38px !important;
+  display:grid !important;
+  place-items:center !important;
+  padding:0 !important;
+  border:1px solid rgba(214,228,242,.9) !important;
+  border-radius:11px !important;
+  background:rgba(255,255,255,.9) !important;
+  color:#41586D !important;
+  cursor:pointer !important;
+  transition:background .16s,color .16s,transform .16s !important;
+}
+.gb-tutup svg{ width:18px !important; height:18px !important; }
+.gb-tutup:hover{
+  background:#E05C6E !important;
+  border-color:#E05C6E !important;
+  color:#fff !important;
+  transform:rotate(90deg) !important;
+}
+html[data-tema="gelap"] .gb-tutup{
+  background:rgba(30,48,64,.95) !important;
+  border-color:#2E4A5E !important;
+  color:#C8DCEB !important;
+}
+
+/* tombol "Masuk" mengambang setelah gerbang ditutup */
+.gb-buka{
+  position:fixed !important;
+  right:18px !important;
+  bottom:18px !important;
+  z-index:9400 !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  min-height:46px !important;
+  padding:0 18px !important;
+  border:0 !important;
+  border-radius:999px !important;
+  background:linear-gradient(160deg,#4FA3F5,#1E5AA8) !important;
+  color:#fff !important;
+  font:800 14px/1 var(--font-isi, system-ui, sans-serif) !important;
+  cursor:pointer !important;
+  box-shadow:0 12px 30px rgba(30,90,168,.42) !important;
+}
+.gb-buka:hover{ transform:translateY(-2px) !important; }
+.gb-buka svg{ width:16px !important; height:16px !important; }
+@media (max-width:900px){
+  .gb-buka{ right:12px !important; bottom:84px !important; }
+}
+
+/* ============================================================
+   6. NAVBAR TIDAK BOLEH PECAH BARIS
+   ------------------------------------------------------------
+   Keluhan: "navbar lainnya posisinya kayak gak punya tempat".
+   BUKTI ukur: .nav{flex-wrap:wrap} + lebar 477px, sedangkan
+   Beranda+Modul+Simulasi+Kuis+();LKPD+Lainnya butuh 617px.
+   LKPD & Lainnya terlempar ke baris kedua (top 64 vs 19).
+   Perbaikan: larang wrap, rapatkan padding, dan kalau ruang
+   benar-benar tidak cukup, sembunyikan item tengah (bukan
+   memecah baris) supaya susunan tetap rapi.
+   ============================================================ */
+.site-head .head-in{
+  flex-wrap:nowrap !important;
+  align-items:center !important;
+}
+.nav{
+  flex-wrap:nowrap !important;
+  min-width:0 !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  overflow:visible !important;
+}
+.nav > a,
+.nav-more-btn{
+  flex:0 0 auto !important;
+  white-space:nowrap !important;
+}
+.nav-more{
+  flex:0 0 auto !important;
+  position:relative !important;
+}
+/* sedikit lebih rapat supaya 6 item muat satu baris */
+.nav > a{ padding:6px 11px !important; }
+.head-in{ gap:8px !important; }
+.head-actions{ flex:0 0 auto !important; }
+
+/* layar sedang: rapatkan lagi */
+@media (max-width:1180px){
+  .nav > a{ padding:6px 9px !important; font-size:14.5px !important; }
+  .nav > a svg{ width:16px !important; height:16px !important; }
+}
+@media (max-width:1040px){
+  .nav > a{ padding:6px 7px !important; font-size:14px !important; }
+  .brand-sub{ display:none !important; }
+}
+/* di bawah 940px navigasi pindah ke drawer (bukan pecah baris) */
+@media (max-width:940px){
+  .nav{ display:none !important; }
+}
+/* 941–1100px: sembunyikan label teks, sisakan ikon supaya tetap rapi */
+@media (min-width:941px) and (max-width:1100px){
+  .nav > a{ padding:6px 8px !important; }
+}
+
+/* ============================================================
+   7. LAYAR MUAT & GERBANG: NAVBAR TIDAK BOLEH MENEMBUS
+   ------------------------------------------------------------
+   Keluhan berulang: "kenapa di menu loading navbar-nya muncul",
+   "kenapa menu logout masih bentrok navbar ngikut", "mana tombol
+   close-nya, pasti kehalang navbar yang ngebug".
+
+   AKAR MASALAH (bukan tafsiran):
+     .muat   { z-index: 500 }   <-- layar muat
+     .gerbang{ z-index: 600 }   <-- dialog login
+     .site-head{ z-index: 9000 } <-- navbar (dipaksa tinggi sebelumnya)
+   Navbar SELALU di atas keduanya, jadi ia menembus layar muat,
+   menimpa dialog login, dan menutupi tombol silang.
+
+   OBAT: urutan lapisan dibalik dan ditegakkan dengan !important.
+     layar muat  9800  (paling atas, menutup semua)
+     dialog login 9700
+     drawer       9200
+     panel nav    9000
+     navbar       8500
+   Ditambah: selama layar muat / dialog login aktif, navbar dan
+   bottom-nav DISEMBUNYIKAN lewat kelas di <html>/<body>.
+   ============================================================ */
+
+/* --- urutan lapisan akhir --- */
+.site-head,
+body.ada-latar .site-head{ z-index:8500 !important; }
+
+.nav-panel{ z-index:9000 !important; }
+.menu-profil{ z-index:9000 !important; }
+
+body.ada-latar .drawer{ z-index:9200 !important; }
+body.ada-latar .drawer-scrim{ z-index:9100 !important; }
+
+.gerbang{ z-index:9700 !important; }
+.gb-buka{ z-index:9400 !important; }
+
+.muat{ z-index:9800 !important; }
+
+/* --- sembunyikan navbar saat LAYAR MUAT aktif --- */
+html.sedang-muat .site-head,
+html.sedang-muat .bottom-nav,
+html.sedang-muat .drawer,
+html.sedang-muat .drawer-scrim,
+html.sedang-muat .gb-buka,
+html.sedang-muat .nav-panel,
+html.sedang-muat .menu-profil{
+  display:none !important;
+  visibility:hidden !important;
+}
+/* cadangan bila .sedang-muat terlewat: pakai keberadaan .muat */
+body:has(.muat) .site-head,
+body:has(.muat) .bottom-nav{ display:none !important; }
+
+/* --- sembunyikan navbar saat DIALOG LOGIN aktif --- */
+body.gerbang-aktif .site-head,
+body.gerbang-aktif .bottom-nav,
+body.gerbang-aktif .drawer,
+body.gerbang-aktif .drawer-scrim,
+body.gerbang-aktif .gb-buka{
+  display:none !important;
+  visibility:hidden !important;
+}
+body:has(.gerbang:not([hidden])) .site-head,
+body:has(.gerbang:not([hidden])) .bottom-nav{ display:none !important; }
+
+/* setelah gerbang ditutup / selesai login: navbar WAJIB kembali */
+body.gerbang-ditutup .site-head{ display:block !important; visibility:visible !important; }
+body.gerbang-ditutup .bottom-nav{ display:flex !important; visibility:visible !important; }
+html:not(.sedang-muat) body:not(.gerbang-aktif) .site-head{
+  display:block !important;
+  visibility:visible !important;
+}
+
+/* tombol silang gerbang harus di atas segalanya DI DALAM dialog */
+.gb-tutup{ z-index:20 !important; }
+
+/* ============================================================
+   8. NAVBAR: BERI RUANG, JANGAN BERDESAKAN
+   ------------------------------------------------------------
+   Keluhan: "aku mau dia diberi ruang tempat biar gak kayak
+   sekarang, kayak seakan-akan dia gak punya tempat karena
+   tempatnya sudah terisi penuh".
+
+   BUKTI ukur: kotak "Cari" memakan 525px dari 1240px, menyisakan
+   ~715px; brand 188 + nav 617 + aksi 525 = 1330px > 1240px.
+   Nav jadi terhimpit walau tidak pecah baris.
+
+   Perbaikan:
+   - kotak cari mengempis jadi ikon lingkaran 42px
+   - profil jadi ringkas (avatar + nama pendek)
+   - nav dapat padding samping yang lega
+   - header diberi jarak antar-kelompok (brand | nav | aksi)
+   ============================================================ */
+
+/* kotak cari: dari 525px -> ikon 42px */
+.cari-btn{
+  flex:0 0 auto !important;
+  width:42px !important;
+  min-width:42px !important;
+  height:42px !important;
+  min-height:42px !important;
+  padding:0 !important;
+  border-radius:13px !important;
+  justify-content:center !important;
+  gap:0 !important;
+}
+.cari-btn span,
+.cari-btn kbd{ display:none !important; }
+.cari-btn svg{ width:18px !important; height:18px !important; }
+
+/* profil: ringkas */
+.head-profil{ max-width:220px !important; flex:0 1 auto !important; }
+.head-profil-txt{ min-width:0 !important; overflow:hidden !important; }
+.head-profil-nama,
+.head-profil-sub{
+  display:block !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+}
+
+/* tombol keluar: hanya ikon di layar sempit, teks di layar lebar */
+.head-logout{ flex:0 0 auto !important; }
+
+/* jarak antarkelompok di dalam bilah */
+.head-in{
+  gap:12px !important;
+  padding:8px 14px !important;
+}
+.nav{
+  gap:4px !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  padding:0 6px !important;
+}
+.nav > a,
+.nav-more-btn{
+  padding:6px 12px !important;
+  flex:0 0 auto !important;
+}
+.head-actions{
+  gap:8px !important;
+  margin-left:auto !important;
+  flex:0 0 auto !important;
+}
+
+/* layar 1100–1300: rapatkan nav sedikit, jangan sampai berdesakan */
+@media (max-width:1300px){
+  .nav > a, .nav-more-btn{ padding:6px 10px !important; font-size:14.5px !important; }
+  .head-in{ gap:10px !important; }
+}
+/* 1000–1100: sembunyikan sub-judul brand & rapatkan lagi */
+@media (max-width:1100px){
+  .brand-sub{ display:none !important; }
+  .nav > a, .nav-more-btn{ padding:6px 8px !important; font-size:14px !important; }
+}
+/* 900–1000: profil jadi avatar saja */
+@media (max-width:1000px){
+  .head-profil-txt{ display:none !important; }
+  .head-profil{ max-width:44px !important; padding:5px !important; }
+}
+/* < 940: nav pindah ke drawer, bukan berdesakan */
+@media (max-width:940px){
+  .nav{ display:none !important; }
+  .cari-btn span, .cari-btn kbd{ display:none !important; }
+}
+
+/* ---------- 9. TOMBOL SILANG GERBANG: JANGKAR POSISI ----------
+   .gb-card memakai overflow:hidden tapi belum position:relative,
+   sehingga tombol X (position:absolute) mencari jangkar ke atas
+   dan bisa lari keluar / tertutup. Dijangkarkan di sini. */
+.gerbang .gb-card{
+  position:relative !important;
+}
+.gerbang .gb-tutup{
+  position:absolute !important;
+  top:12px !important;
+  right:12px !important;
+  z-index:30 !important;
+  display:grid !important;
+  place-items:center !important;
+}
+@media (max-width:760px){
+  .gerbang .gb-tutup{
+    top:8px !important;
+    right:8px !important;
+    width:36px !important;
+    height:36px !important;
+  }
+}
+
+/* ============================================================
+   10. NAVBAR: RUANG NYATA, BUKAN SISA 5px
+   ------------------------------------------------------------
+   Ukur sebelumnya: nav butuh 561px, dapat 566px -> sisa 5px.
+   Itu sebabnya terlihat "sesak, tidak punya tempat, sudah terisi
+   penuh". head-actions memakan 436px (profil 175 + keluar 92 +
+   cari 42 + Aa 48 + tema 46).
+
+   Perbaikan:
+   - profil dipersingkat (nama dipotong elips, sub-judul hilang di
+     layar sedang) -> 175px jadi ~118px
+   - nav diberi padding samping + jarak antar-item lebih lega
+   - nav dapat porsi tumbuh (flex:1) supaya selalu punya ruang,
+     tidak lagi bergantung sisa
+   ============================================================ */
+.head-profil{ max-width:118px !important; }
+.head-profil-txt{ max-width:74px !important; }
+@media (max-width:1400px){
+  .head-profil-sub{ display:none !important; }
+  .head-profil{ max-width:112px !important; }
+  .head-profil-txt{ max-width:70px !important; }
+}
+
+/* nav mengisi ruang yang tersedia dan tetap punya bantalan */
+.nav{
+  flex:1 1 auto !important;
+  min-width:0 !important;
+  justify-content:center !important;
+  padding:0 14px !important;
+  gap:6px !important;
+}
+.nav > a,
+.nav-more-btn{
+  padding:7px 13px !important;
+}
+
+/* kelompok kanan tidak boleh menekan nav */
+.head-actions{
+  flex:0 0 auto !important;
+  gap:7px !important;
+  padding-left:6px !important;
+}
+/* brand juga tidak boleh melebar */
+.brand{ flex:0 0 auto !important; }

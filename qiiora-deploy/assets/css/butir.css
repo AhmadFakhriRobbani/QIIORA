@@ -1,0 +1,115 @@
+/* ============================================================
+   QIIORA — Tampilan butir modul (Fase 7 / H1)
+   Ringkas dan sengaja memakai token yang sudah ada (tokens.css).
+   Eksekutor UI boleh memoles berkas ini belakangan.
+   ============================================================ */
+
+.butir-shell{margin-top:clamp(18px,2.6vw,30px)}
+
+/* ---------- kepala butir ---------- */
+.butir-atas{margin-bottom:14px}
+.kembali-modul{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:14.5px;font-weight:800;color:var(--primary-dark);text-decoration:none}
+.kembali-modul:hover{text-decoration:underline}
+.butir-judul{font-size:clamp(24px,3.4vw,34px);margin:6px 0 4px;line-height:1.2}
+.butir-meta{margin:0;font-size:14px;font-weight:800;color:var(--muted);letter-spacing:.01em}
+
+/* ---------- peta 15 butir ---------- */
+.peta-butir{list-style:none;margin:0 0 22px;padding:10px;display:grid;gap:6px;
+  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow)}
+.peta-item{display:flex;align-items:center;gap:9px;min-height:46px;padding:6px 10px;border-radius:11px;
+  border:2px solid transparent;color:var(--text);text-decoration:none;font-size:14.5px;font-weight:700}
+.peta-item:hover{background:var(--primary-soft);border-color:var(--primary)}
+.peta-item[aria-current="step"]{background:var(--primary);color:#fff;border-color:var(--primary)}
+.peta-item[aria-current="step"] .peta-no{background:rgba(255,255,255,.24);color:#fff}
+.peta-no{display:grid;place-items:center;width:28px;height:28px;flex:none;border-radius:8px;
+  background:var(--primary-soft);color:var(--primary-dark);font:800 13px/1 var(--font-isi)}
+.peta-judul{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.peta-item.is-benar .peta-no{background:var(--ok);color:#fff}
+.peta-item.is-dikerjakan .peta-no{background:var(--sun);color:#3A2A00}
+.peta-item.is-posttest{border-color:var(--sun)}
+.peta-item.is-posttest[aria-current="step"]{border-color:var(--sun)}
+
+/* ---------- isi materi ---------- */
+.butir-isi{max-width:72ch}
+.materi p{font-size:16.5px;line-height:1.72;margin:0 0 14px}
+.materi strong{color:var(--text)}
+
+.salah-kaprah,.percobaan{margin:0 0 16px;padding:14px 16px;border-radius:14px;border-left:5px solid var(--sun);background:var(--sun-soft, #FFF6E0)}
+html[data-tema="gelap"] .salah-kaprah,html[data-tema="gelap"] .percobaan{background:rgba(255,200,87,.10)}
+.salah-kaprah p,.percobaan p{margin:0;font-size:15.5px;line-height:1.6}
+.sk-label{margin:0 0 5px !important;font-size:12.5px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:var(--primary-dark)}
+.fakta-kecil{font-size:14px;color:var(--muted);font-style:italic;margin:0 0 16px}
+.tautan-model{display:inline-flex;align-items:center;min-height:48px;margin-bottom:18px;text-decoration:none}
+.sumber-butir{margin:18px 0 0;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--muted)}
+
+/* ---------- blok soal ---------- */
+.blok-soal{margin-top:26px;padding-top:22px;border-top:2px solid var(--line)}
+.blok-judul{font-size:20px;margin:0 0 4px}
+.blok-sub{margin:0 0 18px;font-size:14.5px;color:var(--muted)}
+.soal{margin:0 0 22px;padding:16px;border-radius:14px;background:var(--card);box-shadow:var(--shadow)}
+.soal-kepala{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.soal-no{font-size:12.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--primary-dark)}
+.badge--jenis{font-size:11.5px}
+.soal-stem{font-size:16.5px;line-height:1.6;margin:0 0 12px;font-weight:600}
+
+.opsi-grup{display:grid;gap:8px}
+.opsi{min-height:48px;padding:10px 14px;border:2px solid var(--line-strong);border-radius:12px;
+  background:var(--card);color:var(--text);font:700 16px/1.4 var(--font-isi);text-align:left;cursor:pointer}
+.opsi:hover:not(:disabled){border-color:var(--primary);background:var(--primary-soft)}
+.opsi:disabled{cursor:default;opacity:1}
+.opsi.ok{border-color:var(--ok);background:rgba(59,178,115,.14)}
+.opsi.salah{border-color:var(--bad);background:rgba(229,83,75,.12)}
+
+.soal-umpan{margin-top:12px;padding:12px 14px;border-radius:12px}
+.soal-umpan.ok{background:rgba(59,178,115,.12);border-left:4px solid var(--ok)}
+.soal-umpan.salah{background:rgba(229,83,75,.10);border-left:4px solid var(--bad)}
+.umpan-judul{margin:0 0 4px;font-weight:900;font-size:15px}
+.umpan-kunci{margin:0 0 4px;font-size:15px}
+.umpan-bahasan{margin:0;font-size:15px;line-height:1.6;color:var(--text)}
+.skor-butir{margin:16px 0 0;font-size:17px;font-weight:900}
+.skor-butir.ok{color:var(--ok)}
+.skor-butir.salah{color:var(--bad)}
+
+/* ---------- tugas proyek ---------- */
+.tugas-kartu{margin-top:24px;padding:18px}
+.tugas-kartu h3{margin:4px 0 8px;font-size:19px}
+.tugas-tujuan{margin:0 0 12px;font-size:15.5px;line-height:1.6}
+.tugas-label{margin:12px 0 5px;font-size:12.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--primary-dark)}
+.tugas-langkah,.tugas-rubrik{margin:0 0 10px;padding-left:22px;font-size:15px;line-height:1.6}
+.tugas-kartu .btn{margin-top:8px}
+
+/* ---------- navigasi bawah: bilah aksi ---------- */
+.butir-nav{margin-top:26px;padding-top:0}
+.butir-aksi{position:sticky;bottom:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:12px 14px calc(12px + env(safe-area-inset-bottom));background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 -6px 18px rgba(15,26,36,.12)}
+.butir-aksi-kiri{display:flex;justify-content:flex-start}
+.butir-aksi-kanan{display:flex;justify-content:flex-end}
+.nav-butir{display:inline-flex;align-items:center;justify-content:center;min-height:48px;text-decoration:none;white-space:nowrap}
+.btn-tandai{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;background:var(--green-soft);color:var(--ok);border:2px solid var(--ok);box-shadow:none}
+.btn-tandai:hover{background:var(--ok);color:#fff}
+.btn-tandai.is-batal{background:transparent;color:var(--muted);border-color:var(--line-strong)}
+.btn-tandai.is-batal:hover{background:var(--primary-soft);color:var(--text)}
+.butir-ulangi{display:flex;justify-content:center;margin-top:12px}
+.btn-ulangi{display:inline-flex;align-items:center;gap:8px;min-height:44px}
+@media(max-width:700px){
+  .butir-aksi{grid-template-columns:1fr 1fr;grid-template-areas:"tandai tandai" "kiri kanan"}
+  .btn-tandai{grid-area:tandai;width:100%}
+  .butir-aksi-kiri{grid-area:kiri}
+  .butir-aksi-kanan{grid-area:kanan}
+  .butir-aksi-kiri .nav-butir,.butir-aksi-kanan .nav-butir{width:100%}
+}
+
+/* ---------- kosong ---------- */
+.butir-kosong{max-width:56ch;padding:24px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow)}
+.butir-kosong h2{margin:0 0 8px;font-size:22px}
+
+@media(max-width:640px){
+  .peta-butir{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));padding:8px}
+  .peta-judul{font-size:13.5px}
+  .soal{padding:13px}
+  .butir-isi{max-width:none}
+}
+
+/* Dipakai mesin butir untuk menyembunyikan kepala halaman & grid bab saat
+   sebuah butir dibuka. Atribut `hidden` saja kalah oleh `display:grid`. */
+.is-sembunyi{display:none !important}

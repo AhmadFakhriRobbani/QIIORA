@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="id" class="sedang-muat">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QIIORA — Siklus Air 3D · IPAS Kelas V</title>
+<meta name="description" content="Media pembelajaran interaktif siklus air untuk SD Kelas V: modul, simulasi 3D, kuis, dan LKPD.">
+<meta name="theme-color" content="#F4FAFF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/komponen.css">
+<link rel="stylesheet" href="assets/css/halaman.css">
+<link rel="stylesheet" href="assets/css/simulasi.css">
+<link rel="stylesheet" href="assets/css/butir.css">
+<link rel="stylesheet" href="assets/css/beranda.css">
+<link rel="stylesheet" href="assets/css/skema.css">
+<link rel="stylesheet" href="assets/css/cangkang.css">
+<link rel="stylesheet" href="assets/css/ui.css">
+<link rel="stylesheet" href="assets/css/muat.css">
+<link rel="stylesheet" href="assets/css/gerbang.css">
+<link rel="stylesheet" href="assets/css/rombak.css">
+<link rel="stylesheet" href="assets/css/panel.css">
+<link rel="stylesheet" href="assets/css/identitas.css">
+<link rel="stylesheet" href="assets/css/visual-butir.css">
+<link rel="stylesheet" href="assets/css/lkpd.css">
+<link rel="stylesheet" href="assets/css/final.css">
+<script>
+/* ============================================================
+   PEMBERSIH CACHE VERSI (dipasang SEBELUM CSS/JS lain dimuat)
+
+   Masalah nyata: service worker lama memakai cache-first untuk
+   CSS/JS, sehingga browser terus memakai berkas LAMA walau berkas
+   di disk sudah diperbarui. Perbaikan tampilan tidak pernah
+   terlihat sampai cache dibersihkan manual.
+
+   Skrip ini membandingkan penanda versi. Bila berbeda dari yang
+   tersimpan di perangkat, semua cache dibuang, service worker
+   diperbarui, lalu halaman dimuat ulang SEKALI.
+   ============================================================ */
+(function(){
+  'use strict';
+  var VERSI_ASET = 'v8-2026-11-14';
+  var KUNCI = 'qiiora:versi-aset';
+  try{
+    var lama = null;
+    try{ lama = localStorage.getItem(KUNCI); }catch(e){}
+    if(lama !== VERSI_ASET){
+      try{ localStorage.setItem(KUNCI, VERSI_ASET); }catch(e){}
+      // hanya bersihkan+muat ulang sekali per versi, jangan berulang
+      var tanda = 'qiiora:bersih-' + VERSI_ASET;
+      var sudah = false;
+      try{ sudah = sessionStorage.getItem(tanda) === '1'; }catch(e){}
+      if(!sudah && window.caches){
+        try{ sessionStorage.setItem(tanda, '1'); }catch(e){}
+        caches.keys().then(function(k){
+          return Promise.all(k.map(function(n){ return caches.delete(n); }));
+        }).then(function(){
+          if(navigator.serviceWorker && navigator.serviceWorker.getRegistrations){
+            return navigator.serviceWorker.getRegistrations();
+          }
+          return [];
+        }).then(function(regs){
+          return Promise.all((regs||[]).map(function(r){ return r.unregister(); }));
+        }).then(function(){
+          location.reload();
+        }).catch(function(){
+          location.reload();
+        });
+      }
+    }
+  }catch(e){ /* gagal: biarkan halaman jalan normal */ }
+})();
+</script>
+<script src="config.local.js"></script>
+<script src="assets/js/tema.js"></script>
+<script src="assets/js/muat.js"></script>
+<script src="assets/js/gerbang.js"></script>
+</head>
+<body>
+<a class="skip" href="#main" data-skip>Lewati ke konten utama</a>
+
+<header class="site-head">
+  <div class="head-in">
+    <a class="brand" href="#/beranda" aria-label="Beranda QIIORA">
+      <span class="brand-mark" aria-hidden="true">H₂O</span>
+      <span style="min-width:0;overflow:hidden">
+        <span class="brand-name">QIIORA</span>
+        <span class="brand-sub">IPAS · Fase C · Kelas V</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="navUtama" aria-label="Navigasi utama">
+      <span class="nav-ind" data-nav-ind aria-hidden="true"></span>
+      <a href="#/beranda" data-nav-key="beranda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"/><path d="M9.5 20v-5h5v5"/></svg>Beranda</a>
+      <a href="#/modul" data-nav-key="modul"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></svg>Modul</a>
+      <a href="#/simulasi" data-nav-key="simulasi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 3v18M4 7.5l8 4.5 8-4.5"/></svg>Simulasi 3D</a>
+      <a href="#/kuis" data-nav-key="kuis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.4 9.4a2.6 2.6 0 1 1 3.5 2.4v1.2"/><circle cx="12.5" cy="16.6" r=".9" fill="currentColor" stroke="none"/></svg>Kuis</a>
+      <a href="#/lkpd" data-nav-key="lkpd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M7 3h10v18H7z"/><path d="M4 7h3M4 12h3M4 17h3"/><path d="M10.5 8h3M10.5 12h3"/></svg>LKPD</a>
+      <div class="nav-more">
+        <button class="nav-more-btn" type="button" data-nav-more aria-expanded="false" aria-controls="navPanel">Lainnya
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-panel" id="navPanel" data-nav-panel hidden>
+          <span class="np-label">Belajar</span>
+          <a href="#/tujuan" data-nav-key="tujuan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>Tujuan Pembelajaran</a>
+          <a href="#/materi" data-nav-key="materi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 4h9l5 5v11H5z"/><path d="M14 4v5h5"/></svg>Materi Pokok</a>
+          <a href="#/model-tanah" data-nav-key="model-tanah"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h18M3 13h18M3 18h18"/></svg>Model Tanah 3D</a>
+          <a href="#/kesimpulan" data-nav-key="kesimpulan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Kesimpulan</a>
+          <span class="np-sep"></span>
+          <span class="np-label">Lainnya</span>
+          <a href="#/sumber" data-nav-key="sumber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></svg>Sumber &amp; Data</a>
+          <a href="tugas.html" data-nav-key="tugas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16v13H4z"/><path d="M9 7V4h6v3"/></svg>Tugas</a>
+          <a href="pengajar.html" data-nav-key="pengajar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4z"/><path d="M7 11v5c0 1.6 2.2 3 5 3s5-1.4 5-3v-5"/></svg>Mode Pengajar</a>
+          <a href="#/identitas" data-nav-key="identitas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"/><path d="M4.5 20c0-4 3.4-6.2 7.5-6.2s7.5 2.2 7.5 6.2"/></svg>Identitas Penyusun</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="head-actions">
+      <a class="head-profil" href="#/identitas" data-profil hidden aria-label="Menu akun">
+        <span class="head-profil-ava" data-profil-inisial aria-hidden="true">Q</span>
+        <span class="head-profil-txt">
+          <span class="head-profil-nama" data-profil-nama>QIIORA</span>
+          <span class="head-profil-sub" data-profil-kelas>Identitas Penyusun</span>
+        </span>
+      </a>
+      <button class="head-logout" type="button" data-logout aria-label="Keluar dari akun" title="Keluar dari akun">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+              <span>Keluar</span>
+            </button>
+      <button class="cari-btn" type="button" data-cari aria-label="Cari (Ctrl+K)" title="Cari — Ctrl+K">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+        <span>Cari</span><kbd>Ctrl K</kbd>
+      </button>
+      <button class="icon-btn" type="button" data-tema-toggle aria-pressed="false" aria-label="Ganti mode terang atau gelap" title="Mode terang / gelap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+      </button>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="drawer" aria-label="Buka menu">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer-scrim" data-drawer-scrim></div>
+<aside class="drawer" id="drawer" aria-label="Menu navigasi">
+  <div class="drawer-head">
+    <strong>Menu QIIORA</strong>
+    <button class="icon-btn" type="button" data-drawer-close aria-label="Tutup menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-body" aria-label="Navigasi lengkap">
+    <a href="#/beranda" data-nav-key="beranda">Beranda</a>
+    <span class="np-label">Belajar</span>
+    <a href="#/modul" data-nav-key="modul">Modul</a>
+    <a href="#/tujuan" data-nav-key="tujuan">Tujuan Pembelajaran</a>
+    <a href="#/materi" data-nav-key="materi">Materi Pokok</a>
+    <a href="#/simulasi" data-nav-key="simulasi">Simulasi 3D</a>
+    <a href="#/model-tanah" data-nav-key="model-tanah">Model Tanah 3D</a>
+    <a href="#/kesimpulan" data-nav-key="kesimpulan">Kesimpulan</a>
+    <span class="np-label">Latihan</span>
+    <a href="#/kuis" data-nav-key="kuis">Kuis Pemahaman</a>
+    <a href="#/lkpd" data-nav-key="lkpd">LKPD</a>
+    <a href="tugas.html" data-nav-key="tugas">Tugas</a>
+    <span class="np-label">Lainnya</span>
+    <a href="#/sumber" data-nav-key="sumber">Sumber &amp; Data</a>
+    <a href="kumpul.html" data-nav-key="kumpul">Lembar Pengumpulan</a>
+    <a href="pengajar.html" data-nav-key="pengajar">Mode Pengajar</a>
+    <a href="#/identitas" data-nav-key="identitas">Identitas Penyusun</a>
+    <button class="drawer-keluar" type="button" data-mp="keluar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="17" height="17"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+      Keluar dari akun
+    </button>
+  </nav>
+</aside>
+
+<main id="main">
+<section class="view" id="view-beranda" data-view="beranda" data-title="Beranda" hidden>
+<section class="hero" id="beranda">
+  <div data-ornamen aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="kicker">Media Pembelajaran Digital · Kurikulum Merdeka</p>
+        <h1>Siklus<br><em>Air</em></h1>
+        <p class="hero-lede">Air tidak pernah benar-benar hilang. Ia menguap, mengembun, jatuh sebagai hujan, meresap ke tanah, lalu kembali ke laut — berulang tanpa henti.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#/simulasi">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v18M5 10l7-7 7 7"/></svg>
+            Mulai simulasi 3D
+          </a>
+          <a class="btn btn--ghost" href="#/modul" data-lanjut>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></svg>
+            <span data-lanjut-label>Mulai modul</span>
+          </a>
+        </div>
+        <div class="hero-progress" data-hero-progress hidden>
+          <div class="hp-top"><span class="mono">Progres belajarmu</span><b data-hp-persen>0%</b></div>
+          <div class="hp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progres belajar"><i data-hp-fill></i></div>
+          <p class="hp-note" data-hp-note></p>
+        </div>
+        <div class="kualitas">
+          <span>Kualitas grafis</span>
+          <div class="kualitas-seg" role="group" aria-label="Kualitas grafis">
+            <button type="button" data-kualitas="rendah" aria-pressed="false">Rendah</button>
+            <button type="button" data-kualitas="sedang" aria-pressed="false">Sedang</button>
+            <button type="button" data-kualitas="tinggi" aria-pressed="false">Tinggi</button>
+            <button type="button" data-kualitas="otomatis" aria-pressed="false">Otomatis</button>
+          </div>
+        </div>
+        <dl class="hero-meta">
+          <div><dt>Jenjang</dt><dd>SD / MI</dd></div>
+          <div><dt>Fase / Kelas</dt><dd>C / V</dd></div>
+          <div><dt>Mata Pelajaran</dt><dd>IPAS</dd></div>
+          <div><dt>Alokasi</dt><dd>2 × 35 menit</dd></div>
+        </dl>
+      </div>
+      <figure class="hero-figure">
+        <div data-skema></div>
+        <figcaption>Gambar 1. Skema siklus air — 12 proses. Ilustrasi vektor orisinal, terinspirasi poster “The Water Cycle” (NOAA/NWS JetStream).</figcaption>
+      </figure>
+    </div>
+
+
+    <div class="pintu-wrap">
+      <div class="pintu-head">
+        <h2>Mau mulai dari mana?</h2>
+        <p>Setiap tombol membuka halaman sendiri — tidak perlu menggulir panjang.</p>
+      </div>
+      <div class="pintu-grid">
+        <a class="pintu" href="#/modul">
+          <span class="pintu-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></svg></span>
+          <span class="pintu-t">Modul</span>
+          <span class="pintu-d">15 butir per bab: materi singkat + soal</span>
+        </a>
+        <a class="pintu" href="#/simulasi">
+          <span class="pintu-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 3v18M4 7.5l8 4.5 8-4.5"/></svg></span>
+          <span class="pintu-t">Simulasi 3D</span>
+          <span class="pintu-d">Diorama siklus air, putar dan zoom</span>
+        </a>
+        <a class="pintu" href="#/model-tanah">
+          <span class="pintu-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M3 12h18M3 17h18"/></svg></span>
+          <span class="pintu-t">Model Tanah</span>
+          <span class="pintu-d">Lapisan tanah 3D yang bisa dipecah</span>
+        </a>
+        <a class="pintu" href="#/kuis">
+          <span class="pintu-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 9a3 3 0 1 1 4 2.8V14"/><circle cx="12" cy="18" r="1"/><circle cx="12" cy="12" r="9"/></svg></span>
+          <span class="pintu-t">Kuis</span>
+          <span class="pintu-d">10 soal dengan pembahasan langsung</span>
+        </a>
+        <a class="pintu" href="#/lkpd">
+          <span class="pintu-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h10v18H7zM4 7h3M4 12h3M4 17h3"/></svg></span>
+          <span class="pintu-t">LKPD</span>
+          <span class="pintu-d">Isi di peramban, simpan, lalu cetak</span>
+        </a>
+        <a class="pintu" href="tugas.html">
+          <span class="pintu-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16v13H4z"/><path d="M9 7V4h6v3M9 12h6M9 16h4"/></svg></span>
+          <span class="pintu-t">Tugas</span>
+          <span class="pintu-d">Poster, percobaan, dan tautan Drive</span>
+        </a>
+      </div>
+    </div>
+    <div class="fact-strip" aria-label="Data kunci tentang air di Bumi">
+      <div><strong>70%</strong><span>Permukaan Bumi tertutup air</span></div>
+      <div><strong>97%</strong><span>Air Bumi berada di laut</span></div>
+      <div><strong>3%</strong><span>Air tawar di Bumi</span></div>
+      <div><strong>5</strong><span>Tahapan utama siklus air</span></div>
+    </div>
+  </div>
+</section>
+</section>
+
+<section class="view" id="view-tujuan" data-view="tujuan" data-title="Tujuan Pembelajaran" hidden>
+<section class="section section--tint" id="tujuan">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-no">01</span>
+      <h2>Tujuan Pembelajaran</h2>
+      <p class="sec-desc">Rujukan: Capaian Pembelajaran IPAS Fase C dan Buku Siswa IPAS Kelas V Kurikulum Merdeka.</p>
+    </div>
+    <div class="tujuan-grid">
+      <div>
+        <p class="cp-label">Capaian Pembelajaran (Fase C)</p>
+        <blockquote class="cp-quote">“Peserta didik memahami proses siklus air, dampaknya terhadap perubahan di permukaan bumi, serta menunjukkan perilaku menjaga ketersediaan air dalam kehidupan sehari-hari.”</blockquote>
+        <p class="cp-label">Tujuan Pembelajaran</p>
+        <ol class="tp-list">
+          <li>Menjelaskan pengertian siklus air dan menyebutkan lima tahapan utamanya secara runtut.</li>
+          <li>Mendeskripsikan proses evaporasi, transpirasi, kondensasi, presipitasi, serta infiltrasi dan limpasan.</li>
+          <li>Menganalisis pengaruh kegiatan manusia terhadap ketersediaan air dan mengusulkan tindakan konservasi.</li>
+          <li>Menyajikan hasil pengamatan simulasi dan percobaan sederhana dalam LKPD dengan bahasa sendiri.</li>
+        </ol>
+      </div>
+      <aside>
+        <div class="side-box">
+          <h3>Indikator Ketercapaian</h3>
+          <ul>
+            <li>Menyebutkan lima tahapan siklus air.</li>
+            <li>Menjelaskan perubahan wujud pada setiap tahap.</li>
+            <li>Membedakan kondensasi dan presipitasi.</li>
+            <li>Memberi contoh gangguan dan solusi.</li>
+          </ul>
+        </div>
+        <div class="side-box">
+          <h3>Profil Pelajar Pancasila</h3>
+          <ul>
+            <li>Beriman, bertakwa, dan berakhlak mulia</li>
+            <li>Bernalar kritis</li>
+            <li>Kreatif</li>
+            <li>Bergotong-royong</li>
+            <li>Mandiri</li>
+            <li>Berkebinekaan global</li>
+          </ul>
+        </div>
+        <div class="side-box">
+          <h3>Media & Penilaian</h3>
+          <ul>
+            <li>Simulasi 3D, LKPD, kuis interaktif</li>
+            <li>Penilaian proses: LKPD dan diskusi</li>
+            <li>Penilaian hasil: kuis dan refleksi</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+</section>
+
+<section class="view" id="view-materi" data-view="materi" data-title="Materi Pokok" hidden>
+<section class="section" id="materi">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-no">02</span>
+      <h2>Materi Pokok</h2>
+      <p class="sec-desc">Disusun dari Buku Siswa IPAS Kelas V, penjelasan BMKG, dan data NASA Science.</p>
+    </div>
+
+    <div class="materi-grid">
+      <div class="materi-tabs" role="tablist" aria-label="Tahapan siklus air">
+        <button class="materi-tab" role="tab" aria-selected="true" aria-controls="mp1" data-materi-tab="1"><span class="n">01</span><span class="t">Evaporasi</span></button>
+        <button class="materi-tab" role="tab" aria-selected="false" aria-controls="mp2" data-materi-tab="2"><span class="n">02</span><span class="t">Transpirasi</span></button>
+        <button class="materi-tab" role="tab" aria-selected="false" aria-controls="mp3" data-materi-tab="3"><span class="n">03</span><span class="t">Kondensasi</span></button>
+        <button class="materi-tab" role="tab" aria-selected="false" aria-controls="mp4" data-materi-tab="4"><span class="n">04</span><span class="t">Presipitasi</span></button>
+        <button class="materi-tab" role="tab" aria-selected="false" aria-controls="mp5" data-materi-tab="5"><span class="n">05</span><span class="t">Infiltrasi &amp; Limpasan</span></button>
+      </div>
+
+      <div>
+        <article class="materi-panel is-active" id="mp1" role="tabpanel" data-materi-panel="1">
+          <h3>Evaporasi: air berubah menjadi uap</h3>
+          <p class="lead">Evaporasi adalah perubahan air dari wujud cair menjadi uap air. Proses ini terjadi ketika air di laut, danau, sungai, atau genangan memperoleh energi panas dari Matahari.</p>
+          <p>Semakin luas permukaan air dan semakin tinggi suhu lingkungan, semakin cepat penguapan berlangsung. Uap air kemudian terbawa udara ke lapisan atmosfer. Laut menjadi sumber uap air terbesar karena menyimpan sekitar 97% air di Bumi.</p>
+          <dl class="meta-grid">
+            <div><dt>Perubahan wujud</dt><dd>Cair → gas</dd></div>
+            <div><dt>Tempat</dt><dd>Laut, danau, sungai, genangan</dd></div>
+            <div><dt>Energi</dt><dd>Panas Matahari</dd></div>
+          </dl>
+          <div class="fact"><span class="lab">Fakta</span><p>Sekitar 70% permukaan Bumi tertutup air, dan sekitar 97% air Bumi berada di laut. Karena itu, laut berperan besar sebagai pemasok uap air.</p></div>
+          <p class="source-line">Sumber: NASA Science (2025); BMKG, Buku Saku Klimatologi.</p>
+        </article>
+
+        <article class="materi-panel" id="mp2" role="tabpanel" data-materi-panel="2">
+          <h3>Transpirasi: tumbuhan melepaskan uap air</h3>
+          <p class="lead">Tumbuhan juga mengembalikan air ke atmosfer. Air tanah diserap akar, dialirkan melalui jaringan pengangkut batang, lalu keluar melalui stomata di permukaan daun.</p>
+          <p>Proses pelepasan uap air melalui tumbuhan disebut transpirasi. Pada siang hari yang panas, transpirasi membantu tumbuhan mengatur suhu tubuhnya. Evaporasi dan transpirasi sering digabungkan sebagai <em>evapotranspirasi</em> karena keduanya sama-sama memasok uap air ke udara.</p>
+          <dl class="meta-grid">
+            <div><dt>Perubahan wujud</dt><dd>Cair → gas (melalui tumbuhan)</dd></div>
+            <div><dt>Tempat</dt><dd>Stomata pada daun</dd></div>
+            <div><dt>Jalur</dt><dd>Akar → batang → daun</dd></div>
+          </dl>
+          <div class="fact"><span class="lab">Fakta</span><p>Hutan yang lebat mempercepat evapotranspirasi dan membantu menjaga kelembapan udara setempat.</p></div>
+          <p class="source-line">Sumber: BMKG, Buku Saku Klimatologi; Buku Siswa IPAS Kelas V, Bab 4.</p>
+        </article>
+
+        <article class="materi-panel" id="mp3" role="tabpanel" data-materi-panel="3">
+          <h3>Kondensasi: uap air menjadi titik-titik air</h3>
+          <p class="lead">Udara hangat dan lembap lebih ringan sehingga naik. Saat naik, udara mendingin dan uap air berubah menjadi titik-titik air yang sangat kecil.</p>
+          <p>Titik-titik air ini berkumpul di sekitar partikel kecil di atmosfer dan membentuk awan. Jika suhu sangat rendah, uap air dapat berubah langsung menjadi kristal es.</p>
+          <dl class="meta-grid">
+            <div><dt>Perubahan wujud</dt><dd>Gas → cair</dd></div>
+            <div><dt>Tempat</dt><dd>Atmosfer</dd></div>
+            <div><dt>Syarat</dt><dd>Pendinginan uap air</dd></div>
+          </dl>
+          <div class="fact"><span class="lab">Penting</span><p>Awan bukan uap air. Uap air tidak terlihat; yang terlihat sebagai awan adalah kumpulan titik-titik air atau kristal es yang sangat kecil.</p></div>
+          <p class="source-line">Sumber: BMKG, “Memahami Hujan”.</p>
+        </article>
+
+        <article class="materi-panel" id="mp4" role="tabpanel" data-materi-panel="4">
+          <h3>Presipitasi: air jatuh kembali ke Bumi</h3>
+          <p class="lead">Titik-titik air di awan saling bergabung melalui tumbukan. Ketika ukurannya cukup besar dan berat, gaya gravitasi menariknya ke bawah menuju permukaan Bumi.</p>
+          <p>Peristiwa turunnya air dari atmosfer ke permukaan Bumi disebut presipitasi. Bentuknya dapat berupa hujan, salju, atau hujan es.</p>
+          <dl class="meta-grid">
+            <div><dt>Perubahan wujud</dt><dd>Cair (atau padat di daerah dingin)</dd></div>
+            <div><dt>Tempat</dt><dd>Dari awan ke permukaan Bumi</dd></div>
+            <div><dt>Penyebab</dt><dd>Gravitasi dan ukuran tetesan</dd></div>
+          </dl>
+          <div class="fact"><span class="lab">Fakta</span><p>Tidak semua uap air di awan langsung menjadi hujan. Sebagian tetap berada di atmosfer.</p></div>
+          <p class="source-line">Sumber: BMKG, Modul TOT Sekolah Lapang Iklim.</p>
+        </article>
+
+        <article class="materi-panel" id="mp5" role="tabpanel" data-materi-panel="5">
+          <h3>Infiltrasi dan limpasan: air kembali ke laut</h3>
+          <p class="lead">Air yang mencapai tanah akan mengikuti dua jalur. Sebagian meresap ke dalam tanah (infiltrasi) dan bergerak sebagai air tanah; sebagian mengalir di permukaan (limpasan) menuju sungai, danau, atau laut.</p>
+          <p>Air tanah dapat tersimpan lama dan dimanfaatkan melalui sumur. Limpasan permukaan terjadi ketika tanah tidak mampu menyerap air lebih cepat.</p>
+          <dl class="meta-grid">
+            <div><dt>Perubahan wujud</dt><dd>Tetap cair</dd></div>
+            <div><dt>Tempat</dt><dd>Tanah dan permukaan darat</dd></div>
+            <div><dt>Dua jalur</dt><dd>Infiltrasi dan limpasan</dd></div>
+          </dl>
+          <div class="fact"><span class="lab">Fakta</span><p>Sekitar 30% air tawar berada sebagai air tanah dan lebih dari 68% tersimpan sebagai es di gletser.</p></div>
+          <p class="source-line">Sumber: NASA Science (2025); Buku Siswa IPAS Kelas V.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- DATA -->
+    <div class="data-block">
+      <div class="data-card">
+        <h4>Distribusi air di Bumi</h4>
+        <div class="stacked" role="img" aria-label="Sekitar 97 persen air Bumi adalah air laut dan 3 persen air tawar.">
+          <span class="seg-sea">97% laut</span>
+          <span class="seg-fresh">3%</span>
+        </div>
+        <div class="legend"><span><i style="background:var(--teal)"></i>Air laut (asin)</span><span><i style="background:var(--sun)"></i>Air tawar</span></div>
+        <p class="data-note">Sumber: NASA Science (2025). Angka dibulatkan.</p>
+      </div>
+      <div class="data-card">
+        <h4>Komposisi air tawar</h4>
+        <div class="stacked" role="img" aria-label="Dari air tawar: 68 persen es dan gletser, 30 persen air tanah, sisanya kurang dari 2 persen di permukaan dan atmosfer.">
+          <span class="seg-ice">68%</span>
+          <span class="seg-ground">30%</span>
+          <span class="seg-other">&lt;2%</span>
+        </div>
+        <div class="legend"><span><i style="background:#8FB9C4"></i>Es &amp; gletser</span><span><i style="background:#B08A63"></i>Air tanah</span><span><i style="background:var(--coral)"></i>Permukaan &amp; atmosfer</span></div>
+        <p class="data-note">Sumber: NASA Science (2025).</p>
+      </div>
+    </div>
+
+    <div class="cycles">
+      <div class="cycle"><span class="tag">SIKLUS PENDEK</span><h4>Di atas laut</h4><p>Air laut menguap, mengembun menjadi awan, lalu jatuh sebagai hujan kembali ke laut.</p></div>
+      <div class="cycle"><span class="tag">SIKLUS SEDANG</span><h4>Lewat daratan</h4><p>Uap air dari laut terbawa angin ke darat, turun sebagai hujan, lalu mengalir melalui sungai menuju laut.</p></div>
+      <div class="cycle"><span class="tag">SIKLUS PANJANG</span><h4>Melalui es</h4><p>Hujan atau salju di pegunungan tersimpan sebagai es, mencair secara perlahan, lalu mengalir ke sungai dan laut.</p></div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h3 style="font-size:22px;margin-bottom:10px">Kegiatan manusia yang memengaruhi siklus air</h3>
+        <ul class="list-rule">
+          <li>Penebangan hutan besar-besaran mengurangi transpirasi dan infiltrasi.</li>
+          <li>Permukaan beton dan aspal yang luas mengurangi jumlah air yang meresap ke tanah.</li>
+          <li>Pencemaran sungai dan danau menurunkan kualitas air.</li>
+          <li>Pengambilan air tanah secara berlebihan.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-size:22px;margin-bottom:10px">Tindakan menjaga ketersediaan air</h3>
+        <ul class="list-rule">
+          <li>Menanam dan merawat pohon untuk menjaga daerah resapan air.</li>
+          <li>Membuat biopori dan sumur resapan di lingkungan rumah atau sekolah.</li>
+          <li>Mematikan keran saat tidak digunakan dan memperbaiki kebocoran.</li>
+          <li>Menjaga kebersihan sungai serta tidak membuang sampah sembarangan.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+
+<section class="view" id="view-simulasi" data-view="simulasi" data-title="Simulasi 3D" hidden>
+<section class="section section--tint" id="simulasi">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-no">03</span>
+      <h2>Simulasi 3D</h2>
+      <p class="sec-desc">Model diorama ini adalah penyederhanaan. Ukuran, jarak, dan waktu tidak berskala sebenarnya.</p>
+    </div>
+
+    <div class="sim-shell">
+      <div>
+        <div class="canvas-wrap" id="simCanvasWrap" style="position:relative">
+          <span class="sim-badge">Model 3D · Live</span>
+          <div class="sim-tools">
+            <button class="icon-btn" type="button" data-reset-view aria-label="Kembalikan sudut pandang" title="Reset tampilan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M5 15a8 8 0 0 0 13 3M19 9A8 8 0 0 0 6 6"/></svg>
+            </button>
+            <button class="icon-btn" type="button" data-info-tahap aria-label="Detail tahap (sheet)" title="Detail tahap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11v5"/></svg>
+            </button>
+            <button class="icon-btn" type="button" data-fullscreen aria-label="Layar penuh" title="Layar penuh">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+            </button>
+          </div>
+          <div id="simCanvas" style="position:absolute;inset:0"></div>
+          <div class="canvas-fallback" id="simFallback" hidden>
+            <div style="text-align:center;max-width:340px">
+              <p class="mono" style="color:var(--coral);margin-bottom:6px">Mode diagram</p>
+              <p style="margin:0">Simulasi 3D memerlukan WebGL. Panel tahapan tetap dapat digunakan.</p>
+            </div>
+          </div>
+          <button class="hotspot" type="button" data-hotspot="1" style="left:30%;top:60%"><span class="hs-num">01</span><span>Evaporasi</span><i class="hs-pct" data-pct="1">0%</i></button>
+          <button class="hotspot" type="button" data-hotspot="2" style="left:66%;top:46%"><span class="hs-num">02</span><span>Transpirasi</span><i class="hs-pct" data-pct="2">0%</i></button>
+          <button class="hotspot" type="button" data-hotspot="3" style="left:51%;top:20%"><span class="hs-num">03</span><span>Kondensasi</span><i class="hs-pct" data-pct="3">0%</i></button>
+          <button class="hotspot" type="button" data-hotspot="4" style="left:55%;top:40%"><span class="hs-num">04</span><span>Presipitasi</span><i class="hs-pct" data-pct="4">0%</i></button>
+          <button class="hotspot" type="button" data-hotspot="5" style="left:58%;top:78%"><span class="hs-num">05</span><span>Infiltrasi</span><i class="hs-pct" data-pct="5">0%</i></button>
+          <span class="sim-hint">Seret untuk memutar · Gulir untuk memperbesar</span>
+        </div>
+        <p class="sim-legenda">
+          <span class="sl-ikon" aria-hidden="true"></span>
+          Angka di label = <b>intensitas proses</b> saat ini (0–100). Makin tinggi, makin deras prosesnya berlangsung.
+        </p>
+        <div class="stage-select" role="group" aria-label="Pilih tahapan simulasi">
+          <button class="stage-btn" type="button" data-stage-btn="0" aria-pressed="true"><b>00</b>Pengantar</button>
+          <button class="stage-btn" type="button" data-stage-btn="1" aria-pressed="false"><b>01</b>Evaporasi</button>
+          <button class="stage-btn" type="button" data-stage-btn="2" aria-pressed="false"><b>02</b>Transpirasi</button>
+          <button class="stage-btn" type="button" data-stage-btn="3" aria-pressed="false"><b>03</b>Kondensasi</button>
+          <button class="stage-btn" type="button" data-stage-btn="4" aria-pressed="false"><b>04</b>Presipitasi</button>
+          <button class="stage-btn" type="button" data-stage-btn="5" aria-pressed="false"><b>05</b>Infiltrasi</button>
+        </div>
+      </div>
+
+      <div class="sim-panel">
+        <p class="stage-no">TAHAP <span data-stage-current>00</span> / 05</p>
+
+        <div class="stage-copy is-active" data-stage-copy="0">
+          <h3>Siklus air di Bumi</h3>
+          <p>Model ini menampilkan potongan lanskap: laut, daratan, gunung, tumbuhan, awan, dan Matahari. Air bergerak dari laut ke atmosfer, kembali ke darat, lalu mengalir lagi ke laut.</p>
+          <div class="sim-meta">
+            <div><dt>Fokus</dt><dd>Gambaran menyeluruh</dd></div>
+            <div><dt>Wujud air</dt><dd>Cair, gas, dan padat</dd></div>
+            <div><dt>Lokasi</dt><dd>Laut, darat, atmosfer</dd></div>
+          </div>
+          <p class="sim-source">Sumber konsep: Buku Siswa IPAS Kelas V Bab 4; BMKG.</p>
+        </div>
+
+        <div class="stage-copy" data-stage-copy="1">
+          <h3>Evaporasi</h3>
+          <p>Energi panas Matahari memanaskan permukaan laut, danau, dan sungai. Molekul air memperoleh energi untuk lepas ke udara sebagai uap air.</p>
+          <div class="sim-meta">
+            <div><dt>Wujud</dt><dd>Cair → gas</dd></div>
+            <div><dt>Lokasi</dt><dd>Laut, danau, sungai</dd></div>
+            <div><dt>Pemicu</dt><dd>Panas Matahari</dd></div>
+          </div>
+          <p class="sim-source">Sumber: NASA Science (2025); BMKG.</p>
+        </div>
+
+        <div class="stage-copy" data-stage-copy="2">
+          <h3>Transpirasi</h3>
+          <p>Akar menyerap air tanah, batang mengalirkannya ke daun, lalu stomata melepaskan uap air ke atmosfer.</p>
+          <div class="sim-meta">
+            <div><dt>Wujud</dt><dd>Cair → gas</dd></div>
+            <div><dt>Lokasi</dt><dd>Stomata daun</dd></div>
+            <div><dt>Jalur</dt><dd>Akar → batang → daun</dd></div>
+          </div>
+          <p class="sim-source">Sumber: BMKG; Buku Siswa IPAS Kelas V.</p>
+        </div>
+
+        <div class="stage-copy" data-stage-copy="3">
+          <h3>Kondensasi</h3>
+          <p>Uap air naik karena udara hangat lebih ringan. Di ketinggian, udara mendingin sehingga uap berubah menjadi titik-titik air yang membentuk awan.</p>
+          <div class="sim-meta">
+            <div><dt>Wujud</dt><dd>Gas → cair</dd></div>
+            <div><dt>Lokasi</dt><dd>Atmosfer</dd></div>
+            <div><dt>Syarat</dt><dd>Pendinginan</dd></div>
+          </div>
+          <p class="sim-source">Sumber: BMKG, “Memahami Hujan”.</p>
+        </div>
+
+        <div class="stage-copy" data-stage-copy="4">
+          <h3>Presipitasi</h3>
+          <p>Titik-titik air di awan bergabung menjadi tetesan yang lebih besar. Saat cukup berat, tetesan jatuh ke permukaan Bumi sebagai hujan.</p>
+          <div class="sim-meta">
+            <div><dt>Wujud</dt><dd>Cair atau padat</dd></div>
+            <div><dt>Lokasi</dt><dd>Awan → permukaan Bumi</dd></div>
+            <div><dt>Penyebab</dt><dd>Gravitasi</dd></div>
+          </div>
+          <p class="sim-source">Sumber: BMKG, Modul TOT Sekolah Lapang Iklim.</p>
+        </div>
+
+        <div class="stage-copy" data-stage-copy="5">
+          <h3>Infiltrasi &amp; limpasan</h3>
+          <p>Sebagian air hujan meresap ke dalam tanah menjadi air tanah. Sebagian lagi mengalir di permukaan menuju sungai, danau, dan akhirnya laut.</p>
+          <div class="sim-meta">
+            <div><dt>Wujud</dt><dd>Cair</dd></div>
+            <div><dt>Lokasi</dt><dd>Tanah dan permukaan darat</dd></div>
+            <div><dt>Dua jalur</dt><dd>Infiltrasi, limpasan</dd></div>
+          </div>
+          <p class="sim-source">Sumber: Buku Siswa IPAS Kelas V; BMKG.</p>
+        </div>
+
+        <div class="sim-kendali">
+          <div class="sk-baris">
+            <label class="sk-label" for="simMatahari">Intensitas Matahari</label>
+            <output class="sk-nilai" data-sun-val>55%</output>
+          </div>
+          <input class="sk-slider" id="simMatahari" type="range" min="0" max="100" value="55" step="1"
+                 data-sun-slider aria-label="Intensitas Matahari 0 sampai 100 persen">
+          <div class="sk-tombol">
+            <button class="sk-toggle" type="button" data-cutaway aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 12h18M6 8h12M6 16h12"/></svg>
+              Potongan
+            </button>
+            <span class="sk-air">Air berpindah <b data-transfer>0</b> L</span>
+          </div>
+        </div>
+
+        <!-- Preset kamera sinematik (K5) -->
+        <div class="sim-preset" role="group" aria-label="Sudut pandang kamera">
+          <span class="sr-only">Sudut pandang kamera</span>
+          <button class="preset-btn is-aktif" type="button" data-preset="umum" aria-pressed="true">Gambaran umum</button>
+          <button class="preset-btn" type="button" data-preset="sungai" aria-pressed="false">Dekati sungai</button>
+          <button class="preset-btn" type="button" data-preset="lereng" aria-pressed="false">Susuri lereng</button>
+        </div>
+
+        <div class="sim-controls">
+          <button class="play" type="button" data-play aria-pressed="true">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            <span data-play-label>Jeda</span>
+          </button>
+          <div class="progress" aria-hidden="true"><i data-stage-progress></i></div>
+        </div>
+      </div>
+    </div>
+    <p class="source-line" style="margin-top:12px">Catatan teknis: model dibuat secara prosedural dengan Three.js r128 (offline).</p>
+  </div>
+</section>
+</section>
+
+<section class="view" id="view-kesimpulan" data-view="kesimpulan" data-title="Kesimpulan" hidden>
+<section class="section" id="kesimpulan">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-no">04</span>
+      <h2>Kesimpulan</h2>
+      <p class="sec-desc">Empat gagasan kunci yang perlu terbawa setelah mempelajari materi dan simulasi.</p>
+    </div>
+    <div class="conclusion">
+      <ol class="conc-list">
+        <li>Siklus air adalah perpindahan air secara terus-menerus dari permukaan Bumi ke atmosfer dan kembali lagi.</li>
+        <li>Tahapan utamanya meliputi evaporasi, transpirasi, kondensasi, presipitasi, serta infiltrasi dan limpasan.</li>
+        <li>Jumlah air di Bumi relatif tetap; yang berubah adalah wujud dan tempatnya. Air tidak hilang, tetapi berpindah antarreservoir.</li>
+        <li>Kegiatan manusia dapat memengaruhi kualitas dan ketersediaan air, sehingga tindakan konservasi perlu dilakukan bersama.</li>
+      </ol>
+      <div>
+        <div class="pullquote">
+          <span class="mono">Gagasan inti</span>
+          <p>“Air tidak hilang. Ia berpindah, berubah wujud, lalu kembali.”</p>
+        </div>
+        <div class="misconception">
+          <strong>Koreksi miskonsepsi</strong>
+          <p>Awan bukan uap air. Uap air tidak terlihat. Yang tampak sebagai awan adalah titik-titik air atau kristal es yang sangat kecil.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+
+<section class="view" id="view-kuis" data-view="kuis" data-title="Kuis Pemahaman" hidden>
+<section class="section section--tint" id="quiz">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-no">05</span>
+      <h2>Kuis Pemahaman</h2>
+      <p class="sec-desc">Sepuluh soal pilihan ganda. Setiap jawaban langsung diberi pembahasan.</p>
+    </div>
+
+    <div class="quiz-wrap">
+      <div data-quiz-body>
+        <div class="quiz-top">
+          <span class="mono" data-q-counter>Soal 1 / 10</span>
+          <span class="mono">Skor: <span data-live-score>0</span></span>
+        </div>
+        <div class="quiz-progress" aria-hidden="true"><i data-q-prog></i></div>
+        <p class="q-text" data-q-text></p>
+        <div class="opts" data-opts></div>
+        <div class="feedback" data-feedback aria-live="polite"></div>
+        <div class="quiz-foot">
+          <button class="btn" type="button" data-next disabled>Soal berikutnya</button>
+        </div>
+      </div>
+
+      <div class="result" data-result aria-live="polite">
+        <p class="mono" style="color:var(--coral)">Hasil kuis</p>
+        <p class="result-score"><span data-score>0</span><small> / <span data-score-total>10</span> benar</small></p>
+        <h3 data-score-note></h3>
+        <p style="margin-bottom:4px">Skor terbaik tersimpan di peramban: <strong data-best>0%</strong></p>
+        <ol class="review" data-review></ol>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:20px">
+          <button class="btn" type="button" data-retry>Ulangi kuis</button>
+          <a class="btn btn--ghost" href="#/materi">Tinjau materi</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+
+<section class="view" id="view-lkpd" data-view="lkpd" data-title="LKPD" hidden>
+<section class="section" id="lkpd">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-no">06</span>
+      <h2>LKPD</h2>
+      <p class="sec-desc">Lembar Kerja Peserta Didik dapat diisi langsung di peramban, tersimpan otomatis, lalu dicetak atau disimpan sebagai PDF.</p>
+    </div>
+
+    <div class="lkpd-toolbar">
+      <p class="mono" style="margin:0;color:var(--teal)">IPAS · Fase C · LKPD 01</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn--sm" type="button" data-print>Cetak / Simpan PDF</button>
+        <button class="btn btn--ghost btn--sm" type="button" data-reset-lkpd>Hapus jawaban</button>
+      </div>
+    </div>
+
+    <div class="sheet" id="lembarLKPD">
+      <!-- hiasan sudut bertema air: di luar area teks, tidak menutupi -->
+      <span class="lkpd-hias lkpd-hias--kiri-atas" aria-hidden="true">
+        <svg viewBox="0 0 150 150" fill="none">
+          <circle cx="118" cy="30" r="17" fill="#FFC93C" opacity=".8"/>
+          <g stroke="#FFC93C" stroke-width="3" stroke-linecap="round" opacity=".65">
+            <path d="M118 4v7M118 49v7M92 30h7M137 30h7M100 12l5 5M131 43l5 5M136 12l-5 5M105 43l-5 5"/>
+          </g>
+          <path d="M12 78c14-6 28-6 42 0s28 6 42 0 28-6 42 0" stroke="#2A93C8" stroke-width="3.5" stroke-linecap="round" opacity=".4"/>
+          <path d="M12 94c14-6 28-6 42 0s28 6 42 0 28-6 42 0" stroke="#2A93C8" stroke-width="3.5" stroke-linecap="round" opacity=".26"/>
+          <path d="M34 44c0-9 5-14 9-19 4 5 9 10 9 19a9 9 0 1 1-18 0z" fill="#7ED0E8" opacity=".5"/>
+        </svg>
+      </span>
+      <span class="lkpd-hias lkpd-hias--kanan-bawah" aria-hidden="true">
+        <svg viewBox="0 0 170 170" fill="none">
+          <path d="M170 92c-16 8-32 8-48 0s-32-8-48 0-32 8-48 0-16-8-26-4" stroke="#2A93C8" stroke-width="3.5" stroke-linecap="round" opacity=".34"/>
+          <path d="M170 112c-16 8-32 8-48 0s-32-8-48 0-32 8-48 0-16-8-26-4" stroke="#3BB273" stroke-width="3.5" stroke-linecap="round" opacity=".28"/>
+          <path d="M170 132c-16 8-32 8-48 0s-32-8-48 0-32 8-48 0-16-8-26-4" stroke="#2A93C8" stroke-width="3.5" stroke-linecap="round" opacity=".22"/>
+          <g opacity=".4">
+            <ellipse cx="128" cy="60" rx="14" ry="7.5" fill="#FF7A59"/>
+            <path d="M140 60l12-8v16z" fill="#FF7A59"/>
+            <circle cx="123" cy="58" r="1.7" fill="#14314A"/>
+          </g>
+          <g opacity=".35">
+            <ellipse cx="62" cy="42" rx="11" ry="6" fill="#FFC857"/>
+            <path d="M71 42l10-6.5v13z" fill="#FFC857"/>
+          </g>
+        </svg>
+      </span>
+      <div class="sheet-head">
+        <div>
+          <p class="sheet-code">LEMBAR KERJA PESERTA DIDIK · IPAS KELAS V</p>
+          <h2>Siklus Air</h2>
+        </div>
+        <div style="text-align:right">
+          <p class="sheet-code">FASE C</p>
+          <p class="mono" style="margin:2px 0 0;color:var(--ink-soft)">2 × 35 MENIT</p>
+        </div>
+      </div>
+
+      <div class="id-grid">
+        <div><dt>Nama</dt><dd contenteditable="true" data-ph="Tulis nama lengkap"></dd></div>
+        <div><dt>Kelas</dt><dd contenteditable="true" data-ph="Contoh: V-A"></dd></div>
+        <div><dt>No. Absen</dt><dd contenteditable="true" data-ph="Nomor absen"></dd></div>
+        <div><dt>Kelompok</dt><dd contenteditable="true" data-ph="Nama kelompok"></dd></div>
+        <div><dt>Hari/Tanggal</dt><dd contenteditable="true" data-ph="Hari, tanggal"></dd></div>
+        <div><dt>Nilai</dt><dd contenteditable="true" data-ph="Diisi guru"></dd></div>
+      </div>
+
+      <h3><span class="num">A.</span>Tujuan</h3>
+      <ol style="margin:0 0 8px;padding-left:18px">
+        <li>Mengidentifikasi lima tahapan siklus air melalui simulasi 3D.</li>
+        <li>Menjelaskan perubahan wujud air pada setiap tahap.</li>
+        <li>Menganalisis pengaruh kegiatan manusia terhadap siklus air.</li>
+      </ol>
+
+      <h3><span class="num">B.</span>Kegiatan 1 — Menjelajah Simulasi 3D</h3>
+      <p>Buka bagian simulasi, pilih setiap tahap, lalu lengkapi tabel berikut.</p>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th style="width:18%">Tahap</th><th style="width:28%">Perubahan wujud</th><th style="width:27%">Tempat berlangsung</th><th>Contoh di lingkungan sekitar</th></tr></thead>
+        <tbody>
+          <tr><td>Evaporasi</td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td></tr>
+          <tr><td>Transpirasi</td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td></tr>
+          <tr><td>Kondensasi</td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td></tr>
+          <tr><td>Presipitasi</td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td></tr>
+          <tr><td>Infiltrasi</td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3><span class="num">C.</span>Kegiatan 2 — Percobaan “Hujan Mini”</h3>
+      <p><strong>Alat dan bahan:</strong> panci, air 1 liter, kompor atau pemanas, piring logam/foil, es batu, gelas, dan stopwatch.</p>
+      <div class="safety"><strong>Keselamatan:</strong> Percobaan menggunakan air panas. Lakukan hanya dengan pendampingan guru.</div>
+      <ol style="margin:0 0 8px;padding-left:18px">
+        <li>Didihkan air dalam panci bersama guru.</li>
+        <li>Letakkan piring logam yang telah didinginkan dengan es di atas uap air.</li>
+        <li>Amati tetesan air yang terbentuk di bagian bawah piring.</li>
+        <li>Catat pengamatan pada menit ke-1, ke-3, dan ke-5.</li>
+      </ol>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th style="width:18%">Waktu</th><th style="width:41%">Apa yang terlihat?</th><th>Proses yang terjadi</th></tr></thead>
+        <tbody>
+          <tr><td>Menit ke-1</td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td></tr>
+          <tr><td>Menit ke-3</td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td></tr>
+          <tr><td>Menit ke-5</td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3><span class="num">D.</span>Pertanyaan Diskusi</h3>
+      <p style="margin-bottom:4px">1. Mengapa air di Bumi tidak habis meskipun terus digunakan? Jelaskan.</p>
+      <div class="write-area" contenteditable="true" data-ph="Tulis jawabanmu..."></div>
+      <p style="margin:12px 0 4px">2. Apa perbedaan kondensasi dan presipitasi? Berikan satu contoh masing-masing.</p>
+      <div class="write-area" contenteditable="true" data-ph="Tulis jawabanmu..."></div>
+      <p style="margin:12px 0 4px">3. Mengapa penebangan hutan dapat mengganggu siklus air?</p>
+      <div class="write-area" contenteditable="true" data-ph="Tulis jawabanmu..."></div>
+      <p style="margin:12px 0 4px">4. Tuliskan dua tindakan hemat air yang dapat kamu lakukan di sekolah.</p>
+      <div class="write-area" contenteditable="true" data-ph="Tulis jawabanmu..."></div>
+
+      <h3><span class="num">E.</span>Kegiatan 3 — Analisis Gangguan Siklus Air</h3>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th style="width:32%">Kegiatan manusia</th><th style="width:34%">Dampak pada siklus air</th><th>Solusi</th></tr></thead>
+        <tbody>
+          <tr><td contenteditable="true" data-ph="Contoh: menebang hutan"></td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td></tr>
+          <tr><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td></tr>
+          <tr><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td><td contenteditable="true" data-ph="..."></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3><span class="num">F.</span>Refleksi</h3>
+      <p style="margin-bottom:4px">Hal baru yang saya pahami hari ini adalah...</p>
+      <div class="write-area" contenteditable="true" data-ph="Tulis refleksimu..."></div>
+      <p style="margin:12px 0 4px">Satu tindakan yang akan saya mulai lakukan untuk menghemat air adalah...</p>
+      <div class="write-area" contenteditable="true" data-ph="Tulis komitmenmu..."></div>
+
+      <h3><span class="num">G.</span>Rubrik Penilaian</h3>
+      <div class="table-scroll">
+      <table class="rubrik">
+        <thead><tr><th>Aspek</th><th>Sangat baik (4)</th><th>Baik (3)</th><th>Cukup (2)</th><th>Perlu bimbingan (1)</th></tr></thead>
+        <tbody>
+          <tr><td>Ketepatan konsep</td><td>Semua tahap dan perubahan wujud dijelaskan tepat.</td><td>Sebagian kecil konsep kurang tepat.</td><td>Beberapa konsep tertukar.</td><td>Sebagian besar konsep belum tepat.</td></tr>
+          <tr><td>Kelengkapan data</td><td>Semua tabel dan pertanyaan diisi lengkap.</td><td>Hampir semua bagian lengkap.</td><td>Separuh bagian terisi.</td><td>Sebagian besar belum terisi.</td></tr>
+          <tr><td>Analisis</td><td>Dampak dan solusi dijelaskan logis dengan contoh.</td><td>Analisis cukup logis.</td><td>Analisis singkat dan umum.</td><td>Belum menunjukkan analisis.</td></tr>
+          <tr><td>Refleksi</td><td>Refleksi mendalam dan disertai komitmen konkret.</td><td>Refleksi jelas.</td><td>Refleksi singkat.</td><td>Belum ada refleksi.</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="source-line">Nilai akhir = (total skor / 16) × 100</p>
+    </div>
+  </div>
+</section>
+</section>
+
+<section class="view" id="view-sumber" data-view="sumber" data-title="Sumber & Data" hidden>
+<section class="section section--tint" id="sumber">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-no">07</span>
+      <h2>Sumber &amp; Catatan Data</h2>
+      <p class="sec-desc">Setiap angka dan konsep dalam media ini dapat ditelusuri ke sumber berikut.</p>
+    </div>
+
+    <ol class="refs">
+      <li>
+        <div>
+          <span class="ref-title">Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi. <em>Buku Siswa Ilmu Pengetahuan Alam dan Sosial Kelas V SD/MI</em>, Bab 4 “Menyelidiki Siklus Air”.</span>
+          <span class="ref-meta">Penulis: Amalia Fitri dkk. Edisi Revisi, 2024. Kurikulum Merdeka. <a href="https://buku.kemdikbud.go.id/" target="_blank" rel="noopener">buku.kemdikbud.go.id</a></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <span class="ref-title">Badan Meteorologi, Klimatologi, dan Geofisika (BMKG). <em>Buku Saku Klimatologi: Memahami Hujan</em>.</span>
+          <span class="ref-meta">Penjelasan evaporasi, kondensasi, dan pembentukan awan. <a href="https://iklim.bmkg.go.id/" target="_blank" rel="noopener">iklim.bmkg.go.id</a></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <span class="ref-title">NASA Science. “10 Interesting Things About Water.”</span>
+          <span class="ref-meta">Data 70% permukaan Bumi tertutup air, 97% air di laut, 3% air tawar. <a href="https://science.nasa.gov/" target="_blank" rel="noopener">science.nasa.gov</a></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <span class="ref-title">National Oceanic and Atmospheric Administration (NOAA) / National Weather Service. Poster “The Water Cycle”, JetStream — Online School for Weather.</span>
+          <span class="ref-meta">Menjadi inspirasi susunan 12 proses pada skema beranda. Gambar dan teks dibuat ulang secara orisinal, bukan disalin. <a href="https://www.weather.gov/jetstream/" target="_blank" rel="noopener">weather.gov/jetstream</a></span>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+</section>
+
+<section class="view" id="view-identitas" data-view="identitas" data-title="Identitas Penyusun" hidden>
+<section class="section" id="identitas">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-no">08</span>
+      <h2>Identitas Penyusun</h2>
+      <p class="sec-desc">Aplikasi <b>QIIORA</b> ini dibuat oleh <b>Fiqi Islam Mahfutdin</b>, mahasiswa semester 1 Program Studi Pendidikan Informatika, STKIP PGRI Pacitan. Ia merancang media pembelajaran interaktif ini untuk membantu siswa Kelas V SD memahami siklus air melalui bacaan, animasi 2D, simulasi 3D, kuis, dan LKPD yang bisa dicetak. Seluruh isi dapat diakses luring setelah sekali dibuka, dan data belajar siswa tersimpan di peramban masing-masing.</p>
+    </div>
+
+    <div class="id-panel">
+      <!-- ---------- bingkai foto ---------- -->
+      <div class="id-foto-sisi">
+        <div class="id-foto-bingkai" data-foto-bingkai>
+          <span class="idf-ombak" aria-hidden="true"></span>
+          <span class="idf-tetes" aria-hidden="true"></span>
+          <div class="id-foto-dalam">
+            <img class="id-foto-img" data-foto-img alt="Foto penyusun" hidden>
+            <div class="id-foto-kosong" data-foto-kosong>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <circle cx="12" cy="9" r="3.4"/>
+                <path d="M5 20c0-3.8 3.1-5.8 7-5.8s7 2 7 5.8"/>
+              </svg>
+              <p>Belum ada foto</p>
+              <small>3:4 atau persegi, maks 2 MB</small>
+            </div>
+          </div>
+          <span class="idf-tanda" aria-hidden="true">QIIORA</span>
+        </div>
+
+        <p class="id-foto-catatan">Foto resmi penyusun aplikasi.</p>
+      </div>
+
+      <!-- ---------- isian ---------- -->
+      <div class="id-isian-sisi">
+        <div class="id-form">
+          <div class="id-field">
+            <label>Nama penyusun</label>
+            <span class="id-val" data-id="nama">—</span>
+          </div>
+          <div class="id-field">
+            <label>NIM</label>
+            <span class="id-val" data-id="nim">—</span>
+          </div>
+          <div class="id-field">
+            <label>Kelas</label>
+            <span class="id-val" data-id="kelas">—</span>
+          </div>
+          <div class="id-field">
+            <label>Program studi</label>
+            <span class="id-val" data-id="prodi">—</span>
+          </div>
+        </div>
+
+        <!-- pratinjau kartu identitas -->
+        <div class="id-kartu" data-id-kartu>
+          <div class="id-kartu-ava" data-kartu-ava aria-hidden="true">Q</div>
+          <div class="id-kartu-txt">
+            <b data-kartu-nama>Nama penyusun</b>
+            <i data-kartu-nim>NIM</i>
+            <span><b data-kartu-kelas>Kelas</b> · <span data-kartu-prodi>Program studi</span></span>
+          </div>
+          <span class="id-kartu-cap" aria-hidden="true">TERISI</span>
+        </div>
+
+        <p class="id-simpan" data-id-simpan aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+<section class="view" id="view-modul" data-view="modul" data-title="Modul" hidden>
+  <div class="wrap page">
+    <div class="view-head">
+      <p class="kicker">Modul belajar</p>
+      <h1>Pilih bab</h1>
+      <p class="lede">Lima bab, masing-masing 15 butir: 14 butir materi singkat + soal, lalu butir 15 sebagai post-test.</p>
+    </div>
+
+    <div class="bab-grid" data-bab-grid>
+      <a class="bab-card is-siap" data-bab-kartu="1" href="#/modul/bab-1/butir-1">
+        <span class="bab-no">01</span>
+        <span class="bab-body">
+          <span class="bab-t">Air di Bumi</span>
+          <span class="bab-d">Sebaran air di laut, es, dan daratan serta mengapa air tawar sangat berharga.</span>
+          <span class="bab-meta"><span class="badge">Siap dipelajari</span><span class="bab-count">15 butir</span></span>
+        </span>
+      </a>
+      <a class="bab-card is-siap" data-bab-kartu="2" href="#/modul/bab-2/butir-1">
+        <span class="bab-no">02</span>
+        <span class="bab-body">
+          <span class="bab-t">Wujud Air</span>
+          <span class="bab-d">Padat, cair, dan gas: bagaimana suhu mengubah wujud air.</span>
+          <span class="bab-meta"><span class="badge">Siap dipelajari</span><span class="bab-count">15 butir</span></span>
+        </span>
+      </a>
+      <a class="bab-card is-siap" data-bab-kartu="3" href="#/modul/bab-3/butir-1">
+        <span class="bab-no">03</span>
+        <span class="bab-body">
+          <span class="bab-t">Siklus Air</span>
+          <span class="bab-d">Penguapan, pengembunan, hujan, lalu meresap atau mengalir kembali ke laut.</span>
+          <span class="bab-meta"><span class="badge">Siap dipelajari</span><span class="bab-count">15 butir</span></span>
+        </span>
+      </a>
+      <a class="bab-card is-siap" data-bab-kartu="4" href="#/modul/bab-4/butir-1">
+        <span class="bab-no">04</span>
+        <span class="bab-body">
+          <span class="bab-t">Awan dan Hujan</span>
+          <span class="bab-d">Jenis awan, proses terbentuknya hujan, dan cara mengukur curah hujan.</span>
+          <span class="bab-meta"><span class="badge">Siap dipelajari</span><span class="bab-count">15 butir</span></span>
+        </span>
+      </a>
+      <a class="bab-card is-siap" data-bab-kartu="5" href="#/modul/bab-5/butir-1">
+        <span class="bab-no">05</span>
+        <span class="bab-body">
+          <span class="bab-t">Air Tanah dan Sungai</span>
+          <span class="bab-d">Perjalanan air di dalam tanah dan aliran sungai sampai kembali ke laut.</span>
+          <span class="bab-meta"><span class="badge">Siap dipelajari</span><span class="bab-count">15 butir</span></span>
+        </span>
+      </a>
+    </div>
+
+    <div class="butir-shell" data-butir-shell hidden></div>
+  </div>
+</section>
+<section class="view" id="view-model-tanah" data-view="model-tanah" data-title="Model Tanah 3D" hidden>
+  <div class="wrap page">
+    <div class="view-head">
+      <p class="kicker">Model 3D · profil tanah</p>
+      <h1>Model Tanah “Kue Lapis”</h1>
+      <p class="lede">Lima lapisan tanah dari atas ke bawah. Bongkar tumpukannya, klik satu lapisan untuk membaca cirinya, dan lihat bagaimana air meresap berbeda di tiap lapisan.</p>
+    </div>
+
+    <div class="tanah-shell">
+      <!-- Kanvas 3D -->
+      <div class="tanah-panggung">
+        <div class="canvas-wrap tanah-canvas" id="tanahCanvas">
+          <span class="sim-badge">Model 3D · Live</span>
+          <div class="sim-tools">
+            <button class="icon-btn" type="button" data-tanah-reset aria-label="Kembalikan sudut pandang" title="Reset tampilan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M5 15a8 8 0 0 0 13 3M19 9A8 8 0 0 0 6 6"/></svg>
+            </button>
+            <button class="icon-btn" type="button" data-tanah-fullscreen aria-label="Layar penuh" title="Layar penuh">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+            </button>
+          </div>
+          <div class="canvas-fallback" id="tanahFallback" hidden>
+            <div style="text-align:center;max-width:340px">
+              <p class="mono" style="color:var(--accent);margin-bottom:6px">Mode diagram</p>
+              <p style="margin:0">Model 3D memerlukan WebGL. Daftar lapisan di samping tetap dapat dibaca.</p>
+            </div>
+          </div>
+          <span class="sim-hint">Seret untuk memutar · Gulir untuk memperbesar · Klik lapisan</span>
+        </div>
+
+        <!-- Kendali di bawah kanvas, bukan pop-up -->
+        <div class="tanah-kendali">
+          <button class="btn btn--sm" type="button" data-tanah-bongkar aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v6M12 15v6M3 12h6M15 12h6"/></svg>
+            <span data-tanah-bongkar-label>Bongkar lapisan</span>
+          </button>
+          <button class="btn btn--ghost btn--sm" type="button" data-tanah-susun>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            Susun otomatis
+          </button>
+          <button class="tanah-toggle" type="button" data-tanah-air aria-pressed="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3.5s6 6.4 6 10.2a6 6 0 0 1-12 0C6 9.9 12 3.5 12 3.5z"/></svg>
+            Air meresap
+          </button>
+        </div>
+      </div>
+
+      <!-- Panel samping: SELALU terlihat, bukan pop-up -->
+      <aside class="tanah-panel" aria-label="Keterangan lapisan tanah">
+        <div class="tp-head">
+          <p class="mono">Lapisan tanah</p>
+          <p class="tp-sub">Klik satu lapisan untuk membaca cirinya.</p>
+        </div>
+
+        <ol class="tp-daftar" data-tanah-daftar>
+          <li><button class="tp-item" type="button" data-lapisan="0"><span class="tp-kode" data-warna="O">O</span><span class="tp-nama">Serasah / Humus<span class="tp-ist">Lapisan organik</span></span><span class="tp-poros" title="Porositas">1.0</span></button></li>
+          <li><button class="tp-item" type="button" data-lapisan="1"><span class="tp-kode" data-warna="A">A</span><span class="tp-nama">Tanah Atas<span class="tp-ist">Topsoil</span></span><span class="tp-poros" title="Porositas">0.86</span></button></li>
+          <li><button class="tp-item" type="button" data-lapisan="2"><span class="tp-kode" data-warna="B">B</span><span class="tp-nama">Tanah Bawah<span class="tp-ist">Subsoil</span></span><span class="tp-poros" title="Porositas">0.46</span></button></li>
+          <li><button class="tp-item" type="button" data-lapisan="3"><span class="tp-kode" data-warna="C">C</span><span class="tp-nama">Batuan Lapuk<span class="tp-ist">Regolith</span></span><span class="tp-poros" title="Porositas">0.20</span></button></li>
+          <li><button class="tp-item" type="button" data-lapisan="4"><span class="tp-kode" data-warna="R">R</span><span class="tp-nama">Batuan Induk<span class="tp-ist">Bedrock</span></span><span class="tp-poros" title="Porositas">0.02</span></button></li>
+        </ol>
+
+        <div class="tp-detail" data-tanah-detail>
+          <p class="tp-kosong" data-tanah-kosong>Belum ada lapisan dipilih. Klik salah satu lapisan di atas atau langsung pada model 3D.</p>
+          <div data-tanah-isi hidden>
+            <div class="tp-judul">
+              <span class="tp-kode tp-kode--besar" data-d-kode>O</span>
+              <div>
+                <h2 data-d-nama>—</h2>
+                <p data-d-ist>—</p>
+              </div>
+            </div>
+            <dl class="tp-meta">
+              <div><dt>Ketebalan (model)</dt><dd data-d-tebal>—</dd></div>
+              <div><dt>Porositas</dt><dd data-d-poros>—</dd></div>
+              <div><dt>Butir penyusun</dt><dd data-d-butir>—</dd></div>
+            </dl>
+            <h3>Ciri</h3>
+            <p data-d-ciri>—</p>
+            <h3>Perannya bagi air</h3>
+            <p data-d-peran>—</p>
+            <p class="tp-sumber">Sumber urutan lapisan: profil tanah horizon O–A–B–C–R (materi tanah, IPAS Kelas V).</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <p class="source-line">Catatan: ketebalan lapisan pada model dibuat sebanding, bukan skala nyata. Porositas 0–1 menunjukkan besar ruang pori yang bisa dilewati air.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-anim" data-foot-anim aria-hidden="true"></div>
+      <div class="foot-col">
+        <div class="foot-brand">
+          <span class="brand-mark" aria-hidden="true">H₂O</span>
+          <strong>QIIORA</strong>
+        </div>
+        <p>Media pembelajaran interaktif Siklus Air untuk IPAS Fase C (Kelas V SD/MI). Dibuat tanpa build step, berjalan luring setelah sekali dimuat.</p>
+        <span class="foot-status" data-koneksi><i aria-hidden="true"></i>Tersambung</span>
+      </div>
+      <div class="foot-col">
+        <h3>Belajar</h3>
+        <ul>
+          <li><a href="#/modul">Modul</a></li>
+          <li><a href="#/tujuan">Tujuan Pembelajaran</a></li>
+          <li><a href="#/materi">Materi Pokok</a></li>
+          <li><a href="#/simulasi">Simulasi 3D</a></li>
+          <li><a href="#/kesimpulan">Kesimpulan</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Latihan &amp; data</h3>
+        <ul>
+          <li><a href="#/kuis">Kuis Pemahaman</a></li>
+          <li><a href="#/lkpd">LKPD</a></li>
+          <li><a href="tugas.html">Tugas</a></li>
+          <li><a href="#/sumber">Sumber &amp; Data</a></li>
+          <li><a href="pengajar.html">Mode Pengajar</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Pengaturan &amp; identitas</h3>
+        <div class="foot-tools">
+          <button type="button" data-tema-toggle aria-pressed="false" aria-label="Ganti mode terang atau gelap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+            <span data-tema-label>Mode gelap</span>
+          </button>
+          <button type="button" data-ukuran-toggle aria-label="Ukuran teks">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M3 18l5-12 5 12M4.6 14h6.8M14 18l4-10 4 10M15.4 15h5.2"/></svg>
+            <span data-ukuran-label>Teks S</span>
+          </button>
+          <button type="button" data-pasang-apk aria-label="Pasang Aplikasi" title="Pasang Aplikasi">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3h16v-3"/></svg>
+            <span>Pasang Aplikasi</span>
+          </button>
+        </div>
+        <p style="margin-top:12px">Disusun oleh Fiqi Islam Mahfutdin<br>Pendidikan Informatika · STKIP PGRI Pacitan</p>
+        <ul>
+          <li><a href="#/identitas">Identitas Penyusun</a></li>
+          <li><a href="kumpul.html">Lembar Pengumpulan</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-anim-bawah" data-foot-anim-bawah aria-hidden="true"></div>
+      <span>QIIORA — media pembelajaran siklus air untuk Kelas V SD/MI. Dibuat oleh Fiqi Islam Mahfutdin, Pendidikan Informatika, STKIP PGRI Pacitan.</span>
+      <button class="to-top" type="button" data-to-top>
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6"/></svg>
+        Ke atas
+      </button>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Navigasi cepat">
+  <ul>
+    <li><a href="#/beranda" data-nav-key="beranda">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"/></svg>Beranda</a></li>
+    <li><a href="#/modul" data-nav-key="modul">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></svg>Modul</a></li>
+    <li><a href="#/simulasi" data-nav-key="simulasi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 3v18"/></svg>Simulasi</a></li>
+    <li><a href="#/kuis" data-nav-key="kuis">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3V13"/><circle cx="12.8" cy="16.4" r=".9" fill="currentColor" stroke="none"/></svg>Kuis</a></li>
+    <li><button type="button" data-nav-toggle aria-expanded="false" aria-controls="drawer" aria-label="Menu lainnya">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button></li>
+  </ul>
+</nav>
+
+<script src="data/konfigurasi.js"></script>
+<script src="data/soal.js"></script>
+<script src="data/tugas.js"></script>
+<script src="data/bab/bab-1.js"></script>
+<script src="data/bab/bab-2.js"></script>
+<script src="data/bab/bab-4.js"></script>
+<script src="data/bab/bab-5.js"></script>
+<script src="data/bab/bab-3.js"></script>
+<script src="assets/js/inti.js"></script>
+<script src="assets/js/simpan.js"></script>
+<script src="assets/js/awan.js"></script>
+<script src="assets/js/tugas.js"></script>
+<script src="assets/js/jurnal.js"></script>
+<script src="assets/js/baca.js"></script>
+<script src="assets/js/kuis.js"></script>
+<script src="assets/js/progres.js"></script>
+<script src="assets/js/router.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/cari.js"></script>
+<script src="assets/js/panel.js"></script>
+<script src="assets/js/latar-hidup.js"></script>
+<script src="assets/js/identitas.js"></script>
+<script src="assets/js/pasang.js"></script>
+<script src="assets/js/akun.js"></script>
+<script src="assets/js/footer-anim.js"></script>
+<script src="assets/js/visual-butir.js"></script>
+<script src="assets/js/modul.js"></script>
+<script src="assets/js/ornamen.js"></script>
+<script src="assets/js/beranda.js"></script>
+<script src="assets/js/skema.js"></script>
+<script src="vendor/three.min.js"></script>
+<script src="vendor/OrbitControls.js"></script>
+<script src="assets/js/simkit.js"></script>
+<script src="assets/js/sim-s1.js"></script>
+<script src="assets/js/sim-tanah.js"></script>
+<script src="assets/js/muat-boot.js"></script>
+<script>
+
+(function(){
+'use strict';
+
+/* Materis tabs */
+var mtabs = $$('[data-materi-tab]');
+var mpanels = $$('[data-materi-panel]');
+mtabs.forEach(function(tab){
+  tab.addEventListener('click', function(){
+    mtabs.forEach(function(t){ t.setAttribute('aria-selected', String(t === tab)); });
+    mpanels.forEach(function(p){ p.classList.toggle('is-active', p.getAttribute('data-materi-panel') === tab.getAttribute('data-materi-tab')); });
+  });
+});
+
+/* Simulasi state */
+var app = { stage:0, playing:true, timer:0 };
+var stageBtns = $$('[data-stage-btn]');
+var hotspots = $$('[data-hotspot]');
+var copies = $$('[data-stage-copy]');
+var playBtn = $('[data-play]');
+var playLabel = $('[data-play-label]');
+var progressFill = $('[data-stage-progress]');
+var stageCurrent = $('[data-stage-current]');
+
+function setPlaying(v){
+  app.playing = v;
+  if(playBtn){ playBtn.setAttribute('aria-pressed', String(v)); }
+  if(playLabel){ playLabel.textContent = v ? 'Jeda' : 'Mainkan'; }
+  var icon = playBtn ? playBtn.querySelector('svg') : null;
+  if(icon){
+    icon.innerHTML = v
+      ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
+      : '<path d="M7 4l13 8-13 8z"/>';
+  }
+}
+
+function setStage(n, fromAuto){
+  app.stage = n;
+  app.timer = 0;
+  stageBtns.forEach(function(b){ b.setAttribute('aria-pressed', String(Number(b.getAttribute('data-stage-btn')) === n)); });
+  hotspots.forEach(function(h){ h.classList.toggle('is-active', Number(h.getAttribute('data-hotspot')) === n); });
+  copies.forEach(function(c){ c.classList.toggle('is-active', Number(c.getAttribute('data-stage-copy')) === n); });
+  if(stageCurrent) stageCurrent.textContent = n < 10 ? '0' + n : String(n);
+  if(progressFill) progressFill.style.width = '0%';
+  if(!fromAuto) setPlaying(false);
+}
+
+stageBtns.forEach(function(b){
+  b.addEventListener('click', function(){ setStage(Number(b.getAttribute('data-stage-btn'))); });
+});
+hotspots.forEach(function(h){
+  h.addEventListener('click', function(){ setStage(Number(h.getAttribute('data-hotspot'))); });
+});
+if(playBtn){ playBtn.addEventListener('click', function(){ setPlaying(!app.playing); }); }
+
+var infoTahapBtn = document.querySelector('[data-info-tahap]');
+if(infoTahapBtn){
+  infoTahapBtn.addEventListener('click', function(){
+    var aktifCopy = document.querySelector('.stage-copy.is-active');
+    if(!aktifCopy) return;
+    var judul = (aktifCopy.querySelector('h3') || {}).textContent || 'Tahap Siklus Air';
+    var klon = aktifCopy.cloneNode(true);
+    klon.style.display = 'block';
+    QIIORA.ui.sheet({
+      judul: judul,
+      sub: 'Rincian konsep dan rujukan sumber tahap ini',
+      posisi: window.innerWidth <= 900 ? 'bawah' : 'kanan',
+      isi: klon,
+      aksi: [{ label: 'Tutup', kelas: 'btn--netral' }]
+    });
+  });
+}
+
+setInterval(function(){
+  if(!app.playing) return;
+  app.timer += .25;
+  if(app.timer >= 9){
+    setStage(app.stage >= 5 ? 1 : app.stage + 1, true);
+  }
+  if(progressFill){
+    progressFill.style.width = Math.min(100, app.timer / 9 * 100) + '%';
+  }
+}, 250);
+
+setStage(0, true);
+
+/* ---------- Kontrol simulasi v2: matahari, potongan, air berpindah ---------- */
+var sunSlider = document.querySelector('[data-sun-slider]');
+var sunVal = document.querySelector('[data-sun-val]');
+if(sunSlider){
+  var terapkanMatahari = function(){
+    var v = Number(sunSlider.value) / 100;
+    if(simState) simState.sunIntensity = v;
+    if(sunVal) sunVal.textContent = Math.round(v * 100) + '%';
+    sunSlider.style.setProperty('--isi', (v * 100) + '%');
+  };
+  terapkanMatahari();
+  sunSlider.addEventListener('input', terapkanMatahari);
+
+  // saat view simulasi tampil, state mungkin belum ada -> coba lagi
+  document.addEventListener('qiiora:view', function(e){
+    if(e.detail && e.detail.nama === 'simulasi'){
+      if(QIIORA.simS1Api && QIIORA.simS1Api.state) simState = QIIORA.simS1Api.state;
+      terapkanMatahari();
+    }
+  });
+}
+
+/* Preset kamera sinematik (K5) */
+$$('[data-preset]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var nama = btn.getAttribute('data-preset');
+    $$('[data-preset]').forEach(function(b){
+      var aktif = b === btn;
+      b.classList.toggle('is-aktif', aktif);
+      b.setAttribute('aria-pressed', String(aktif));
+    });
+    var api = QIIORA.simS1Api;
+    if(api && api.state && QIIORA.simS1.pergiKe){
+      QIIORA.simS1.pergiKe(api.state, nama);
+    }
+  });
+});
+
+var cutBtn = document.querySelector('[data-cutaway]');
+if(cutBtn){
+  cutBtn.addEventListener('click', function(){
+    var on = cutBtn.getAttribute('aria-pressed') !== 'true';
+    cutBtn.setAttribute('aria-pressed', String(on));
+    if(simState) simState.cutaway = on;
+    if(QIIORA.ui && QIIORA.ui.toast){
+      QIIORA.ui.toast(on ? 'Mode potongan: air tanah terlihat' : 'Mode potongan dimatikan', { jenis: 'ok' });
+    }
+  });
+}
+
+/* Quiz */
+var QUESTIONS = [
+  {
+    q:"Air laut berubah menjadi uap air karena memperoleh energi panas dari ...",
+    opts:["Matahari","Bulan","Angin","Awan"],
+    a:0,
+    why:"Energi panas Matahari meningkatkan suhu air sehingga sebagian molekul air lepas ke udara sebagai uap. Proses ini disebut evaporasi."
+  },
+  {
+    q:"Penguapan air dari permukaan daun melalui stomata disebut ...",
+    opts:["Infiltrasi","Transpirasi","Presipitasi","Kondensasi"],
+    a:1,
+    why:"Transpirasi adalah pelepasan uap air melalui stomata daun."
+  },
+  {
+    q:"Uap air yang naik ke atmosfer mendingin dan berubah menjadi titik-titik air. Peristiwa ini disebut ...",
+    opts:["Evaporasi","Kondensasi","Presipitasi","Limpasan"],
+    a:1,
+    why:"Kondensasi adalah perubahan uap air (gas) menjadi titik-titik air (cair) setelah udara mendingin."
+  },
+  {
+    q:"Ketika titik-titik air di awan menjadi cukup berat, air jatuh ke permukaan Bumi. Tahap ini disebut ...",
+    opts:["Presipitasi","Infiltrasi","Transpirasi","Evaporasi"],
+    a:0,
+    why:"Presipitasi adalah turunnya air dari atmosfer ke permukaan Bumi, umumnya sebagai hujan."
+  },
+  {
+    q:"Air hujan yang meresap ke dalam tanah disebut ...",
+    opts:["Limpasan","Infiltrasi","Kondensasi","Evaporasi"],
+    a:1,
+    why:"Infiltrasi adalah peresapan air ke dalam tanah."
+  },
+  {
+    q:"Menurut NASA, sekitar ... persen air di Bumi berada di laut.",
+    opts:["50","70","97","30"],
+    a:2,
+    why:"Sekitar 97% air Bumi berada di laut."
+  },
+  {
+    q:"Urutan tahap siklus air yang paling tepat adalah ...",
+    opts:[
+      "Evaporasi → kondensasi → presipitasi → infiltrasi/limpasan",
+      "Kondensasi → evaporasi → presipitasi → infiltrasi",
+      "Presipitasi → evaporasi → kondensasi → limpasan",
+      "Infiltrasi → presipitasi → kondensasi → evaporasi"
+    ],
+    a:0,
+    why:"Air menguap, mengembun menjadi awan, jatuh sebagai hujan, lalu meresap atau mengalir di permukaan."
+  },
+  {
+    q:"Mengapa jumlah air di Bumi cenderung tetap meskipun terus digunakan?",
+    opts:[
+      "Karena air tidak pernah berubah wujud",
+      "Karena air mengalami siklus: berpindah tempat dan berubah wujud, tetapi tidak hilang",
+      "Karena hujan selalu menambah air baru",
+      "Karena air laut tidak pernah menguap"
+    ],
+    a:1,
+    why:"Dalam siklus air, air berpindah antarreservoir dan berubah wujud. Jumlah totalnya relatif tetap."
+  },
+  {
+    q:"Kegiatan manusia yang paling berpotensi mengganggu siklus air adalah ...",
+    opts:[
+      "Menanam pohon di bantaran sungai",
+      "Menebang hutan secara besar-besaran",
+      "Membuat lubang biopori",
+      "Menghemat air di rumah"
+    ],
+    a:1,
+    why:"Hilangnya tutupan vegetasi mengurangi transpirasi dan infiltrasi."
+  },
+  {
+    q:"Contoh tindakan hemat air di rumah adalah ...",
+    opts:[
+      "Membiarkan keran terbuka saat menyikat gigi",
+      "Mencuci mobil setiap hari dengan selang",
+      "Mematikan keran saat menyikat gigi",
+      "Mengisi kolam renang setiap minggu"
+    ],
+    a:2,
+    why:"Mematikan keran saat tidak digunakan mengurangi pemborosan."
+  }
+];
+
+var qi = 0, score = 0, locked = false, review = [];
+var qText = $('[data-q-text]');
+var optsBox = $('[data-opts]');
+var feedback = $('[data-feedback]');
+var nextBtn = $('[data-next]');
+var qCounter = $('[data-q-counter]');
+var qProg = $('[data-q-prog]');
+var liveScore = $('[data-live-score]');
+var quizBody = $('[data-quiz-body]');
+var resultBox = $('[data-result]');
+
+function renderQ(){
+  locked = false;
+  var item = QUESTIONS[qi];
+  qText.textContent = item.q;
+  qCounter.textContent = 'Soal ' + (qi + 1) + ' / ' + QUESTIONS.length;
+  qProg.style.width = (qi / QUESTIONS.length * 100) + '%';
+  liveScore.textContent = score;
+  optsBox.innerHTML = '';
+  item.opts.forEach(function(text, idx){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'opt';
+    b.innerHTML = '<span class="letter">' + 'ABCD'[idx] + '</span><span>' + text + '</span>';
+    b.addEventListener('click', function(){ choose(idx, b); });
+    optsBox.appendChild(b);
+  });
+  feedback.className = 'feedback';
+  feedback.innerHTML = '';
+  nextBtn.disabled = true;
+  nextBtn.textContent = qi === QUESTIONS.length - 1 ? 'Lihat hasil' : 'Soal berikutnya';
+}
+
+function choose(idx, btn){
+  if(locked) return;
+  locked = true;
+  var item = QUESTIONS[qi];
+  var correct = idx === item.a;
+  if(correct) score++;
+  review.push({ q:item.q, correct:correct, chosen:idx, answer:item.a });
+
+  $$('.opt', optsBox).forEach(function(b, i){
+    b.disabled = true;
+    if(i === item.a) b.classList.add('correct');
+    if(i === idx && !correct) b.classList.add('wrong');
+  });
+
+  feedback.innerHTML = '<strong>' + (correct ? 'Tepat' : 'Belum tepat') + '</strong>' + item.why;
+  feedback.classList.add('show');
+  nextBtn.disabled = false;
+  liveScore.textContent = score;
+}
+
+nextBtn.addEventListener('click', function(){
+  if(qi < QUESTIONS.length - 1){
+    qi++;
+    renderQ();
+  }else{
+    showResult();
+  }
+});
+
+function showResult(){
+  quizBody.style.display = 'none';
+  resultBox.classList.add('show');
+  qProg.style.width = '100%';
+  var pct = Math.round(score / QUESTIONS.length * 100);
+
+  $('[data-score]').textContent = score;
+  $('[data-score-total]').textContent = QUESTIONS.length;
+
+  var note = '';
+  if(score >= 9) note = 'Sangat baik. Pemahamanmu tentang tahapan dan data siklus air sudah kuat.';
+  else if(score >= 7) note = 'Baik. Tinjau kembali perbedaan kondensasi dan presipitasi.';
+  else if(score >= 5) note = 'Cukup. Baca ulang materi dan coba simulasi per tahap.';
+  else note = 'Perlu pendampingan. Mulai dari pengantar dan tahapan 01–05, lalu ulangi kuis.';
+  $('[data-score-note]').textContent = note;
+
+  var best = Math.max(pct, Number(QIIORA.simpan.ambil('quiz-best', 0)));
+  QIIORA.simpan.simpan('quiz-best', best);
+  $('[data-best]').textContent = best + '%';
+
+  $('[data-review]').innerHTML = review.map(function(r, i){
+    return '<li><span>' + (i + 1) + '. ' + r.q + '</span><b>' + (r.correct ? 'Benar' : 'Salah — jawaban ' + 'ABCD'[r.answer]) + '</b></li>';
+  }).join('');
+}
+
+var retryBtn = $('[data-retry]');
+if(retryBtn) retryBtn.addEventListener('click', function(){
+  qi = 0; score = 0; review = [];
+  resultBox.classList.remove('show');
+  quizBody.style.display = 'block';
+  renderQ();
+});
+
+renderQ();
+
+/* LKPD Persistence via simpan.js */
+var LKPD_KEY = 'lkpd';
+var fields = $$('#lkpd [contenteditable="true"]');
+fields.forEach(function(el, i){ el.setAttribute('data-k', 'f' + i); });
+
+var savedLkpd = QIIORA.simpan.ambil(LKPD_KEY, {});
+fields.forEach(function(el){
+  if(savedLkpd[el.getAttribute('data-k')] != null){
+    el.textContent = savedLkpd[el.getAttribute('data-k')];
+  }
+});
+
+var lkpdSection = document.getElementById('lkpd');
+if(lkpdSection){
+  lkpdSection.addEventListener('input', function(e){
+    if(e.target && e.target.isContentEditable){
+      var obj = {};
+      fields.forEach(function(f){ obj[f.getAttribute('data-k')] = f.innerText.trim(); });
+      QIIORA.simpan.simpan(LKPD_KEY, obj);
+    }
+  });
+}
+
+var printBtn = $('[data-print]');
+if(printBtn) printBtn.addEventListener('click', function(){ window.print(); });
+
+var resetLkpd = $('[data-reset-lkpd]');
+if(resetLkpd) resetLkpd.addEventListener('click', function(){
+  QIIORA.ui.konfirmasi({
+    judul: 'Hapus semua jawaban LKPD?',
+    pesan: 'Semua isian LKPD yang tersimpan di peramban ini akan dihapus dan tidak bisa dikembalikan. Cetak atau simpan PDF dulu bila masih diperlukan.',
+    labelBatal: 'Batal',
+    labelLanjut: 'Ya, hapus',
+    onHasil: function(ya){
+      if(!ya) return;
+      QIIORA.simpan.hapus(LKPD_KEY);
+      fields.forEach(function(f){ f.textContent = ''; });
+      QIIORA.ui.toast('Jawaban LKPD dihapus', { jenis: 'ok' });
+    }
+  });
+});
+
+/* Identitas */
+var idInputs = $$('[data-id]');
+var ID_KEY = 'identitas';
+var savedId = QIIORA.simpan.ambil(ID_KEY, {});
+
+function syncMirrors(){
+  $$('[data-mirror]').forEach(function(m){
+    var val = savedId[m.getAttribute('data-mirror')];
+    m.textContent = val && val.trim() ? val : '____________';
+  });
+}
+
+idInputs.forEach(function(inp){
+  var key = inp.getAttribute('data-id');
+  if(savedId[key]) inp.value = savedId[key];
+  inp.addEventListener('input', function(){
+    savedId[key] = inp.value;
+    QIIORA.simpan.simpan(ID_KEY, savedId);
+    syncMirrors();
+  });
+});
+syncMirrors();
+
+/* ============================================================
+   Simulasi 3D — index.html memakai mesin bersama QIIORA.simS1
+   (versi v2: material PBR, kabut, awan instanced, butir air instanced)
+   ============================================================ */
+var simApi = null;
+var simState = null;
+
+function initSim(){
+  var lacak = function(t){ document.documentElement.setAttribute('data-sim', t); };
+  lacak('mulai');
+  var wrap = document.getElementById('simCanvas');
+  var fallback = document.getElementById('simFallback');
+  if(!wrap){ lacak('tanpa-wadah'); return; }
+
+  function gagal(sebab){
+    if(fallback){
+      fallback.hidden = false;
+      var p = fallback.querySelector('p:last-child');
+      if(p && sebab) p.textContent = sebab;
+    }
+    $$('.hotspot').forEach(function(h){ h.hidden = true; });
+  }
+
+  if(typeof THREE === 'undefined' || !QIIORA.simS1){
+    lacak('tanpa-three');
+    gagal('Simulasi 3D memerlukan WebGL. Panel tahapan tetap dapat digunakan.');
+    return;
+  }
+  lacak('three-ok');
+
+  try{
+  simApi = QIIORA.sim.buat({
+    wadah: wrap,
+    fallback: fallback,
+    bangun: QIIORA.simS1.bangun,
+    perbarui: function(state, dt, elapsed, camera, controls, w){
+      state.stage = app.stage;
+      QIIORA.simS1.perbarui(state, dt, elapsed, camera, controls, w);
+      // label hotspot anti-tumpang (A2)
+      if(QIIORA.simS1.anchors){
+        var hasil = QIIORA.sim.proyeksikanLabel(camera, w, QIIORA.simS1.anchors, null);
+        $$('.hotspot').forEach(function(el){
+          var id = el.getAttribute('data-hotspot');
+          var r = hasil[id];
+          if(r){
+            el.style.left = r.x + 'px';
+            el.style.top = r.y + 'px';
+            el.style.display = r.terlihat ? 'inline-flex' : 'none';
+          }
+          // persentase intensitas NYATA (bukan angka tetap), dari state.intensitas
+          var pctEl = el.querySelector('[data-pct]');
+          var I = state.intensitas;
+          if(pctEl && I){
+            var kunci = { '1':'evap', '2':'trans', '3':'cond', '4':'rain', '5':'infil' }[id];
+            if(kunci){
+              var nilai = I[kunci] || 0;
+              pctEl.textContent = nilai + '%';
+              // bar tipis di dalam pil ikut menunjukkan besaran
+              pctEl.style.setProperty('--pct', Math.min(100, nilai) + '%');
+            }
+          }
+        });
+      }
+      var tf = document.querySelector('[data-transfer]');
+      if(tf) tf.textContent = Math.round(state.transfer);
+    }
+  });
+  }catch(err){
+    lacak('galat: ' + (err && err.message ? err.message : String(err)));
+    return;
+  }
+
+  if(!simApi || !simApi.siap){
+    lacak('api-gagal');
+    gagal('Simulasi 3D memerlukan WebGL. Panel tahapan tetap dapat digunakan.');
+    return;
+  }
+  lacak('siap');
+  simState = simApi.state;
+  // ekspos untuk kontrol & diagnostik (dipakai slider/cutaway di luar blok ini)
+  QIIORA.simS1Api = simApi;
+}
+initSim();
+
+
+/* ============================================================
+   Halaman Model Tanah 3D — memakai QIIORA.simTanah
+   Panel keterangan selalu terlihat (bukan pop-up / modal).
+   ============================================================ */
+(function(){
+  'use strict';
+  if(!window.QIIORA || !QIIORA.simTanah) return;
+
+  var T = QIIORA.simTanah;
+  var panggung = document.getElementById('tanahCanvas');
+  var fallback = document.getElementById('tanahFallback');
+  if(!panggung) return;
+
+  var api = null, state = null;
+
+  function tampilkanDetail(i){
+    var l = T.LAPISAN[i];
+    if(!l) return;
+    var kosong = document.querySelector('[data-tanah-kosong]');
+    var isi = document.querySelector('[data-tanah-isi]');
+    if(kosong) kosong.hidden = true;
+    if(isi) isi.hidden = false;
+    var set = function(sel, val){ var e = document.querySelector(sel); if(e) e.textContent = val; };
+    set('[data-d-kode]', l.kode);
+    set('[data-d-nama]', l.nama);
+    set('[data-d-ist]', l.istilah);
+    set('[data-d-tebal]', (l.tebal * 100).toFixed(0) + ' satuan model');
+    set('[data-d-poros]', l.porositas.toFixed(2) + (l.porositas >= 0.8 ? ' - sangat berpori' : l.porositas >= 0.4 ? ' - cukup berpori' : l.porositas >= 0.1 ? ' - sedikit pori' : ' - nyaris rapat'));
+    set('[data-d-butir]', l.butir);
+    set('[data-d-ciri]', l.ciri);
+    set('[data-d-peran]', l.peran);
+    var kodeBesar = document.querySelector('[data-d-kode]');
+    if(kodeBesar) kodeBesar.style.background = '#' + l.warna.toString(16).padStart(6, '0');
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-lapisan]'), function(b){
+      var on = Number(b.getAttribute('data-lapisan')) === i;
+      b.setAttribute('aria-pressed', String(on));
+      b.classList.toggle('is-aktif', on);
+    });
+    if(state) T.setSorot(state, i);
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    Array.prototype.forEach.call(document.querySelectorAll('[data-lapisan]'), function(b){
+      b.addEventListener('click', function(){
+        tampilkanDetail(Number(b.getAttribute('data-lapisan')));
+      });
+    });
+
+    api = QIIORA.sim.buat({
+      wadah: panggung,
+      fallback: fallback,
+      bangun: T.bangun,
+      perbarui: function(st, dt, elapsed, cam, ctrl, w){
+        T.perbarui(st, dt, elapsed, cam, ctrl, w);
+      }
+    });
+
+    if(!api || !api.siap){
+      if(fallback) fallback.hidden = false;
+      return;
+    }
+    state = api.state;
+    window.__tanahApi = api;   // diagnostik
+
+    var raycaster = new THREE.Raycaster();
+    var kursor = new THREE.Vector2();
+    var kanvas = api.renderer.domElement;
+    var awalX = 0, awalY = 0;
+    kanvas.addEventListener('pointerdown', function(ev){ awalX = ev.clientX; awalY = ev.clientY; });
+    kanvas.addEventListener('pointerup', function(ev){
+      // abaikan kalau pengguna sedang memutar model
+      if(Math.abs(ev.clientX - awalX) > 6 || Math.abs(ev.clientY - awalY) > 6) return;
+      var r = kanvas.getBoundingClientRect();
+      kursor.x = ((ev.clientX - r.left) / r.width) * 2 - 1;
+      kursor.y = -((ev.clientY - r.top) / r.height) * 2 + 1;
+      raycaster.setFromCamera(kursor, api.camera);
+      var sasaran = (state.refs && state.refs.lapisanMeshes) ? state.refs.lapisanMeshes : [];
+      var hit = raycaster.intersectObjects(sasaran, false);
+      if(hit.length && hit[0].object.userData && typeof hit[0].object.userData.lapisan === 'number'){
+        tampilkanDetail(hit[0].object.userData.lapisan);
+      }
+    });
+
+    var btnBongkar = document.querySelector('[data-tanah-bongkar]');
+    var lblBongkar = document.querySelector('[data-tanah-bongkar-label]');
+    if(btnBongkar){
+      btnBongkar.addEventListener('click', function(){
+        var on = btnBongkar.getAttribute('aria-pressed') !== 'true';
+        btnBongkar.setAttribute('aria-pressed', String(on));
+        T.bongkar(state, on ? 1 : 0);
+        if(lblBongkar) lblBongkar.textContent = on ? 'Susun kembali' : 'Bongkar lapisan';
+      });
+    }
+    var btnSusun = document.querySelector('[data-tanah-susun]');
+    if(btnSusun){
+      btnSusun.addEventListener('click', function(){
+        T.bongkar(state, 0);
+        if(btnBongkar) btnBongkar.setAttribute('aria-pressed', 'false');
+        if(lblBongkar) lblBongkar.textContent = 'Bongkar lapisan';
+      });
+    }
+    var btnAir = document.querySelector('[data-tanah-air]');
+    if(btnAir){
+      btnAir.addEventListener('click', function(){
+        var on = btnAir.getAttribute('aria-pressed') !== 'true';
+        btnAir.setAttribute('aria-pressed', String(on));
+        T.setAir(state, on);
+      });
+    }
+    var btnReset = document.querySelector('[data-tanah-reset]');
+    if(btnReset){
+      btnReset.addEventListener('click', function(){
+        api.camera.position.set(7.6, 6.4, 9.8);
+        if(api.controls){ api.controls.target.set(0, -.2, 0); api.controls.update(); }
+      });
+    }
+    var btnFs = document.querySelector('[data-tanah-fullscreen]');
+    if(btnFs){
+      btnFs.addEventListener('click', function(){
+        if(!document.fullscreenElement){
+          if(panggung.requestFullscreen) panggung.requestFullscreen();
+        } else if(document.exitFullscreen){
+          document.exitFullscreen();
+        }
+      });
+    }
+
+    tampilkanDetail(0);
+  });
+})();
+
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+/* ============================================================
+   QIIORA — Panel Identitas Penyusun (K7)
+   Dua kolom: bingkai foto beranimasi di kiri, isian + kartu
+   pratinjau di kanan. Di HP menumpuk satu kolom.
+   ============================================================ */
+
+.id-panel{
+  display:grid;
+  grid-template-columns:minmax(240px,300px) 1fr;
+  gap:clamp(18px,2.6vw,34px);
+  align-items:start;
+  margin-top:clamp(18px,2.4vw,28px);
+}
+
+/* ---------- bingkai foto ---------- */
+.id-foto-sisi{display:grid;gap:12px;justify-items:center}
+
+.id-foto-bingkai{
+  position:relative;
+  width:100%;
+  /* 3:4 terlalu tinggi untuk layar laptop 768px: tombol unggah di
+     bawahnya terdorong keluar layar. 4:5 lebih ringkas, tetap
+     pas untuk foto wajah. */
+  max-width:236px;
+  aspect-ratio:4/5;
+  padding:8px;
+  border-radius:22px;
+  background:
+    linear-gradient(150deg,#4FA3F5 0%,#2A7FD4 38%,#1E5AA8 70%,#12406F 100%);
+  box-shadow:
+    0 18px 42px rgba(31,45,61,.26),
+    0 0 0 1px rgba(255,255,255,.14) inset;
+  isolation:isolate;
+  overflow:hidden;
+}
+
+/* cincin cahaya berputar di tepi bingkai */
+.id-foto-bingkai::before{
+  content:"";
+  position:absolute;inset:-40%;
+  z-index:-1;
+  background:conic-gradient(from 0deg,
+    rgba(255,255,255,0) 0deg,
+    rgba(255,255,255,.75) 40deg,
+    rgba(127,216,240,.55) 80deg,
+    rgba(255,255,255,0) 140deg,
+    rgba(255,255,255,0) 360deg);
+  animation:idfPutar 7s linear infinite;
+}
+@keyframes idfPutar{to{transform:rotate(360deg)}}
+
+/* ombak di kaki bingkai */
+.idf-ombak{
+  position:absolute;left:0;right:0;bottom:0;height:34%;
+  z-index:0;
+  background:
+    radial-gradient(120% 90% at 50% 100%, rgba(127,216,240,.34) 0%, rgba(127,216,240,0) 68%);
+  animation:idfOmbak 6.5s ease-in-out infinite;
+}
+@keyframes idfOmbak{
+  0%,100%{transform:translateY(0) scaleY(1);opacity:.85}
+  50%{transform:translateY(-5px) scaleY(1.08);opacity:1}
+}
+
+/* tetes air jatuh berulang di sudut kanan atas */
+.idf-tetes{
+  position:absolute;right:16px;top:-10px;
+  width:9px;height:12px;z-index:1;
+  border-radius:50% 50% 50% 50% / 62% 62% 38% 38%;
+  background:rgba(190,238,255,.9);
+  box-shadow:0 0 10px rgba(190,238,255,.8);
+  animation:idfTetes 3.6s cubic-bezier(.45,.05,.55,.95) infinite;
+}
+@keyframes idfTetes{
+  0%{transform:translateY(0) scale(.8);opacity:0}
+  14%{opacity:1}
+  62%{transform:translateY(190px) scale(1);opacity:1}
+  78%{transform:translateY(205px) scale(.4);opacity:0}
+  100%{transform:translateY(0) scale(.8);opacity:0}
+}
+
+/* jendela foto di dalam bingkai */
+.id-foto-dalam{
+  position:relative;
+  z-index:1;
+  width:100%;height:100%;
+  border-radius:15px;
+  overflow:hidden;
+  background:linear-gradient(170deg,#EAF4FC,#CBE4F6);
+  display:grid;place-items:center;
+  box-shadow:0 0 0 3px rgba(255,255,255,.85) inset;
+}
+.id-foto-img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  animation:idfMasuk .5s var(--ease) both;
+}
+@keyframes idfMasuk{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
+
+.id-foto-kosong{
+  display:grid;justify-items:center;gap:6px;
+  padding:18px;text-align:center;
+  color:var(--primary-dark);
+}
+.id-foto-kosong svg{width:46px;height:46px;opacity:.5}
+.id-foto-kosong p{margin:0;font-size:14px;font-weight:800}
+.id-foto-kosong small{font-size:11.5px;color:var(--muted);font-weight:600}
+
+/* pita tanda di kaki bingkai */
+.idf-tanda{
+  position:absolute;left:50%;bottom:14px;z-index:2;
+  transform:translateX(-50%);
+  font:800 10px/1 var(--font-judul);
+  letter-spacing:.22em;
+  color:#0B3350;
+  background:rgba(255,255,255,.88);
+  padding:5px 11px;border-radius:999px;
+  box-shadow:0 4px 12px rgba(11,51,80,.22);
+  opacity:0;
+  transition:opacity .3s;
+}
+.id-foto-bingkai.siap .idf-tanda{opacity:1}
+
+.id-foto-aksi{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.id-unggah{cursor:pointer}
+.id-foto-catatan{
+  margin:0;text-align:center;
+  font-size:11.5px;line-height:1.45;color:var(--muted);font-weight:600;
+  max-width:250px;
+}
+
+/* ---------- isian (readonly, tidak bisa diedit) ---------- */
+.id-isian-sisi{display:grid;gap:16px;min-width:0}
+.id-form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.id-field{display:grid;gap:2px}
+.id-field label{display:block;font-size:13px;font-weight:800;margin-bottom:4px;color:var(--text)}
+.id-field .id-val{
+  width:100%;min-height:44px;padding:10px 14px;
+  border:1.5px solid var(--line);border-radius:12px;
+  background:rgba(200,210,220,.35);
+  color:var(--text);font:600 15px var(--font-isi);
+  display:flex;align-items:center;
+}
+html[data-tema="gelap"] .id-field .id-val{background:rgba(20,35,48,.7);border-color:rgba(38,64,79,.5)}
+
+/* ---------- kartu pratinjau ---------- */
+.id-kartu{
+  position:relative;
+  display:flex;align-items:center;gap:13px;
+  padding:14px 16px;
+  border-radius:18px;
+  border:1.5px dashed var(--line);
+  background:linear-gradient(140deg,rgba(230,240,253,.7),rgba(255,255,255,.4));
+  transition:border-color .3s,background .3s,box-shadow .3s;
+  overflow:hidden;
+}
+.id-kartu.terisi{
+  border-style:solid;
+  border-color:rgba(47,128,237,.4);
+  background:linear-gradient(140deg,rgba(230,240,253,.95),rgba(255,255,255,.7));
+  box-shadow:0 10px 26px rgba(47,128,237,.14);
+}
+html[data-tema="gelap"] .id-kartu{background:linear-gradient(140deg,rgba(27,46,63,.7),rgba(22,35,47,.5))}
+html[data-tema="gelap"] .id-kartu.terisi{background:linear-gradient(140deg,rgba(27,46,63,.95),rgba(22,35,47,.8))}
+
+.id-kartu-ava{
+  width:48px;height:48px;flex:none;border-radius:14px;
+  display:grid;place-items:center;
+  background:linear-gradient(150deg,#4FA3F5,#1E5AA8);
+  color:#fff;font:800 18px/1 var(--font-judul);
+  box-shadow:0 6px 16px rgba(47,128,237,.3);
+  transition:transform .3s var(--ease);
+}
+.id-kartu.terisi .id-kartu-ava{transform:scale(1.04)}
+
+.id-kartu-txt{min-width:0;display:grid;gap:1px;line-height:1.3}
+.id-kartu-txt b{font-size:16px;font-family:var(--font-judul);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.id-kartu-txt i{font-style:normal;font-size:12.5px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.id-kartu-txt span{font-size:12px;color:var(--muted);font-weight:600}
+
+.id-kartu-cap{
+  position:absolute;right:-4px;top:10px;
+  font:800 9.5px/1 var(--font-isi);letter-spacing:.14em;
+  color:#fff;background:var(--green);
+  padding:4px 16px 4px 9px;
+  border-radius:999px 0 0 999px;
+  opacity:0;transform:translateX(10px);
+  transition:opacity .3s,transform .3s var(--ease);
+}
+.id-kartu.terisi .id-kartu-cap{opacity:1;transform:none}
+
+.id-simpan{
+  margin:0;font-size:12.5px;font-weight:700;color:var(--green-dark);
+  min-height:18px;
+  opacity:0;transition:opacity .25s;
+}
+.id-simpan.tampil{opacity:1}
+
+/* ---------- responsif ---------- */
+@media(max-width:820px){
+  .id-panel{grid-template-columns:1fr;gap:22px}
+  .id-foto-sisi{justify-items:center}
+  .id-foto-bingkai{max-width:210px}
+}
+@media(max-width:520px){
+  .id-form{grid-template-columns:1fr}
+  .id-foto-bingkai{max-width:180px}
+  .id-kartu-ava{width:42px;height:42px;font-size:16px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .id-foto-bingkai::before,.idf-ombak,.idf-tetes,.id-foto-img,
+  .id-kartu-ava,.id-kartu-cap{animation:none!important;transition:none!important}
+  .idf-tanda{opacity:1}
+}
+
+@media print{
+  .id-foto-aksi,.id-foto-catatan,.id-simpan{display:none!important}
+  .id-foto-bingkai{box-shadow:none;border:1px solid #999}
+  .id-foto-bingkai::before,.idf-ombak,.idf-tetes{display:none}
+}

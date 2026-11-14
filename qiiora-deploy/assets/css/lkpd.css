@@ -1,0 +1,306 @@
+/* ============================================================
+   QIIORA — LKPD berornamen (K4)
+   Acuan: referensi/04-ref-lkpd-pinterest.png — LKPD anak SD:
+   bingkai bertepi tebal, banner kepala berwarna, penanda bagian
+   bernomor warna, sudut bertema air, dan kartu bagian berwarna.
+
+   Prinsip: ornamen TIDAK boleh menutupi atau mengganggu tulisan.
+   Semua hiasan berada di luar area teks (margin bingkai, kepala,
+   sudut) dan memakai warna lembut.
+   ============================================================ */
+
+/* ---------- kertas LKPD ---------- */
+#lembarLKPD{
+  position:relative;
+  isolation:isolate;
+  border-radius:20px;
+  padding:clamp(20px,4vw,44px);
+  background:var(--card);
+  box-shadow:0 20px 50px rgba(31,45,61,.14);
+  overflow:hidden;
+}
+
+/* bingkai tepi ganda: garis tebal luar + garis tipis dalam */
+#lembarLKPD::before{
+  content:"";
+  position:absolute;
+  inset:9px;
+  border:3px solid rgba(47,128,237,.55);
+  border-radius:14px;
+  pointer-events:none;
+  z-index:0;
+}
+#lembarLKPD::after{
+  content:"";
+  position:absolute;
+  inset:15px;
+  border:1.5px dashed rgba(47,128,237,.34);
+  border-radius:11px;
+  pointer-events:none;
+  z-index:0;
+}
+/* di tema gelap bingkai biru tenggelam: dinaikkan kecerahannya */
+html[data-tema="gelap"] #lembarLKPD::before{border-color:rgba(120,180,240,.55)}
+html[data-tema="gelap"] #lembarLKPD::after{border-color:rgba(120,180,240,.3)}
+/* isi kertas di atas bingkai */
+#lembarLKPD > *{position:relative;z-index:1}
+
+/* ---------- hiasan sudut bertema air ---------- */
+.lkpd-hias{
+  position:absolute;
+  display:block;
+  z-index:0;
+  pointer-events:none;
+  opacity:.5;
+}
+.lkpd-hias--kiri-atas{left:0;top:0;width:150px;height:150px}
+.lkpd-hias--kanan-bawah{right:0;bottom:0;width:170px;height:170px}
+.lkpd-hias > svg{width:100%;height:100%;display:block}
+
+/* ---------- banner kepala ---------- */
+.sheet-head{
+  position:relative;
+  display:flex;justify-content:space-between;gap:16px;align-items:flex-start;
+  border-bottom:0;
+  padding:clamp(14px,2vw,20px) clamp(14px,2vw,20px);
+  margin:0 0 clamp(16px,2.4vw,24px);
+  border-radius:16px;
+  background:
+    linear-gradient(135deg,rgba(47,128,237,.14),rgba(59,178,115,.1) 55%,rgba(255,200,87,.14));
+  overflow:hidden;
+}
+/* gelombang di kaki banner */
+.sheet-head::after{
+  content:"";
+  position:absolute;left:0;right:0;bottom:-1px;height:16px;
+  background:
+    radial-gradient(60px 16px at 10% 100%, rgba(47,128,237,.2) 0 60%, transparent 66%),
+    radial-gradient(70px 18px at 40% 100%, rgba(47,128,237,.16) 0 60%, transparent 66%),
+    radial-gradient(64px 16px at 72% 100%, rgba(59,178,115,.18) 0 60%, transparent 66%),
+    radial-gradient(56px 15px at 94% 100%, rgba(47,128,237,.16) 0 60%, transparent 66%);
+  pointer-events:none;
+}
+.sheet-head h2{
+  font-family:var(--font-judul);
+  font-size:clamp(24px,3.4vw,34px);
+  margin:3px 0 0;
+  color:var(--primary-dark);
+  letter-spacing:-.01em;
+}
+html[data-tema="gelap"] .sheet-head h2{color:#B9DBFF}
+.sheet-code{
+  font-weight:800;
+  font-size:12px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--primary);
+  margin:0;
+}
+html[data-tema="gelap"] .sheet-code{color:#8FC8F5}
+
+/* lencana fase di kanan banner */
+.sheet-head > div:last-child .sheet-code{
+  display:inline-block;
+  background:var(--primary);
+  color:#fff;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:11px;
+}
+
+/* ---------- kepala bagian bernomor warna ---------- */
+#lembarLKPD h3{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--font-judul);
+  font-size:clamp(17px,2vw,20px);
+  color:var(--primary-dark);
+  margin:clamp(22px,3vw,30px) 0 10px;
+  padding-bottom:8px;
+  border-bottom:2px solid rgba(47,128,237,.16);
+}
+html[data-tema="gelap"] #lembarLKPD h3{color:#B9DBFF}
+
+/* nomor bagian: lingkaran berwarna bergiliran */
+#lembarLKPD h3 .num{
+  display:inline-grid;
+  place-items:center;
+  width:32px;height:32px;
+  flex:none;
+  border-radius:10px;
+  color:#fff;
+  font:800 15px/1 var(--font-judul);
+  box-shadow:0 4px 12px rgba(31,45,61,.18);
+}
+#lembarLKPD h3:nth-of-type(1) .num{background:#2A7FD4}
+#lembarLKPD h3:nth-of-type(2) .num{background:#3BB273}
+#lembarLKPD h3:nth-of-type(3) .num{background:#F2A93B}
+#lembarLKPD h3:nth-of-type(4) .num{background:#E05C6E}
+#lembarLKPD h3:nth-of-type(5) .num{background:#7C5CD6}
+#lembarLKPD h3:nth-of-type(6) .num{background:#0E9BB5}
+#lembarLKPD h3:nth-of-type(7) .num{background:#5C7A99}
+#lembarLKPD h3:nth-of-type(8) .num{background:#2A7FD4}
+
+/* ---------- kotak identitas ---------- */
+#lembarLKPD .id-grid{
+  border:2px solid rgba(47,128,237,.3);
+  border-radius:14px;
+  overflow:hidden;
+  margin:0 0 clamp(16px,2.2vw,22px);
+  background:var(--bg);
+}
+#lembarLKPD .id-grid dt{
+  background:linear-gradient(135deg,rgba(47,128,237,.13),rgba(47,128,237,.07));
+  font-size:14px;
+}
+
+/* ---------- tabel ---------- */
+#lembarLKPD table{
+  border-radius:12px;
+  overflow:hidden;
+  border:1.5px solid rgba(47,128,237,.22);
+}
+#lembarLKPD th{
+  background:linear-gradient(135deg,rgba(47,128,237,.14),rgba(47,128,237,.07));
+  font-size:14px;
+  letter-spacing:.01em;
+}
+#lembarLKPD td[contenteditable]{
+  transition:background .18s;
+}
+#lembarLKPD td[contenteditable]:hover{
+  background:rgba(47,128,237,.05);
+}
+
+/* ---------- area menulis ---------- */
+.write-area{
+  position:relative;
+  border:1.5px dashed rgba(47,128,237,.34);
+  border-radius:12px;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 27px, rgba(47,128,237,.1) 27px 28px);
+  background-color:rgba(47,128,237,.02);
+  transition:border-color .2s,background-color .2s;
+}
+.write-area:hover{border-color:rgba(47,128,237,.5)}
+.write-area:focus{
+  outline:3px solid rgba(47,128,237,.26);
+  border-style:solid;
+  background-color:#fff;
+}
+
+/* ---------- kotak keselamatan ---------- */
+#lembarLKPD .safety{
+  position:relative;
+  border-radius:12px;
+  border:1.5px solid rgba(224,92,110,.32);
+  background:linear-gradient(135deg,rgba(224,92,110,.09),rgba(242,169,59,.07));
+  padding:12px 14px 12px 42px;
+  font-size:14px;
+  line-height:1.55;
+}
+#lembarLKPD .safety::before{
+  content:"!";
+  position:absolute;left:13px;top:12px;
+  width:20px;height:20px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:#E05C6E;color:#fff;
+  font:800 13px/1 var(--font-judul);
+}
+
+/* ---------- rubrik ---------- */
+#lembarLKPD .rubrik th{
+  font-size:13px;
+}
+#lembarLKPD .rubrik td{
+  font-size:13px;
+  line-height:1.5;
+}
+#lembarLKPD .rubrik td:first-child{
+  font-weight:800;
+  background:rgba(47,128,237,.05);
+}
+
+/* ---------- bilah alat ---------- */
+.lkpd-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+  padding:10px 14px;
+  border-radius:14px;
+  background:var(--card);
+  border:1px solid var(--line);
+  box-shadow:0 4px 14px rgba(31,45,61,.06);
+}
+
+/* ---------- cetak ---------- */
+@media print{
+  #lembarLKPD{
+    box-shadow:none;
+    padding:0;
+    border-radius:0;
+  }
+  #lembarLKPD::before{
+    inset:0;
+    border-width:2px;
+    border-color:#8FA1AE;
+  }
+  #lembarLKPD::after{display:none}
+  .lkpd-hias{display:none}
+  .sheet-head{
+    background:none;
+    border-bottom:2px solid #8FA1AE;
+    border-radius:0;
+    padding:0 0 8px;
+  }
+  .sheet-head::after{display:none}
+  .sheet-head h2,.sheet-code{color:#000!important}
+  .sheet-head > div:last-child .sheet-code{
+    background:none;color:#000!important;padding:0;
+  }
+  #lembarLKPD h3{
+    color:#000!important;
+    border-bottom:1px solid #999;
+    page-break-after:avoid;
+  }
+  #lembarLKPD h3 .num{
+    background:none!important;
+    color:#000!important;
+    box-shadow:none;
+    border:1.5px solid #333;
+    width:24px;height:24px;
+    font-size:12px;
+  }
+  #lembarLKPD .id-grid,
+  #lembarLKPD table,
+  #lembarLKPD .safety,
+  .write-area{
+    border-color:#999!important;
+  }
+  #lembarLKPD th{background:#eee!important}
+  #lembarLKPD .safety{background:none}
+  #lembarLKPD .safety::before{background:#333}
+  .write-area{
+    background:none!important;
+    border-style:solid;
+  }
+}
+
+@media(max-width:620px){
+  #lembarLKPD{padding:16px 14px;border-radius:14px}
+  #lembarLKPD::before{inset:6px;border-width:2px}
+  #lembarLKPD::after{inset:11px}
+  .lkpd-hias--kiri-atas{width:90px;height:90px}
+  .lkpd-hias--kanan-bawah{width:110px;height:110px}
+  .sheet-head{flex-direction:column;gap:8px;padding:12px}
+  #lembarLKPD h3 .num{width:28px;height:28px;font-size:13px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #lembarLKPD td[contenteditable],.write-area{transition:none}
+}

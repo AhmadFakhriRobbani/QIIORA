@@ -1,0 +1,34 @@
+{
+  "name": "QIIORA — Siklus Air IPAS Kelas V",
+  "short_name": "QIIORA",
+  "description": "Media pembelajaran interaktif Siklus Air untuk IPAS Fase C (Kelas V SD/MI).",
+  "lang": "id",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0A1A2A",
+  "theme_color": "#1E5AA8",
+  "categories": ["education", "kids"],
+  "icons": [
+    {
+      "src": "assets/ikon/ikon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/ikon/ikon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/ikon/ikon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

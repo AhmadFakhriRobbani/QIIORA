@@ -1,0 +1,152 @@
+/* ============================================================
+   QIIORA — Panel interaktif (pengganti pop-up)
+   Kartu menempel di kanan (desktop) / naik dari bawah (HP).
+   Tanpa scrim: isi halaman tetap terlihat dan tetap bisa diklik.
+   ============================================================ */
+
+.panel-kartu{
+  position:fixed;
+  z-index:150;
+  right:clamp(12px,2vw,26px);
+  bottom:clamp(12px,2vw,26px);
+  width:min(420px,calc(100vw - 24px));
+  max-height:min(76vh,640px);
+  display:flex;flex-direction:column;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:0 26px 66px rgba(20,45,70,.26), 0 1px 0 rgba(255,255,255,.8) inset;
+  overflow:hidden;
+  opacity:0;transform:translateY(18px) scale(.98);
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+}
+.panel-kartu.on{opacity:1;transform:none}
+.panel-kartu.pergi{opacity:0;transform:translateY(12px) scale(.98)}
+
+/* tepi berwarna: benang penanda jenis isi */
+.panel-kartu::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:4px;
+  background:linear-gradient(90deg,var(--primary),var(--green) 55%,var(--sun));
+}
+
+/* ---------- kepala ---------- */
+.pk-head{
+  display:flex;align-items:flex-start;gap:11px;
+  padding:16px 14px 12px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(230,240,253,.62),rgba(255,255,255,0));
+}
+html[data-tema="gelap"] .pk-head{background:linear-gradient(180deg,rgba(27,46,63,.7),rgba(22,35,47,0))}
+.pk-iko{
+  width:38px;height:38px;flex:none;border-radius:12px;display:grid;place-items:center;
+  background:var(--primary-soft);color:var(--primary-dark);
+}
+.pk-iko svg{width:20px;height:20px}
+.pk-judul-wrap{min-width:0;flex:1}
+.pk-langkah{
+  margin:0 0 3px;font-size:10.5px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--primary);
+}
+.pk-judul{
+  margin:0;font-family:var(--font-judul);font-size:19px;line-height:1.24;
+  color:var(--text);
+}
+.pk-judul:focus{outline:none}
+.pk-sub{margin:3px 0 0;font-size:13px;color:var(--muted);line-height:1.42}
+.pk-tombol{display:flex;gap:4px;flex:none}
+.pk-lipat,.pk-tutup{
+  width:34px;height:34px;border:0;border-radius:10px;padding:0;
+  background:transparent;color:var(--muted);cursor:pointer;display:grid;place-items:center;
+  transition:background .16s,color .16s;
+}
+.pk-lipat svg,.pk-tutup svg{width:17px;height:17px}
+.pk-lipat:hover,.pk-tutup:hover{background:var(--primary-soft);color:var(--primary-dark)}
+.pk-lipat svg{transition:transform .26s var(--ease)}
+.panel-kartu.terlipat .pk-lipat svg{transform:rotate(180deg)}
+
+/* ---------- isi ---------- */
+.pk-body{overflow-y:auto;overscroll-behavior:contain;padding:14px}
+.panel-kartu.terlipat .pk-body{display:none}
+
+.pk-tabs{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
+.pk-tabs button{
+  border:1.5px solid var(--line);background:transparent;color:var(--muted);
+  font:800 12.5px/1 var(--font-isi);padding:8px 12px;border-radius:999px;cursor:pointer;
+  transition:background .16s,color .16s,border-color .16s;
+}
+.pk-tabs button[aria-selected="true"]{
+  background:var(--primary);border-color:var(--primary);color:#fff;
+}
+.pk-tabs button:hover:not([aria-selected="true"]){background:var(--primary-soft);color:var(--primary-dark)}
+
+.pk-isi{font-size:14.5px;line-height:1.62;color:var(--text)}
+.pk-isi p{margin:0 0 9px}
+.pk-isi p:last-child{margin-bottom:0}
+.pk-isi h3{
+  margin:14px 0 6px;font-family:var(--font-judul);font-size:16px;line-height:1.3;
+}
+.pk-isi h3:first-child{margin-top:0}
+.pk-isi ul,.pk-isi ol{margin:0 0 10px;padding-left:20px}
+.pk-isi li{margin-bottom:5px}
+.pk-isi strong{color:var(--text)}
+.pk-isi em{color:var(--muted)}
+.pk-isi .pk-fakta{
+  display:flex;gap:9px;padding:10px 12px;border-radius:12px;
+  background:var(--sun-soft);color:#7A5410;font-size:13.5px;font-weight:700;line-height:1.45;
+}
+html[data-tema="gelap"] .pk-isi .pk-fakta{color:#FFD98A}
+.pk-isi .pk-fakta svg{width:17px;height:17px;flex:none;margin-top:1px}
+
+.pk-aksi{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+
+/* tautan lanjutan: baris yang mengundang diklik */
+.pk-tautan-wrap{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.pk-tautan-label{
+  margin:0 0 8px;font-size:10.5px;font-weight:800;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted);
+}
+.pk-tautan{display:grid;gap:7px}
+.pk-tautan-item{
+  display:flex;align-items:center;gap:10px;
+  width:100%;text-align:left;
+  padding:10px 11px;border-radius:13px;cursor:pointer;
+  border:1px solid var(--line);background:var(--bg);color:var(--text);
+  font:inherit;
+  transition:background .16s,border-color .16s,transform .16s var(--ease);
+}
+.pk-tautan-item:hover{
+  background:var(--primary-soft);border-color:rgba(47,128,237,.42);
+  transform:translateX(2px);
+}
+.pk-tautan-item:hover .pk-panah{transform:translateX(3px);color:var(--primary)}
+.pk-tautan-iko{
+  width:32px;height:32px;flex:none;border-radius:10px;display:grid;place-items:center;
+  background:var(--card);color:var(--primary-dark);border:1px solid var(--line);
+}
+.pk-tautan-iko svg{width:17px;height:17px}
+.pk-tautan-txt{min-width:0;flex:1;display:grid;line-height:1.3}
+.pk-tautan-txt b{font-size:14px;font-weight:800}
+.pk-tautan-txt i{font-style:normal;font-size:12px;color:var(--muted)}
+.pk-panah{width:16px;height:16px;flex:none;color:var(--muted);transition:transform .18s var(--ease),color .18s}
+
+/* ---------- HP: naik dari bawah, hampir selebar layar ---------- */
+@media(max-width:700px){
+  .panel-kartu{
+    left:8px;right:8px;bottom:8px;
+    width:auto;
+    max-height:min(72vh,600px);
+    border-radius:20px;
+    transform:translateY(24px);
+  }
+  .panel-kartu.on{transform:none}
+  .pk-judul{font-size:17.5px}
+  .pk-isi{font-size:14px}
+}
+
+/* saat panel terbuka, bottom-nav digeser supaya tidak tertutup */
+body.panel-ada .bottom-nav{transform:translateY(120%);transition:transform .3s var(--ease)}
+
+@media(prefers-reduced-motion:reduce){
+  .panel-kartu,.pk-tautan-item,.pk-panah,.pk-lipat svg{transition:none!important}
+}
+
+@media print{.panel-kartu{display:none!important}}
